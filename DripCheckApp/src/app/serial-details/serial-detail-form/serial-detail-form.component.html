@@ -1,0 +1,14 @@
+<form #form="ngForm" (submit)="onSubmit(form)">
+    <div class="mb-3">
+        <h3>Please input your IMEI Number for Authentication</h3>
+        <input class="form-control form-control-lg" 
+        placeholder="Please enter your IMEI Number"
+        #serialNumber="ngModel" name="serialNumber"
+        [(ngModel)]="service.formData.serialNumber">
+    </div>
+    <div class="d-grid">
+        <button class="btn btn-lg btn-success" type="submit">
+            Submit
+        </button>
+    </div>
+</form>

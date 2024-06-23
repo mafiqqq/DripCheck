@@ -1,0 +1,75 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+.mouse-hover {
+    cursor: pointer;
+}
+
+form label {
+    text-transform: uppercase;
+    color: grey;
+}
+
+form input {
+    font-weight: 500;
+}
+
+form input::placeholder {
+    color: #c0bdbd;
+    font-weight: 300;
+}
+
+form.submitted input.ng-invalid {
+    border-color: red;
+}
+
+.icon-container {
+    display: flex;
+    gap: 10px;
+}
+
+.product-box {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    margin: 48px 49px 68px 28px;
+} 
+
+.product-box-image.img-vivo {
+    background-image: url(//asia-exstatic.vivoglobal.com/static/img/image/imei-product-vivo_69f930c.png);
+}
+
+.box-list-item {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.list-item-title {
+    color: #8a8f99;
+    margin-right: 20px;
+    max-width: 225px;
+}
+
+.list-item-text {
+    max-width: calc(100% - 245px);
+}
+
+.page-up-error {
+    margin-top: 72px;
+}
+
+.up-error-title {
+    font-size: 20px;
+    line-height: 30px;
+    text-align: center;
+    margin: 19px 0 5px;
+}
+
+.up-error-text {
+    font-size: 14px;
+    line-height: 24px;
+    color: #575c66;
+    text-align: center;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
