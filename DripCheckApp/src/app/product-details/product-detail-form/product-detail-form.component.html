@@ -1,0 +1,53 @@
+<app-header />
+<div class="bg-body-secondary text-center py-5 rounded-2">
+    <h1 class="display-6 fw-bold">Register New Product</h1>
+</div>
+<form #form="ngForm" (submit)="onSubmit(form)"
+[class.submitted]="service.formSubmitted" novalidate>
+    <!-- <input type="hidden" name="warrantyDetailId" [value]="service.formData.warrantyDetailId"> -->
+    <div class="mb-3">
+        <label>Product Model</label>
+        <input class="form-control form-control-lg" 
+        placeholder="Product Model"
+        #productModel="ngModel" name="productModel"
+        [(ngModel)]="service.formData.productModel" required>
+    </div>
+    <div class="mb-3">
+        <label>Product Brand</label>
+        <input class="form-control form-control-lg" 
+        placeholder="Product Brand"
+        #productBrand="ngModel" name="productBrand"
+        [(ngModel)]="service.formData.productBrand" required>
+    </div>
+    <div class="mb-3">
+        <label>Product Color</label>
+        <input class="form-control form-control-lg" 
+        placeholder="Product Color"
+        #productColor="ngModel" name="productColor"
+        [(ngModel)]="service.formData.productColor" required>
+    </div>
+    <div class="mb-3">
+        <label>Product Price</label>
+        <input class="form-control form-control-lg" 
+        placeholder="Product Price"
+        #productPrice="ngModel" name="productPrice"
+        [(ngModel)]="service.formData.productPrice" required>
+    </div>
+    <div class="mb-3">
+        <label>Product Image</label>
+        <input class="form-control form-control-lg" type="file" placeholder="Product Image"
+        #productImageUrl="ngModel" name="productImageUrl" [(ngModel)]="service.formData.productImageUrl"
+        (change)="onFileSelected($event)">
+    </div>
+    <div class="mb-3" *ngIf="imageUrl">
+        <img [src]="imageUrl" alt="Uploaded Image" style="max-width: 60%; max-height: 50%;">
+      </div>
+
+    <div class="d-grid">
+        <button class="btn btn-lg btn-success" type="submit">
+            Submit
+        </button>
+    </div>
+
+</form>
+<app-footer />

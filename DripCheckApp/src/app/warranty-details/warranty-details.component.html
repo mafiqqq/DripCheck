@@ -1,3 +1,4 @@
+<app-header></app-header>
 <div class="bg-body-secondary text-center py-5 rounded-2">
     <h1 class="display-6 fw-bold">Warranty Detail</h1>
 </div>
@@ -19,7 +20,7 @@
                 <span class="text-secondary" (click)="populateForm(wd)">
                     <i class="fa-solid fa-pen-to-square fa-lg mouse-hover" style="color: #74c0fc"></i>
                 </span>
-                <span class="text-secondary">
+                <span class="text-secondary" (click)="deleteWarranty(wd.warrantyDetailId)">
                     <i class="fa-solid fa-trash-can fa-lg mouse-hover" style="color: #ff0000;"></i>
                 </span>
             </div>
@@ -27,3 +28,4 @@
         </ul>
     </div>
 </div>
+<app-footer></app-footer>

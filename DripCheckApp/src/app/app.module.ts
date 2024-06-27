@@ -14,6 +14,10 @@ import { SerialDetailFormComponent } from './serial-details/serial-detail-form/s
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
+import { AppRoutingModule } from './app-routing.module';
+import { RouterModule } from '@angular/router';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+import { ProductDetailFormComponent } from './product-details/product-detail-form/product-detail-form.component';
 
 @NgModule({
   declarations: [
@@ -24,14 +28,18 @@ import { HomeComponent } from './home/home.component';
     SerialDetailFormComponent,
     HeaderComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
+    ProductDetailsComponent,
+    ProductDetailFormComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    AppRoutingModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
+    RouterModule.forRoot([])
   ],
   providers: [],
   bootstrap: [AppComponent]

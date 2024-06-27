@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -8,4 +9,8 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
   title = 'Drip Check'
+
+  // constructor(private activatedRoute: ActivatedRoute) {}
+  // @Input()
+
 }

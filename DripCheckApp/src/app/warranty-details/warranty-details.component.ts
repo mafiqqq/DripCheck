@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WarrantyDetailService } from '../shared/warranty-detail.service';
 import { WarrantyDetail } from '../shared/warranty-detail.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-warranty-details',
@@ -9,7 +10,7 @@ import { WarrantyDetail } from '../shared/warranty-detail.model';
   ]
 })
 export class WarrantyDetailsComponent implements OnInit {
-  constructor(public service: WarrantyDetailService) {
+  constructor(public service: WarrantyDetailService, private toastr:ToastrService) {
 
   }
   
@@ -19,6 +20,19 @@ export class WarrantyDetailsComponent implements OnInit {
 
   populateForm(selectedRecord: WarrantyDetail) {
     this.service.formData = Object.assign({},selectedRecord);
+  }
+
+  deleteWarranty(id:number) {
+    if(confirm('Are you sure to delete this record?')) {
+      this.service.deleteWarrantyDetail(id)
+      .subscribe({
+        next: res => {
+          this.service.list = res as WarrantyDetail[]
+          this.toastr.error('Deleted warranty successfully', 'Warranty Detail')
+        },
+        error: err => {console.log(err)}
+      })
+    }
   }
 
 }

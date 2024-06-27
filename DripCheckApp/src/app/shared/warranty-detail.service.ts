@@ -33,6 +33,10 @@ export class WarrantyDetailService {
     return this.http.put(this.url + '/' + this.formData.warrantyDetailId, this.formData)
   }
 
+  deleteWarrantyDetail(id:number) {
+    return this.http.delete(this.url + '/' + id)
+  }
+
   resetForm(form:NgForm) {
     form.form.reset()
     this.formData = new WarrantyDetail()

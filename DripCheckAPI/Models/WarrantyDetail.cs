@@ -20,6 +20,11 @@ namespace DripCheckAPI.Models
 
         [DisplayFormat(DataFormatString = "{0:dd:MM:yyyy}", ApplyFormatInEditMode = true)]
         public DateTime ExpirationDate { get; set; }
+        [Required]
+        [ForeignKey("ProductDetail")]
+        public string ProductSerialNumber { get; set; } = "";
+        [Required]
+        public ProductDetail? ProductDetail { get; set; }
 
     }
 }
