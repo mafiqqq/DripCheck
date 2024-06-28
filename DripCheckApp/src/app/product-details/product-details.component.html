@@ -51,14 +51,14 @@
         padding-bottom: 10px;
     }
 
-    /* For Modal CSS */
-    html{
+    /* Modal style */
+    /* html{
         height: 100%;
         background: linear-gradient(90deg, rgb(234, 199, 243) 0%, rgb(243, 141, 240) 100%)
     }
     head, body{
         background: linear-gradient(90deg, rgb(234, 199, 243) 0%, rgb(243, 141, 240) 100%)
-    }
+    } */
     .container{
         display: flex;
         justify-content: center;
@@ -128,10 +128,10 @@
         background-color: black;
         color: white
     }
-    .setting{
+    /* .setting{
         margin-left: 10px;
         padding-top: 5px
-    }
+    } */
     @media(max-width:600px){
         .modal-footer{
             bottom: 100px
@@ -148,30 +148,16 @@
         }
     }
 
+
 </style>
 <app-header />
 <div class="bg-body-secondary text-center py-5 rounded-2">
     <h1 class="display-6 fw-bold">All Products</h1>
 </div>
-<!-- <div class='container-fluid'>
-    <div class="card mx-auto col-md-3 col-10 mt-5" *ngFor="let pd of service.productList">
-        <img class='mx-auto img-thumbnail'
-            [src]=pd.productImageUrl
-            width="auto" height="auto"/>
-        <div class="card-body text-center mx-auto">
-            <div class='cvp'>
-                <h5 class="card-title font-weight-bold">{{pd.productModel}}</h5>
-                <p class="card-text">RM {{pd.productPrice}}</p>
-                <a href="#" class="btn details px-auto">view details</a><br />
-                <a href="#" class="btn cart px-auto">Buy Now</a>
-            </div>
-        </div>
-    </div>
-</div> -->
 
 <div class="container mt-5">
     <div class="row">
-        <div class="col-md-4 col-12 mb-4" *ngFor="let pd of service.productList">
+        <div class="col-md-4 col-12 mb-4" *ngFor="let pd of detailService.productList">
         <div class="card mx-auto">
             <img class='mx-auto img-thumbnail'
                 [src]="pd.productImageUrl"
@@ -180,9 +166,10 @@
             <div class="card-body text-center mx-auto">
             <div class='cvp'>
                 <h5 class="card-title font-weight-bold">{{pd.productModel}}</h5>
+                <p hidden="true" [(ngModel)]="selectedProductDetailId"></p>
                 <p class="card-text">RM {{pd.productPrice}}</p>
                 <a href="#" class="btn details px-auto">View Details</a><br />
-                <a id="buyModal" class="btn cart px-auto" (click)="openModal() ">Buy Now</a>
+                <a class="btn cart px-auto" (click)="openModal() ">Buy Now</a>
             </div>
             </div>
         </div>
@@ -190,27 +177,67 @@
     </div>
 </div>
 
-<div class='container'> 
-    <!-- <button type="button" class="btn trigger" (click)="openModal()" id="buyModal" data-target="#exampleModal"> MAIL REPORT </button> -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header border-none"> <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button> </div>
-                <div class="modal-body p-0">
-                    <div class="crop"> <img src="https://i.imgur.com/Mdz5Nma.jpg" width="100%"> </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <h2>Woohoo</h2>
-                <p class="text-center"><small class="text-muted">Thank you for your subscription. You'll be sent the next issue of our newspaper shortly </small></p>
-                <div class="d-flex justify-content-center"> 
-                    <button type="button" class="okay btn" (click)="closeModal()">ok</button>
-                    <p class="setting"><small><strong><u>Setting</u></strong></small></p>
-                    <p><strong></strong></p>
-                </div>
-            </div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" #exampleModal>
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header border-none">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <div class="modal-body p-0">
+          <div class="crop">
+            <img src="assets/images/SuccessPurchase.jpg" width="100%">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <h2>Woohoo</h2>
+          <p class="text-center"><small class="text-muted">Thank you for your subscription. You'll be sent the next issue of our newspaper shortly.</small></p>
+          <div class="d-flex justify-content-center">
+            
+            <form #form="ngForm" (submit)="purchaseProduct(form)"
+            [class.submitted]="ownerService.formSubmitted" novalidate>
+            <input type="hidden" name="productOwnerId" [value]="ownerService.formData.productOwnerId">
+            <div class="mb-3">
+                <label>First Name</label>
+                <input class="form-control form-control-lg" 
+                placeholder="First Name"
+                #ownerFirstName="ngModel" name="ownerFirstName"
+                [(ngModel)]="ownerService.formData.ownerFirstName" required>
+            </div>
+            <div class="mb-3">
+                <label>Last Name</label>
+                <input class="form-control form-control-lg" 
+                placeholder="Last Name"
+                #ownerLastName="ngModel" name="ownerLastName"
+                [(ngModel)]="ownerService.formData.ownerLastName" required>
+            </div>
+            <div class="mb-3">
+                <label>Email Address</label>
+                <input class="form-control form-control-lg" 
+                placeholder="Email Address"
+                #emailAddress="ngModel" name="emailAddress"
+                [(ngModel)]="ownerService.formData.emailAddress" required>
+            </div>
+            <div class="mb-3">
+                <label>Phone Number</label>
+                <input class="form-control form-control-lg" 
+                placeholder="Phone Number"
+                #phoneNum="ngModel" name="phoneNum"
+                [(ngModel)]="ownerService.formData.phoneNum" required>
+            </div>
+            <div class="d-grid">
+                <button class="btn btn-lg btn-success" type="submit">
+                    Submit
+                </button>
+            </div>
+        </form>
+            
+            <!-- <button type="button" class="okay btn btn-primary" data-bs-dismiss="modal">Ok</button> -->
+            <!-- <p class="setting ms-2"><small><strong><u>Setting</u></strong></small></p> -->
+          </div>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
+  
 
 <app-footer />

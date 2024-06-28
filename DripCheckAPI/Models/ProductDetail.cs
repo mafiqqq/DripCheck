@@ -6,8 +6,8 @@ namespace DripCheckAPI.Models
     public class ProductDetail
     {
         [Key]
-        [MaxLength(20)]
-        public string SerialNumber { get; set; } = "";
+        [Required]
+        public int ProductDetailId { get; set; }
         [Column(TypeName = "nvarchar(100)")]
         public string ProductModel { get; set; } = "";
         [Column(TypeName = "nvarchar(20)")]
@@ -17,5 +17,6 @@ namespace DripCheckAPI.Models
         public string ProductImageUrl { get; set; } = "";
         [Column(TypeName = "decimal(18,2)")]
         public decimal ProductPrice { get; set; }
+        public ICollection<ProductOwner>? ProductOwners { get; set; }
     }
 }

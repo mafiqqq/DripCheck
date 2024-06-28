@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DripCheckAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240627023501_InitSchema")]
-    partial class InitSchema
+    [Migration("20240628104359_PostWarranty")]
+    partial class PostWarranty
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -52,9 +52,11 @@ namespace DripCheckAPI.Migrations
 
             modelBuilder.Entity("DripCheckAPI.Models.ProductDetail", b =>
                 {
-                    b.Property<string>("SerialNumber")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                    b.Property<int>("ProductDetailId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductDetailId"));
 
                     b.Property<string>("ProductBrand")
                         .IsRequired()
@@ -75,25 +77,22 @@ namespace DripCheckAPI.Migrations
                     b.Property<decimal>("ProductPrice")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("SerialNumber");
+                    b.HasKey("ProductDetailId");
 
                     b.ToTable("ProductDetails");
                 });
 
-            modelBuilder.Entity("DripCheckAPI.Models.WarrantyDetail", b =>
+            modelBuilder.Entity("DripCheckAPI.Models.ProductOwner", b =>
                 {
-                    b.Property<int>("WarrantyDetailId")
+                    b.Property<int>("ProductOwnerId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WarrantyDetailId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductOwnerId"));
 
                     b.Property<string>("EmailAddress")
                         .IsRequired()
                         .HasColumnType("nvarchar(200)");
-
-                    b.Property<DateTime>("ExpirationDate")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("OwnerFirstName")
                         .IsRequired()
@@ -107,26 +106,73 @@ namespace DripCheckAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<int>("ProductDetailId")
+                        .HasColumnType("int");
+
                     b.Property<string>("ProductSerialNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("WarrantyDetailId");
+                    b.Property<int>("WarrantyDetailId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("ProductSerialNumber");
+                    b.HasKey("ProductOwnerId");
 
-                    b.ToTable("WarrantyDetails");
+                    b.HasIndex("ProductDetailId");
+
+                    b.HasIndex("WarrantyDetailId")
+                        .IsUnique();
+
+                    b.ToTable("ProductOwners");
                 });
 
             modelBuilder.Entity("DripCheckAPI.Models.WarrantyDetail", b =>
                 {
+                    b.Property<int>("WarrantyDetailId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WarrantyDetailId"));
+
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("WarrantyStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("WarrantyDetailId");
+
+                    b.ToTable("WarrantyDetails");
+                });
+
+            modelBuilder.Entity("DripCheckAPI.Models.ProductOwner", b =>
+                {
                     b.HasOne("DripCheckAPI.Models.ProductDetail", "ProductDetail")
-                        .WithMany()
-                        .HasForeignKey("ProductSerialNumber")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .WithMany("ProductOwners")
+                        .HasForeignKey("ProductDetailId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DripCheckAPI.Models.WarrantyDetail", "WarrantyDetail")
+                        .WithOne("ProductOwner")
+                        .HasForeignKey("DripCheckAPI.Models.ProductOwner", "WarrantyDetailId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("ProductDetail");
+
+                    b.Navigation("WarrantyDetail");
+                });
+
+            modelBuilder.Entity("DripCheckAPI.Models.ProductDetail", b =>
+                {
+                    b.Navigation("ProductOwners");
+                });
+
+            modelBuilder.Entity("DripCheckAPI.Models.WarrantyDetail", b =>
+                {
+                    b.Navigation("ProductOwner");
                 });
 #pragma warning restore 612, 618
         }

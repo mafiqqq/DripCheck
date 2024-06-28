@@ -25,6 +25,7 @@ export class ProductDetailService {
     return this.http.get(this.url)
     .subscribe({
       next: res => {
+        console.log(res)
         this.productList = res as ProductDetail[]
       },
       error: err => {console.log(err)}

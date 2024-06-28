@@ -77,8 +77,7 @@ namespace DripCheckAPI.Controllers
                 }
             }
 
-            //return NoContent();
-            return Ok(await _context.WarrantyDetails.ToListAsync());
+            return NoContent();
         }
 
         // POST: api/WarrantyDetails
@@ -88,13 +87,12 @@ namespace DripCheckAPI.Controllers
         {
           if (_context.WarrantyDetails == null)
           {
-              return Problem("Entity set 'WarrantyDetailContext.WarrantyDetails'  is null.");
+              return Problem("Entity set 'ApplicationDbContext.WarrantyDetails'  is null.");
           }
             _context.WarrantyDetails.Add(warrantyDetail);
             await _context.SaveChangesAsync();
 
-            //return CreatedAtAction("GetWarrantyDetail", new { id = warrantyDetail.WarrantyDetailId }, warrantyDetail);
-            return Ok(await _context.WarrantyDetails.ToListAsync());
+            return CreatedAtAction("GetWarrantyDetail", new { id = warrantyDetail.WarrantyDetailId }, warrantyDetail);
         }
 
         // DELETE: api/WarrantyDetails/5
@@ -114,8 +112,7 @@ namespace DripCheckAPI.Controllers
             _context.WarrantyDetails.Remove(warrantyDetail);
             await _context.SaveChangesAsync();
 
-            //return NoContent();
-            return Ok(await _context.WarrantyDetails.ToListAsync());
+            return NoContent();
         }
 
         private bool WarrantyDetailExists(int id)

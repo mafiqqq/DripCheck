@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { ProductDetailService } from '../shared/product-detail.service';
+import { NgForm } from '@angular/forms';
+import { ProductOwnerService } from '../shared/product-owner.service';
+
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-product-details',
@@ -8,26 +12,33 @@ import { ProductDetailService } from '../shared/product-detail.service';
   ]
 })
 export class ProductDetailsComponent implements OnInit {
-  constructor(public service: ProductDetailService) {
+
+  @ViewChild('exampleModal') exampleModal!: ElementRef;
+  selectedProductDetailId: number = 0;
+
+  constructor(public detailService: ProductDetailService, public ownerService: ProductOwnerService, private renderer: Renderer2) {
 
   }
 
   ngOnInit(): void {
-    this.service.getAllProducts();
+    this.detailService.getAllProducts();
   }
 
   openModal() {
-    const modalDiv = document.getElementById('buyModal');
-    console.log(modalDiv);
-    if (modalDiv != null) {
-      modalDiv.style.display = 'block';
-    }
+    const modal = new bootstrap.Modal(this.exampleModal.nativeElement);
+    modal.show();
   }
 
-  closeModal() {
-    const modalDiv = document.getElementById('buyModal');
-    if (modalDiv != null) {
-      modalDiv.style.display = 'none';
-    }
+  purchaseProduct(form: NgForm) {
+    this.ownerService.purchaseProduct(this.selectedProductDetailId)
+    .subscribe({
+      next: res => {
+        console.log(res)
+      },
+      error: err => {
+        console.log(err)
+      }
+    })
   }
+
 }
