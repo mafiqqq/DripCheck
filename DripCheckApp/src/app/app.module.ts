@@ -18,6 +18,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { ProductDetailFormComponent } from './product-details/product-detail-form/product-detail-form.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { ProductViewComponent } from './product-view/product-view.component';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
@@ -30,7 +34,10 @@ import { ProductDetailFormComponent } from './product-details/product-detail-for
     FooterComponent,
     HomeComponent,
     ProductDetailsComponent,
-    ProductDetailFormComponent
+    ProductDetailFormComponent,
+    LoginComponent,
+    RegisterComponent,
+    ProductViewComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +46,8 @@ import { ProductDetailFormComponent } from './product-details/product-detail-for
     AppRoutingModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
-    RouterModule.forRoot([])
+    RouterModule.forRoot([]),
+    QRCodeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

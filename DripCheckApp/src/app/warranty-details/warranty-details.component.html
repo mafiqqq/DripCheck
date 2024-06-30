@@ -1,31 +1,302 @@
+<style>
+    .bg-custom {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    max-width: 100%;
+    min-height: 100vh;
+    padding: 20px 8px
+}
+
+.card {
+    max-width: 60%;
+    min-height: 400px;
+    margin: auto;
+    padding: 24px;
+    border-radius: 24px;
+    border: 1px solid #ddd;
+}
+
+.status-button {
+    border-radius: 50px;
+    padding: 5px 15px;
+    max-width: 80px;
+    min-height: 22px;
+}
+
+.user-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+th.id {
+    width: 59px;
+    height: 82px;
+    padding: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 18px;
+    text-align: left;
+}
+
+th.username {
+    width: 244px;
+    height: 82px;
+    padding: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 18px;
+    text-align: left;
+
+
+}
+
+th.designation {
+    width: 244px;
+    height: 82px;
+    padding: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 18px;
+    text-align: left;
+}
+
+th.imei {
+    width: 244px;
+    height: 82px;
+    padding: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 18px;
+    text-align: left;
+}
+
+th.status {
+    width: 244px;
+    height: 82px;
+    padding: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 18px;
+    text-align: left;
+}
+
+th.action {
+    width: 57px;
+    height: 82px;
+    padding: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 18px;
+    text-align: left;
+}
+
+th,
+td {
+    width: 15px;
+    height: 76px;
+    padding: 8px;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 18px;
+    vertical-align: middle !important;
+    text-align: left;
+}
+
+th.username,
+td.username,
+th.designation,
+td.designation,
+th.imei,
+td.imei,
+th.status,
+td.status,
+th.action,
+td.action th.id,
+td.id {
+    text-align: left;
+
+}
+
+.table tbody tr:first-child {
+    background-color: #FFFFFF;
+}
+
+
+.btnaction {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 8px;
+    background: transparent;
+    border: 2px solid #4285f4;
+    color: #4285f4;
+}
+
+.btnaction:hover {
+    background: #4285f4;
+    color: #fff;
+}
+
+.bu,
+.bu3 {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 8px;
+    background-color: #A5E4C2;
+    color: #00602C;
+}
+
+.bu:hover,
+.bu3:hover {
+    background-color: #81d4a0;
+    color: #004d1f;
+}
+
+.bu2 {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 8px;
+    background-color: #E4D6A5;
+    color: #604B00;
+}
+
+.bu2:hover {
+    background-color: #d1c292;
+    color: #4d3a00;
+}
+
+.bu4 {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 8px;
+    background-color: #CFCFCF;
+    color: #003260;
+}
+
+.bu4:hover {
+    background-color: #CFCFCF;
+    color: #003260;
+}
+
+.bu5 {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 8px;
+    background-color: #E4A5A5;
+    color: #600000;
+}
+
+.bu5:hover {
+    background-color: #E4A5A5;
+    color: #600000;
+}
+
+.dropdown-menu {
+    min-width: 100px;
+    max-height: 150px;
+}
+
+.dropdown-toggle::after {
+    display: none !important;
+}
+
+.dropdown-item i {
+    margin-right: 5px;
+}
+
+.dropdown-toggle,
+.dropdown-item i {
+    cursor: pointer !important;
+}
+</style>
 <app-header></app-header>
-<div class="bg-body-secondary text-center py-5 rounded-2">
+<div class="text-center py-5 rounded-2" style="background-image: url('assets/images/BackgroundImg.jpg');">
     <h1 class="display-6 fw-bold">Warranty Detail</h1>
 </div>
-<div class="row mt-5">
-    <div class="col-6">
-        <app-warranty-detail-form />
-    </div>
-    <div class="col-6">
-        <ul class="list-group">
-            <li class="list-group-item d-flex justify-content-between 
-            align-items-start mb-2 border px-4 py-3 rounded-3"
-            *ngFor="let wd of service.list">
-            <div class="flex-grow-1 mouse-hover">
-                <div class="fw-bold">xx</div>
-                <div>xx</div>
-                <div class="fw-bold">{{wd.expirationDate}}</div>
-            </div>
-            <div class="icon-container">
-                <span class="text-secondary" (click)="populateForm(wd)">
-                    <i class="fa-solid fa-pen-to-square fa-lg mouse-hover" style="color: #74c0fc"></i>
-                </span>
-                <span class="text-secondary" (click)="deleteWarranty(wd.warrantyDetailId)">
-                    <i class="fa-solid fa-trash-can fa-lg mouse-hover" style="color: #ff0000;"></i>
-                </span>
-            </div>
-            </li>
-        </ul>
+<div class="bg-custom">
+    <div class="card">
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" class="username">Username</th>
+                        <th scope="col" class="designation">Expiration Date</th>
+                        <th scope="col" class="imei">IMEI Number</th>
+                        <th scope="col" class="status">Status</th>
+                        <th scope="col" class="action">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="height:70px">
+                        <td class="username">
+                                Jane Cooper
+                        </td>
+                        <td class="designation">12/06/2026</td>
+                        <td class="imei">550150629235606</td>
+                        <td class="status">
+                            <button class="btn btn status-button bu">Active</button>
+                        </td>
+                        <td class="action">
+                            <button class="btn btn status-button btnaction" type="button">Extend</button>
+                        </td>
+                    </tr>
+                    <tr style="height:70px">
+                        <td class="username">
+                                Jenny Wilson
+                        </td>
+                        <td class="designation">04/08/2024</td>
+                        <td class="imei">361746111521832</td>
+                        <td class="status">
+                            <button class="btn btn status-button bu2">Active</button>
+                        </td>
+                        <td class="action">
+                            <button class="btn btn status-button btnaction" type="button">Extend</button>
+                        </td>
+                    </tr>
+                    <tr style="height:70px">
+                        <td class="username">
+                            Mike Specter
+                        </td>
+                        <td class="designation">21/10/2024</td>
+                        <td class="imei">139213271173534</td>
+                        <td class="status">
+                            <button class="btn btn status-button bu2">Active</button>
+                        </td>
+                        <td class="action">
+                            <button class="btn btn status-button btnaction" type="button">Extend</button>
+                        </td>
+                    </tr>
+                    <tr style="height:70px">
+                        <td class="username">
+                                Dianne Russell
+                        </td>
+                        <td class="designation">12/01/2026</td>
+                        <td class="imei">514565656045167</td>
+                        <td class="status">
+                            <button class="btn btn status-button bu">Active</button>
+                        </td>
+                        <td class="action">
+                            <button class="btn btn status-button btnaction" type="button">Extend</button>
+                        </td>
+                    </tr>
+                    <tr style="height:70px">
+                        <td class="username">
+                                Marvin Klein
+                        </td>
+                        <td class="designation">20/06/2024</td>
+                        <td class="imei">737394352573635</td>
+                        <td class="status">
+                            <button class="btn btn status-button bu5">Expired</button>
+                        </td>
+                        <td class="action">
+                            <button class="btn btn status-button btnaction" type="button">Extend</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 <app-footer></app-footer>

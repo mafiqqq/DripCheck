@@ -1,4 +1,4 @@
-<style>
+<!-- <style>
     :host {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
       font-size: 14px;
@@ -61,7 +61,6 @@
       display: flex;
       margin: 82px auto 32px;
       padding: 0 16px;
-      max-width: 960px;
       flex-direction: column;
       align-items: center;
     }
@@ -295,10 +294,10 @@
         visibility: hidden;
       }
     }
-  </style>
+  </style> -->
     
 <!-- Navbar -->
-<div class="content">
+<!-- <div class="content">
 <nav class="navbar navbar-expand-lg navbar-scroll fixed-top shadow-0 border-bottom border-dark">
     <div class="container">
         <a class="nav-link">Home</a>
@@ -324,8 +323,71 @@
       </div>
     </div>
   </nav>
-</div>
+</div> -->
 
 <!-- <div>
   <router-outlet></router-outlet>
 </div> -->
+
+
+<!-- New Navbar -->
+<style>
+  	@media screen and (min-width:992px){
+      .nav-item {
+      line-height:80px;
+      }
+    }
+
+    a {
+      color: black;
+    }
+
+    .nav-link:hover {
+      color: black !important;
+    }
+
+    .dropdown-menu:hover {
+      color: black !important;
+    }
+</style>
+<nav class="navbar navbar-expand-lg navbar-dark p-3" id="headerNav">
+  <div class="container-fluid">
+    <a class="navbar-brand d-block d-lg-none" href="#">
+      <img src="assets/images/DripCheckLogoWhite.png" height="80" />
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav mx-auto ">
+        <li class="nav-item">
+          <a class="nav-link mx-2" aria-current="page" routerLink="/register-product">Register Product</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mx-2" routerLink="/all-products">All Products</a>
+        </li>
+        <li class="nav-item d-none d-lg-block">
+          <a class="nav-link mx-2" href="#">
+            <img src="assets/images/DripCheckLogoWhite.png" height="80" />
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mx-2" routerLink="/warranty">Warranty</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mx-2" routerLink="/serial">Check IMEI</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Login
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" routerLink="/login" >Login</a></li>
+            <li><a class="dropdown-item" routerLink="/register">Register</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

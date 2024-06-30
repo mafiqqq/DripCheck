@@ -92,7 +92,6 @@ namespace DripCheckAPI.Controllers
                 }
             }
 
-            //return NoContent();
             return Ok(await _context.ProductOwners.ToListAsync());
         }
 
@@ -122,7 +121,6 @@ namespace DripCheckAPI.Controllers
             _context.ProductOwners.Add(productOwner);
             await _context.SaveChangesAsync();
 
-            //return CreatedAtAction("GetProductOwner", new { id = productOwner.ProductOwnerId }, productOwner);
             return Ok(await _context.ProductOwners.ToListAsync());
         }
 
@@ -143,7 +141,6 @@ namespace DripCheckAPI.Controllers
             _context.ProductOwners.Remove(productOwner);
             await _context.SaveChangesAsync();
 
-            //return NoContent();
             return Ok(await _context.ProductOwners.ToListAsync());
         }
 

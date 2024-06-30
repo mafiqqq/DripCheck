@@ -1,8 +1,9 @@
 <app-header />
-<div class="bg-body-secondary text-center py-5 rounded-2">
+<div class="text-center py-5 rounded-2" style="background-image: url('assets/images/BackgroundImg.jpg');">
     <h1 class="display-6 fw-bold">Register New Product</h1>
 </div>
-<form #form="ngForm" (submit)="onSubmit(form)"
+<div class="container" style="max-width: 960px;">
+    <form #form="ngForm" (submit)="onSubmit(form)"
 [class.submitted]="service.formSubmitted" novalidate>
     <!-- <input type="hidden" name="warrantyDetailId" [value]="service.formData.warrantyDetailId"> -->
     <div class="mb-3">
@@ -40,14 +41,16 @@
         (change)="onFileSelected($event)">
     </div>
     <div class="mb-3" *ngIf="imageUrl">
-        <img [src]="imageUrl" alt="Uploaded Image" style="max-width: 60%; max-height: 50%;">
+        <img [src]="imageUrl" alt="Uploaded Image" style="max-width: 30%; max-height: 10%;">
       </div>
 
     <div class="d-grid">
-        <button class="btn btn-lg btn-success" type="submit">
+        <button class="btn btn-lg btn-primary" type="submit">
             Submit
         </button>
     </div>
 
 </form>
+</div>
+
 <app-footer />

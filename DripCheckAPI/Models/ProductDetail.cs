@@ -20,3 +20,5 @@ namespace DripCheckAPI.Models
         public ICollection<ProductOwner>? ProductOwners { get; set; }
     }
 }
+
+

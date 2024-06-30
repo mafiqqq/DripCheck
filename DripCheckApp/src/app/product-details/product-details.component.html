@@ -151,13 +151,13 @@
 
 </style>
 <app-header />
-<div class="bg-body-secondary text-center py-5 rounded-2">
+<div class="text-center py-5 rounded-2" style="background-image: url('assets/images/BackgroundImg.jpg');">
     <h1 class="display-6 fw-bold">All Products</h1>
 </div>
 
-<div class="container mt-5">
+<div class="container mt-5" style="max-width: 70%;">
     <div class="row">
-        <div class="col-md-4 col-12 mb-4" *ngFor="let pd of detailService.productList">
+        <div class="col-5 mb-4" style="flex: 0 0 auto; width: 20%;"  *ngFor="let pd of detailService.productList">
         <div class="card mx-auto">
             <img class='mx-auto img-thumbnail'
                 [src]="pd.productImageUrl"
@@ -166,7 +166,7 @@
             <div class="card-body text-center mx-auto">
             <div class='cvp'>
                 <h5 class="card-title font-weight-bold">{{pd.productModel}}</h5>
-                <p hidden="true" [(ngModel)]="selectedProductDetailId"></p>
+                <input [(ngModel)]="selectedProductDetailId">
                 <p class="card-text">RM {{pd.productPrice}}</p>
                 <a href="#" class="btn details px-auto">View Details</a><br />
                 <a class="btn cart px-auto" (click)="openModal() ">Buy Now</a>
@@ -177,7 +177,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" #exampleModal>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="t  rue" #exampleModal>
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header border-none">
@@ -190,12 +190,20 @@
         </div>
         <div class="modal-footer">
           <h2>Woohoo</h2>
-          <p class="text-center"><small class="text-muted">Thank you for your subscription. You'll be sent the next issue of our newspaper shortly.</small></p>
+          <p class="text-center"><small class="text-muted">Thank you for your purchase. You'll be directed to the page of your product shortly.</small></p>
           <div class="d-flex justify-content-center">
             
             <form #form="ngForm" (submit)="purchaseProduct(form)"
             [class.submitted]="ownerService.formSubmitted" novalidate>
             <input type="hidden" name="productOwnerId" [value]="ownerService.formData.productOwnerId">
+            
+            <div class="mb-3">
+                <label>Product Detail ID</label>
+                <input class="form-control form-control-lg" 
+                placeholder="ID"
+                #productDetailId="ngModel" name="productDetailId"
+                [(ngModel)]="ownerService.formData.productDetailId" required>
+            </div>
             <div class="mb-3">
                 <label>First Name</label>
                 <input class="form-control form-control-lg" 

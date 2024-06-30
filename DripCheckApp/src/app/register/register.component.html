@@ -1,0 +1,155 @@
+<style>
+    .banner6 {
+        font-family: "Montserrat", sans-serif;
+        color: #8d97ad;
+        font-weight: 300;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .banner6 h1,
+    .banner6 h2,
+    .banner6 h3,
+    .banner6 h4,
+    .banner6 h5,
+    .banner6 h6 {
+        color: #3e4555;
+    }
+
+    .banner6 .subtitle {
+        color: #8d97ad;
+        line-height: 24px;
+    }
+
+    .banner6 a {
+        text-decoration: none;
+    }
+
+    .banner6 .btn-danger-gradiant {
+        background: #ff4d7e;
+        background: -webkit-linear-gradient(legacy-direction(to right), #ff4d7e 0%, #ff6a5b 100%);
+        background: -webkit-gradient(linear, left top, right top, from(#ff4d7e), to(#ff6a5b));
+        background: -webkit-linear-gradient(left, #ff4d7e 0%, #ff6a5b 100%);
+        background: -o-linear-gradient(left, #ff4d7e 0%, #ff6a5b 100%);
+        background: linear-gradient(to right, #ff4d7e 0%, #ff6a5b 100%);
+    }
+
+    .banner6 .btn-danger-gradiant:hover {
+        background: #ff6a5b;
+        background: -webkit-linear-gradient(legacy-direction(to right), #ff6a5b 0%, #ff4d7e 100%);
+        background: -webkit-gradient(linear, left top, right top, from(#ff6a5b), to(#ff4d7e));
+        background: -webkit-linear-gradient(left, #ff6a5b 0%, #ff4d7e 100%);
+        background: -o-linear-gradient(left, #ff6a5b 0%, #ff4d7e 100%);
+        background: linear-gradient(to right, #ff6a5b 0%, #ff4d7e 100%);
+    }
+
+    .banner6 .btn-md {
+        padding: 15px 45px;
+        font-size: 16px;
+    }
+
+    .banner6 .bg-facebook {
+        background-color: #3b5a9a;
+    }
+
+    .banner6 .bg-twitter {
+        background-color: #56adf2;
+    }
+
+    .banner6 .text-danger {
+        color: #ff4d7e !important;
+    }
+
+    .banner6 .right-image {
+        background-position: center bottom;
+        background-size: cover;
+        background-repeat: no-repeat;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        top: 0;
+    }
+
+    @media (max-width: 1023px) {
+        .banner6 .contact-form {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .banner6 .contact-form {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
+
+    @media (max-width: 1023px) {
+        .banner6 .right-image {
+            position: relative;
+            bottom: -95px;
+        }
+    }
+</style>
+<app-header />
+<div class="text-center py-5 rounded-2" style="background-image: url('assets/images/BackgroundImg.jpg');">
+    <h1 class="display-6 fw-bold">Register User</h1>
+</div>
+<div class="banner6 py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 contact-form pr-lg-4">
+                <div>
+                    <h2 class="mb-3 fw-light">Get Register For Free</h2>
+                    <h6 class="subtitle fw-normal">Register now to Check your mobile</h6>
+                    <form class="mt-3">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <input class="form-control" type="text" placeholder="Username">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="mb-3">
+                                    <input class="form-control" type="email" placeholder="Email address">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <input class="form-control" type="password" placeholder="Password">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="mb-3">
+                                    <input class="form-control" type="password" placeholder="Confirm password">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <button type="submit" class="btn btn-md btn-block bg-danger text-white border-0"><span> Create Account</span></button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <div class="col-lg-12 text-center mt-4">
+                            <h6 class="fw-normal">Signup with Social Accounts</h6>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <a href="#" class="btn btn-block bg-facebook text-white mt-3">Facebook</a>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <a href="#" class="btn btn-block bg-twitter text-white mt-3">Twitter</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 text-center mt-4">
+                            Already have an account? <a href="#" class="text-danger">Sign In</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 right-image" style="background-image:url('assets/images/RegisterPage.jpg');">
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer />

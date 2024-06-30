@@ -8,7 +8,7 @@ import { ProductOwner } from './product-owner.model';
 })
 export class ProductOwnerService {
 
-  url: string = environment.apiBaseUrl+'/ProductDetails'
+  url: string = environment.apiBaseUrl+'/ProductOwners'
   formData: ProductOwner = new ProductOwner ()
   formSubmitted: boolean = false
   constructor(private http: HttpClient) { }

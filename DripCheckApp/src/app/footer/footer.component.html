@@ -1,5 +1,5 @@
 <style>
-    :host {
+    /* :host {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
       font-size: 14px;
       color: #333;
@@ -61,7 +61,6 @@
       display: flex;
       margin: 82px auto 32px;
       padding: 0 16px;
-      max-width: 960px;
       flex-direction: column;
       align-items: center;
     }
@@ -253,7 +252,7 @@
       height: 16px;
       width: 16px;
       margin-right: 4px;
-    }
+    } */
   
     svg#clouds {
       position: fixed;
@@ -263,8 +262,84 @@
       width: 1920px;
     }
   
+    
+    @import url('https://fonts.googleapis.com/css?family=Rubik&display=swap');
+
+    body {
+        font-family: 'Rubik', sans-serif;
+        height: 100% !important;
+        background-color: #F8F9FB !important;
+    }
+
+    .container-fluid{
+        margin-top: 101px;
+        color:#000 !important;
+    }
+
+    .card{
+        background-color: #F8F9FB !important;
+    }
+
+    p{
+        font-size: calc(12px + (14 - 12) * ((100vw - 360px) / (1600 - 360))) !important; 
+        display: fkex;
+    }
+
+    h3{
+        font-size: calc(24px + (30 - 24) * ((100vw - 360px) / (1600 - 360))) !important; 
+    }
+
+    .social{
+        font-size: 21px !important; 
+    }
+
+
+    .color-text{
+        color:#757575 !important;
+    }
+
+
+    button {
+        font-size: calc(12px + (13 - 12) * ((100vw - 360px) / (1600 - 320))) !important;
+        background-color: #2CA6FB !important;
+        padding-left:  calc(20px + (28 - 20) * ((100vw - 360px) / (1600 - 360))) !important; 
+        padding-right: calc(20px + (28 - 20) * ((100vw - 360px) / (1600 - 360))) !important; 
+        padding-top:  calc(10px + (12 - 10) * ((100vw - 360px) / (1600 - 360))) !important; 
+        padding-bottom:   calc(10px + (12 - 10) * ((100vw - 360px) / (1600 - 360))) !important; 
+    }
+
+    button:focus {
+        -moz-box-shadow: none !important;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+        outline-width: 0
+    }
+
+    footer{
+        color:#caced1 !important;
+        margin-top: 5%;
+    }
+
+    li{
+        margin-top: 20px ;
+        margin-bottom: 20px ;
+    }
+    
+    .Careers{ 
+        cursor: pointer;
+        color: #1E88E5;
+    }
+
+    .row-1{
+        background-color:#1E242A !important;
+    }
+
+    .row-2{
+        
+        background-color: #28323C !important;
+    }
     /* Responsive Styles */
-    @media screen and (max-width: 767px) {
+    /* @media screen and (max-width: 767px) {
       .card-container > *:not(.circle-link) ,
       .terminal {
         width: 100%;
@@ -290,12 +365,12 @@
         display: none;
         visibility: hidden;
       }
-    }
+    } */
   </style>
 
 <!-- Footer -->
 <div class="content">
-<footer>
+<!-- <footer>
     Well there's more of me&nbsp;
     <a href="https://www.linkedin.com/in/afiqqqx/" target="_blank" rel="noopener"> here.
         <div class="github-star-badge">
@@ -306,10 +381,31 @@
     <a href="https://github.com/mafiqqq" target="_blank" rel="noopener">
         <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="#1976d2"/><path d="M0 0h24v24H0z" fill="none"/></svg>
     </a>
+</footer> -->
+<footer >
+  <div class="row justify-content-center mb-0 pt-5 pb-0 row-2 px-3">
+      <div class="col-12">
+           <div class="row row-2">
+               <div class="col-sm-3 text-md-center"><h5><span> <i class="fa fa-firefox text-light" aria-hidden="true"></i></span><b>  Drip Check</b></h5></div>
+               <div class="col-sm-3  my-sm-0 mt-5"><ul class="list-unstyled"><li class="mt-0">Platform</li><li>Help Center</li></ul></div>
+               <div class="col-sm-3  my-sm-0 mt-5"><ul class="list-unstyled"><li class="mt-0">Company</li><li>About</li></ul></div>
+           </div>  
+      </div>
+  </div>
+  <div class="row justify-content-center mt-0 pt-0 row-1 mb-0  px-sm-3 px-2">
+       <div class="col-12">
+           <div class="row my-4 row-1 no-gutters">
+               <div class="col-sm-3 col-auto text-center"><small>&#9400; ABDUL MU'IZ BIN NASIRUDDIN (P22014612) <br> KHISSHORE A/L MUTHUKUMAR 
+                (P22014676)</small></div><div class="col-md-3 col-auto "></div><div class="col-md-3 col-auto"></div>
+               <div class="col  my-auto text-md-left  text-right "> <small> hello@dripcheck.com <span><img src="https://i.imgur.com/TtB6MDc.png" class="img-fluid "  width="25"></span> <span><img src="https://i.imgur.com/N90KDYM.png" class="img-fluid "  width="25"></span></small>  </div> 
+           </div>
+       </div>
+   </div>
+   <svg id="clouds" xmlns="http://www.w3.org/2000/svg" width="2611.084" height="485.677" viewBox="0 0 2611.084 485.677">
+    <title>Gray Clouds Background</title>
+    <path id="Path_39" data-name="Path 39" d="M2379.709,863.793c10-93-77-171-168-149-52-114-225-105-264,15-75,3-140,59-152,133-30,2.83-66.725,9.829-93.5,26.25-26.771-16.421-63.5-23.42-93.5-26.25-12-74-77-130-152-133-39-120-212-129-264-15-54.084-13.075-106.753,9.173-138.488,48.9-31.734-39.726-84.4-61.974-138.487-48.9-52-114-225-105-264,15a162.027,162.027,0,0,0-103.147,43.044c-30.633-45.365-87.1-72.091-145.206-58.044-52-114-225-105-264,15-75,3-140,59-152,133-53,5-127,23-130,83-2,42,35,72,70,86,49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33,61.112,8.015,113.854-5.72,150.492-29.764a165.62,165.62,0,0,0,110.861-3.236c47,94,178,113,251,33,31.385,4.116,60.563,2.495,86.487-3.311,25.924,5.806,55.1,7.427,86.488,3.311,73,80,204,61,251-33a165.625,165.625,0,0,0,120,0c51,13,108,15,157-5a147.188,147.188,0,0,0,33.5-18.694,147.217,147.217,0,0,0,33.5,18.694c49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33C2446.709,1093.793,2554.709,922.793,2379.709,863.793Z" transform="translate(142.69 -634.312)" fill="#eee"/>
+  </svg>
 </footer>
 
-<svg id="clouds" xmlns="http://www.w3.org/2000/svg" width="2611.084" height="485.677" viewBox="0 0 2611.084 485.677">
-  <title>Gray Clouds Background</title>
-  <path id="Path_39" data-name="Path 39" d="M2379.709,863.793c10-93-77-171-168-149-52-114-225-105-264,15-75,3-140,59-152,133-30,2.83-66.725,9.829-93.5,26.25-26.771-16.421-63.5-23.42-93.5-26.25-12-74-77-130-152-133-39-120-212-129-264-15-54.084-13.075-106.753,9.173-138.488,48.9-31.734-39.726-84.4-61.974-138.487-48.9-52-114-225-105-264,15a162.027,162.027,0,0,0-103.147,43.044c-30.633-45.365-87.1-72.091-145.206-58.044-52-114-225-105-264,15-75,3-140,59-152,133-53,5-127,23-130,83-2,42,35,72,70,86,49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33,61.112,8.015,113.854-5.72,150.492-29.764a165.62,165.62,0,0,0,110.861-3.236c47,94,178,113,251,33,31.385,4.116,60.563,2.495,86.487-3.311,25.924,5.806,55.1,7.427,86.488,3.311,73,80,204,61,251-33a165.625,165.625,0,0,0,120,0c51,13,108,15,157-5a147.188,147.188,0,0,0,33.5-18.694,147.217,147.217,0,0,0,33.5,18.694c49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33C2446.709,1093.793,2554.709,922.793,2379.709,863.793Z" transform="translate(142.69 -634.312)" fill="#eee"/>
-</svg>
+
 </div>
