@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DripCheckAPI.Models;
 using System.Security.Cryptography;
+using Humanizer;
 
 namespace DripCheckAPI.Controllers
 {
@@ -109,16 +110,37 @@ namespace DripCheckAPI.Controllers
             var warrantyDetail = new WarrantyDetail
             {
                 ExpirationDate = DateTime.Now.AddYears(2).Date,
-                WarrantyStatus = "Active"
+                WarrantyStatus = "Active",
             };
 
-            // Add WarrantyDetail to context and save to get its ID
-            _context.WarrantyDetails.Add(warrantyDetail);
-            await _context.SaveChangesAsync();
 
             productOwner.ProductSerialNumber = await GenerateUniqueSerialNumberAsync();
-            productOwner.WarrantyDetailId = warrantyDetail.WarrantyDetailId;
-            _context.ProductOwners.Add(productOwner);
+            
+            // Query ProductDetail
+            var productDetail = await _context.ProductDetails.FirstOrDefaultAsync(pd => pd.ProductDetailId == productOwner.ProductDetailId);
+
+            if (productDetail == null) { 
+                return BadRequest();
+            }
+            
+            
+            var newProductOwner = new ProductOwner
+            {
+                OwnerFirstName = productOwner.OwnerFirstName,
+                OwnerLastName = productOwner.OwnerLastName,
+                EmailAddress = productOwner.EmailAddress,
+                PhoneNum = productOwner.PhoneNum,
+                ProductSerialNumber = productOwner.ProductSerialNumber,
+                ProductDetailId = productOwner.ProductDetailId,
+                ProductDetail = productDetail,
+                WarrantyDetail = warrantyDetail
+            };
+
+            // Setting the reverse navigation property
+            warrantyDetail.ProductOwner = newProductOwner;
+            productDetail.ProductOwners.Add(newProductOwner);
+
+            _context.ProductOwners.Add(newProductOwner);
             await _context.SaveChangesAsync();
 
             return Ok(await _context.ProductOwners.ToListAsync());

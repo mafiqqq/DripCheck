@@ -34,6 +34,11 @@ export class ProductDetailsComponent implements OnInit {
     modal.show();
   }
 
+  selectProductDetailId(id: number): void {
+    console.log("id" + id)
+    this.selectedProductDetailId = id;
+  }
+
   purchaseProduct(form: NgForm) {
     console.log("yo" + form)
     console.log(this.selectedProductDetailId)

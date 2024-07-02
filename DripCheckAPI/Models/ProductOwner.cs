@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace DripCheckAPI.Models
 {
@@ -18,8 +19,10 @@ namespace DripCheckAPI.Models
         public string PhoneNum { get; set; } = "";
         public string ProductSerialNumber { get; set; } = "";
         public int ProductDetailId { get; set; }
+        [ValidateNever]
         public ProductDetail? ProductDetail { get; set; }
         public int WarrantyDetailId { get; set; }
+        [ValidateNever]
         public WarrantyDetail? WarrantyDetail { get; set;}
     }
 }

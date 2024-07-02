@@ -167,9 +167,10 @@
             <div class='cvp'>
                 <h5 class="card-title font-weight-bold">{{pd.productModel}}</h5>
                 <input [(ngModel)]="selectedProductDetailId">
+                <p class="card-text">{{pd.productDetailId}}</p>
                 <p class="card-text">RM {{pd.productPrice}}</p>
                 <a href="#" class="btn details px-auto">View Details</a><br />
-                <a class="btn cart px-auto" (click)="openModal() ">Buy Now</a>
+                <a class="btn cart px-auto" (click)="openModal(); selectProductDetailId(pd.productDetailId) ">Buy Now</a>
             </div>
             </div>
         </div>
@@ -197,13 +198,13 @@
             [class.submitted]="ownerService.formSubmitted" novalidate>
             <input type="hidden" name="productOwnerId" [value]="ownerService.formData.productOwnerId">
             
-            <div class="mb-3">
+            <!-- <div class="mb-3">
                 <label>Product Detail ID</label>
                 <input class="form-control form-control-lg" 
                 placeholder="ID"
                 #productDetailId="ngModel" name="productDetailId"
                 [(ngModel)]="ownerService.formData.productDetailId" required>
-            </div>
+            </div> -->
             <div class="mb-3">
                 <label>First Name</label>
                 <input class="form-control form-control-lg" 
