@@ -7,5 +7,4 @@ export class ProductDetail {
         productColor: string = ""
         productImageUrl: string = ""
         productPrice!: number
-        productOwners: ProductOwner[] | undefined;
 }

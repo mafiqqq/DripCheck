@@ -50,6 +50,8 @@
 
     .img-radius {
         border-radius: 5px;
+        width: 40%;
+        height: 10%;
     }
 
 
@@ -159,34 +161,26 @@
 <div class="page-content page-container" id="page-content">
     <div class="padding">
         <div class="row container d-flex justify-content-center">
-            <div class="col-xl-12 col-md-12">
+            <div class="col-xl-8 col-md-12">
                 <div class="card user-card-full">
                     <div class="row m-l-0 m-r-0">
                         <div class="col-sm-4 bg-c-lite-green user-profile">
                             <div class="card-block text-center text-white">
                                 <div class="m-b-25">
-                                    <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius"
-                                        alt="User-Profile-Image">
+                                    <img [src]="service.productOwner.productImageUrl" class="img-radius"
+                                        alt="Product-Image">
                                 </div>
-                                <qrcode 
-                                [qrdata]="'http://localhost:4200'"
-                                [allowEmptyString]="true"
-                                [ariaLabel]="'QR Code image with the following content...'"
-                                [cssClass]="'center'"
-                                [colorDark]="'#000000ff'"
-                                [colorLight]="'#ffffffff'"
-                                [elementType]="'canvas'"
-                                [errorCorrectionLevel]="'M'"
-                                [imageSrc]="'./assets/images/DripCheckLogo.jpg'"
-                                [imageHeight]="95"
-                                [imageWidth]="75"
-                                [margin]="2"
-                                [scale]="1"
-                                [title]="'A custom title attribute'"
-                                [width]="200"
+                                <qrcode #parent [qrdata]="angxUrl" [elementType]="'canvas'"
+                                [allowEmptyString]="true" [ariaLabel]="'QR Code image with the following content...'"
+                                [cssClass]="'center'" [colorDark]="'#000000ff'"
+                                [colorLight]="'#ffffffff'" [errorCorrectionLevel]="'M'"
+                                [imageSrc]="'./assets/images/DripCheckLogo.jpg'" [imageHeight]="95"
+                                [imageWidth]="75" [margin]="2"
+                                [scale]="1" [title]="'A custom title attribute'"
+                                [width]="200" (qrCodeURL)="onChangeURL($event)"
                          ></qrcode>
-                                <button class="btn btn-primary btnaction" type="button">
-                                    <!-- <a [href]="qrCodeDownloadLink" > -->
+                                <button class="btn btn-primary btnaction" type="button" (click)="saveAsImage(parent)">
+                                    <!-- <a [href]="qrCodeSrc" download="qrcode"> -->
                                         Download QR Code
                                     <!-- </a> -->
                                 </button>                            
@@ -198,48 +192,54 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <p class="m-b-10 f-w-600">First Name</p>
-                                        <h6 class="text-muted f-w-400">Mike</h6>
+                                        <h6 class="text-muted f-w-400">{{service.productOwner.ownerFirstName}}</h6>
                                     </div>
                                     <div class="col-sm-6">
                                         <p class="m-b-10 f-w-600">Last Name</p>
-                                        <h6 class="text-muted f-w-400">Specter</h6>
+                                        <h6 class="text-muted f-w-400">{{service.productOwner.ownerLastName}}</h6>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <p class="m-b-10 f-w-600">Email</p>
-                                        <h6 class="text-muted f-w-400">mspecter@gmail.com</h6>
+                                        <h6 class="text-muted f-w-400">{{service.productOwner.emailAddress}}</h6>
                                     </div>
                                     <div class="col-sm-6">
                                         <p class="m-b-10 f-w-600">Phone Number</p>
-                                        <h6 class="text-muted f-w-400">0124561427</h6>
+                                        <h6 class="text-muted f-w-400">{{service.productOwner.phoneNum}}</h6>
                                     </div>
                                 </div>
                                 <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Tech Specification</h6>
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <p class="m-b-10 f-w-600">Product Model</p>
-                                        <h6 class="text-muted f-w-400">Vivo X100 Plus</h6>
+                                        <h6 class="text-muted f-w-400">{{service.productOwner.productModel}}</h6>
                                     </div>
                                     <div class="col-sm-6">
+                                        <p class="m-b-10 f-w-600">Product Brand</p>
+                                        <h6 class="text-muted f-w-400">{{service.productOwner.productBrand}}</h6>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
                                         <p class="m-b-10 f-w-600">Product Price</p>
-                                        <h6 class="text-muted f-w-400">2499</h6>
+                                        <h6 class="text-muted f-w-400">{{service.productOwner.productPrice}}</h6>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <p class="m-b-10 f-w-600">Warranty Expiration Date</p>
-                                        <h6 class="text-muted f-w-400">21/07/2024</h6>
+                                        <h6 class="text-muted f-w-400">{{service.productOwner.expirationDate}}</h6>
                                     </div>
                                     <div class="col-sm-6">
                                         <p class="m-b-10 f-w-600">Warranty Status</p>
-                                        <h6 class="text-muted f-w-400">Active</h6>
+                                        <h6 class="text-muted f-w-400">{{service.productOwner.warrantyStatus}}</h6>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <p class="m-b-10 f-w-600">IMEI Serial Number</p>
-                                        <h6 class="text-muted f-w-400">14645627651657145</h6>
+                                        <h6 class="text-muted f-w-400">{{service.productOwner.productSerialNumber}}</h6>
                                     </div>
                                     <div class="col-sm-6">
                                         <button class="btn btn-primary">Extend Warranty</button>

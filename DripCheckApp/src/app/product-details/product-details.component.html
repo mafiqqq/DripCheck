@@ -152,7 +152,7 @@
 </style>
 <app-header />
 <div class="text-center py-5 rounded-2" style="background-image: url('assets/images/BackgroundImg.jpg');">
-    <h1 class="display-6 fw-bold">All Productszz</h1>
+    <h1 class="display-6 fw-bold">All Products</h1>
 </div>
 
 <div class="container mt-5" style="max-width: 70%;">
@@ -166,8 +166,6 @@
             <div class="card-body text-center mx-auto">
             <div class='cvp'>
                 <h5 class="card-title font-weight-bold">{{pd.productModel}}</h5>
-                <input [(ngModel)]="selectedProductDetailId">
-                <p class="card-text">{{pd.productDetailId}}</p>
                 <p class="card-text">RM {{pd.productPrice}}</p>
                 <a href="#" class="btn details px-auto">View Details</a><br />
                 <a class="btn cart px-auto" (click)="openModal(); selectProductDetailId(pd.productDetailId) ">Buy Now</a>
@@ -178,7 +176,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="t  rue" #exampleModal>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" #exampleModal>
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header border-none">
@@ -196,15 +194,6 @@
             
             <form #form="ngForm" (submit)="purchaseProduct(form)"
             [class.submitted]="ownerService.formSubmitted" novalidate>
-            <input type="hidden" name="productOwnerId" [value]="ownerService.formData.productOwnerId">
-            
-            <!-- <div class="mb-3">
-                <label>Product Detail ID</label>
-                <input class="form-control form-control-lg" 
-                placeholder="ID"
-                #productDetailId="ngModel" name="productDetailId"
-                [(ngModel)]="ownerService.formData.productDetailId" required>
-            </div> -->
             <div class="mb-3">
                 <label>First Name</label>
                 <input class="form-control form-control-lg" 
@@ -234,7 +223,7 @@
                 [(ngModel)]="ownerService.formData.phoneNum" required>
             </div>
             <div class="d-grid">
-                <button class="btn btn-lg btn-success" type="submit">
+                <button class="btn btn-lg btn-success" data-bs-dismiss="modal" type="submit">
                     Submit
                 </button>
             </div>

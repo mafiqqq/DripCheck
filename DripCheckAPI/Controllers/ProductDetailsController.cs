@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DripCheckAPI.Models;
+using DripCheckAPI.Models.DTO;
 
 namespace DripCheckAPI.Controllers
 {
@@ -24,11 +25,25 @@ namespace DripCheckAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductDetail>>> GetProductDetails()
         {
-          if (_context.ProductDetails == null)
-          {
-              return NotFound();
-          }
-            return await _context.ProductDetails.ToListAsync();
+            if (_context.ProductDetails == null)
+            {
+                return NotFound();
+            }
+
+            var productDetails = await _context.ProductDetails.ToListAsync();
+
+            var productDetailsDto = productDetails.Select(productDetail => new ProductDetailDto()
+            {
+                ProductDetailId = productDetail.ProductDetailId,
+                ProductModel = productDetail.ProductModel,
+                ProductBrand = productDetail.ProductBrand,
+                ProductColor = productDetail.ProductColor,
+                ProductImageUrl = productDetail.ProductImageUrl,
+                ProductPrice = productDetail.ProductPrice,
+            }).ToList();
+
+            //return await _context.ProductDetails.ToListAsync();
+            return Ok(productDetailsDto);
         }
 
         // GET: api/ProductDetails/5
@@ -46,7 +61,17 @@ namespace DripCheckAPI.Controllers
                 return NotFound();
             }
 
-            return productDetail;
+            var productDetailsDto = new ProductDetailDto()
+            {
+                ProductDetailId = productDetail.ProductDetailId,
+                ProductModel = productDetail.ProductModel,
+                ProductBrand = productDetail.ProductBrand,
+                ProductColor = productDetail.ProductColor,
+                ProductImageUrl = productDetail.ProductImageUrl,
+                ProductPrice = productDetail.ProductPrice,
+            };
+
+            return Ok(productDetailsDto);
         }
 
 
@@ -84,16 +109,43 @@ namespace DripCheckAPI.Controllers
         // POST: api/ProductDetails
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ProductDetail>> PostProductDetail(ProductDetail productDetail)
+        //public async Task<ActionResult<ProductDetail>> PostProductDetail(ProductDetail productDetail)
+        public async Task<ActionResult<ProductDetail>> PostProductDetail(CreateProductDetailDto createProductDetailDto)
         {
-          if (_context.ProductDetails == null)
-          {
-              return Problem("Entity set 'ApplicationDbContext.ProductDetails'  is null.");
-          }
+            if (_context.ProductDetails == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.ProductDetails'  is null.");
+            }
+            
+            var productDetail = new ProductDetail()
+            {
+                ProductModel = createProductDetailDto.ProductModel,
+                ProductBrand = createProductDetailDto.ProductBrand,
+                ProductColor = createProductDetailDto.ProductColor,
+                ProductImageUrl = createProductDetailDto.ProductImageUrl,
+                ProductPrice = createProductDetailDto.ProductPrice,
+            };
+
             _context.ProductDetails.Add(productDetail);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProductDetail", new { id = productDetail.ProductDetailId }, productDetail);
+            var productDetailDto = new ProductDetailDto
+            {
+                ProductDetailId = productDetail.ProductDetailId,
+                ProductModel = productDetail.ProductModel,
+                ProductBrand = productDetail.ProductBrand,
+                ProductColor = productDetail.ProductColor,
+                ProductImageUrl = productDetail.ProductImageUrl,
+                ProductPrice = productDetail.ProductPrice,
+            };
+
+
+            //_context.ProductDetails.Add(productDetail);
+            //await _context.SaveChangesAsync();
+
+            //return CreatedAtAction("GetProductDetail", new { id = productDetail.ProductDetailId }, productDetail);
+            return CreatedAtAction("GetProductDetail", new { id = productDetailDto.ProductDetailId }, productDetailDto);
+
         }
 
         // DELETE: api/ProductDetails/5

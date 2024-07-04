@@ -3,8 +3,11 @@ import { ProductDetailService } from '../shared/product-detail.service';
 import { NgForm } from '@angular/forms';
 import { ProductOwnerService } from '../shared/product-owner.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { ProductOwner } from '../shared/product-owner.model';
 
 declare var bootstrap: any;
+declare var $: any;
 
 @Component({
   selector: 'app-product-details',
@@ -21,7 +24,8 @@ export class ProductDetailsComponent implements OnInit {
     public detailService: ProductDetailService, 
     public ownerService: ProductOwnerService, 
     private toastr:ToastrService,
-    private renderer: Renderer2) {
+    private renderer: Renderer2,
+    private router: Router) {
 
   }
 
@@ -34,18 +38,30 @@ export class ProductDetailsComponent implements OnInit {
     modal.show();
   }
 
+  closeModal() {
+    const modal = new bootstrap.Modal(this.exampleModal.nativeElement)
+    if (modal) {
+      modal.hide();
+    }
+  }
+
+  hideBackdrop() {
+    const backdrop = document.querySelector('.modal-backdrop');
+    backdrop?.classList.remove('fade', 'show');
+  }
+
   selectProductDetailId(id: number): void {
     console.log("id" + id)
     this.selectedProductDetailId = id;
   }
 
   purchaseProduct(form: NgForm) {
-    console.log("yo" + form)
-    console.log(this.selectedProductDetailId)
-    this.toastr.success('Purchased successfully', 'Product Purchase')
     this.ownerService.purchaseProduct(this.selectedProductDetailId)
     .subscribe({
-      next: res => {
+      next: res => {        
+        this.toastr.success('Purchased successfully', 'Product Purchase')
+        this.closeModal()
+        this.router.navigate(['/view-product/'+ res ])
         console.log(res)
       },
       error: err => {

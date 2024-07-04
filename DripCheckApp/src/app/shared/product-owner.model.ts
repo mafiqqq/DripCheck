@@ -7,9 +7,13 @@ export class ProductOwner {
     emailAddress: string = "";
     phoneNum: string = "";
     productSerialNumber: string = "";
+    productModel: string = "";
+    productBrand: string = "";
+    productColor: string = "";
+    productPrice: string = "";
+    productImageUrl: string = "";
+    warrantyStatus: string = "";
+    expirationDate: string = "";
     productDetailId: number = 0;
-    productDetail: string = "";
-    warrantyDetailId: number = 0;
-    warrantyDetail!: WarrantyDetail;
 }
 

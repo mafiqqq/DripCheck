@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using DripCheckAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using DripCheckAPI.Models;
 
 namespace DripCheckAPI.Controllers
 {
@@ -52,32 +47,37 @@ namespace DripCheckAPI.Controllers
         // PUT: api/WarrantyDetails/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutWarrantyDetail(int id, WarrantyDetail warrantyDetail)
+        public async Task<IActionResult> PutWarrantyDetail(int id)
         {
-            if (id != warrantyDetail.WarrantyDetailId)
+            var warrantyDetail = await _context.WarrantyDetails.FindAsync(id);
+
+            if (warrantyDetail == null)
             {
-                return BadRequest();
+                return NotFound(new { Message = "Warranty Not Found!" });
             }
 
-            _context.Entry(warrantyDetail).State = EntityState.Modified;
+            warrantyDetail.ExpirationDate = warrantyDetail.ExpirationDate.AddYears(2);
+            warrantyDetail.WarrantyStatus = "Active";
 
+            _context.WarrantyDetails.Update(warrantyDetail);
             try
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (DbUpdateConcurrencyException ex) 
             {
-                if (!WarrantyDetailExists(id))
+                if (!_context.WarrantyDetails.Any(e => e.WarrantyDetailId == id))
                 {
                     return NotFound();
                 }
                 else
                 {
-                    throw;
+                    throw (ex);
                 }
             }
 
             return NoContent();
+            
         }
 
         // POST: api/WarrantyDetails

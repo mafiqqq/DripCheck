@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using DripCheckAPI.Models;
 using System.Security.Cryptography;
 using Humanizer;
+using DripCheckAPI.Models.DTO;
 
 namespace DripCheckAPI.Controllers
 {
@@ -30,7 +31,61 @@ namespace DripCheckAPI.Controllers
           {
               return NotFound();
           }
-            return await _context.ProductOwners.ToListAsync();
+
+            var productOwnerDetails = await _context.ProductOwners
+            .Join(
+                _context.WarrantyDetails,
+                po => po.WarrantyDetailId,
+                wd => wd.WarrantyDetailId,
+                (po, wd) => new { po, wd }
+                )
+            .Join(
+                _context.ProductDetails,
+                combined => combined.po.ProductDetailId,
+                pd => pd.ProductDetailId,
+                (combined, pd) => new GetFullProductDescDto
+                {
+                    ProductOwnerId = combined.po.ProductOwnerId,
+                    OwnerFirstName = combined.po.OwnerFirstName,
+                    OwnerLastName = combined.po.OwnerLastName,
+                    EmailAddress = combined.po.EmailAddress,
+                    PhoneNum = combined.po.PhoneNum,
+                    ProductSerialNumber = combined.po.ProductSerialNumber,
+                    ExpirationDate = combined.wd.ExpirationDate.ToString("yyyy-MM-dd"),
+                    WarrantyStatus = combined.wd.WarrantyStatus,
+                    ProductModel = pd.ProductModel,
+                    ProductBrand = pd.ProductBrand,
+                    ProductColor = pd.ProductColor,
+                    ProductImageUrl = pd.ProductImageUrl,
+                    ProductPrice = pd.ProductPrice,
+                }
+            )
+            .FirstOrDefaultAsync();
+
+            if (productOwnerDetails == null)
+            {
+                return NotFound();
+            }
+
+            var getFullProductDescDto = new GetFullProductDescDto
+            {
+                ProductOwnerId = productOwnerDetails.ProductOwnerId,
+                OwnerFirstName = productOwnerDetails.OwnerFirstName,
+                OwnerLastName = productOwnerDetails.OwnerLastName,
+                EmailAddress = productOwnerDetails.EmailAddress,
+                PhoneNum = productOwnerDetails.PhoneNum,
+                ProductSerialNumber = productOwnerDetails.ProductSerialNumber,
+                ExpirationDate = productOwnerDetails.ExpirationDate,
+                WarrantyStatus = productOwnerDetails.WarrantyStatus,
+                ProductModel = productOwnerDetails.ProductModel,
+                ProductBrand = productOwnerDetails.ProductBrand,
+                ProductColor = productOwnerDetails.ProductColor,
+                ProductImageUrl = productOwnerDetails.ProductImageUrl,
+                ProductPrice = productOwnerDetails.ProductPrice,
+            };
+
+            //return await _context.ProductOwners.ToListAsync();
+            return Ok(getFullProductDescDto);
         }
 
         // GET: api/ProductOwners/5
@@ -41,29 +96,168 @@ namespace DripCheckAPI.Controllers
           {
               return NotFound();
           }
-            var productOwner = await _context.ProductOwners.FindAsync(id);
+            var productOwnerDetails = await _context.ProductOwners
+                .Where(po => po.ProductOwnerId == id)
+                .Join(
+                  _context.WarrantyDetails,
+                  po => po.WarrantyDetailId,
+                  wd => wd.WarrantyDetailId,
+                  (po, wd) => new { po, wd }
+                  )
+              .Join(
+                  _context.ProductDetails,
+                  combined => combined.po.ProductDetailId,
+                  pd => pd.ProductDetailId,
+                  (combined, pd) => new GetFullProductDescDto
+                  {
+                      ProductOwnerId = combined.po.ProductOwnerId,
+                      OwnerFirstName = combined.po.OwnerFirstName,
+                      OwnerLastName = combined.po.OwnerLastName,
+                      EmailAddress = combined.po.EmailAddress,
+                      PhoneNum = combined.po.PhoneNum,
+                      ProductSerialNumber = combined.po.ProductSerialNumber,
+                      ExpirationDate = combined.wd.ExpirationDate.ToString("yyyy-MM-dd"),
+                      WarrantyStatus = combined.wd.WarrantyStatus,
+                      ProductModel = pd.ProductModel,
+                      ProductBrand = pd.ProductBrand,
+                      ProductColor = pd.ProductColor,
+                      ProductImageUrl = pd.ProductImageUrl,
+                      ProductPrice = pd.ProductPrice,
+                  }
+              )
+              .FirstOrDefaultAsync();
 
-            if (productOwner == null)
+            if (productOwnerDetails == null)
             {
                 return NotFound();
             }
 
-            return productOwner;
+            var getFullProductDescDto = new GetFullProductDescDto
+            {
+                ProductOwnerId = productOwnerDetails.ProductOwnerId,
+                OwnerFirstName = productOwnerDetails.OwnerFirstName,
+                OwnerLastName = productOwnerDetails.OwnerLastName,
+                EmailAddress = productOwnerDetails.EmailAddress,
+                PhoneNum = productOwnerDetails.PhoneNum,
+                ProductSerialNumber = productOwnerDetails.ProductSerialNumber,
+                ExpirationDate = productOwnerDetails.ExpirationDate,
+                WarrantyStatus = productOwnerDetails.WarrantyStatus,
+                ProductModel = productOwnerDetails.ProductModel,
+                ProductBrand = productOwnerDetails.ProductBrand,
+                ProductColor = productOwnerDetails.ProductColor,
+                ProductImageUrl = productOwnerDetails.ProductImageUrl,
+                ProductPrice = productOwnerDetails.ProductPrice,
+            };
+
+
+            //return productOwner;
+            return Ok(getFullProductDescDto);
         }
 
-        // GET: api/ProductDetails/SerialNumber/{serialNumber}
+        // GET: api/ProductOwners/SerialNumber/{serialNumber}
         [HttpGet("SerialNumber/{serialNumber}")]
-        public async Task<ActionResult<ProductOwner>> GetBySerialNumber(string serialNumber)
+        public async Task<ActionResult<int>> GetBySerialNumber(string serialNumber)
         {
-            var productOwner = await _context.ProductOwners.FirstOrDefaultAsync(s => s.ProductSerialNumber == serialNumber);
-            if (productOwner == null)
+
+            var productOwnerDetails = await _context.ProductOwners
+                .Where(po => po.ProductSerialNumber == serialNumber)
+                .Join(
+                    _context.WarrantyDetails,
+                    po => po.WarrantyDetailId,
+                    wd => wd.WarrantyDetailId,
+                    (po, wd) => new { po, wd }
+                    )
+                .Join(
+                    _context.ProductDetails,
+                    combined => combined.po.ProductDetailId,
+                    pd => pd.ProductDetailId,
+                    (combined, pd) => new GetFullProductDescDto
+                    {
+                        ProductOwnerId = combined.po.ProductOwnerId,
+                        OwnerFirstName = combined.po.OwnerFirstName,
+                        OwnerLastName = combined.po.OwnerLastName,
+                        EmailAddress = combined.po.EmailAddress,
+                        PhoneNum = combined.po.PhoneNum,
+                        ProductSerialNumber = combined.po.ProductSerialNumber,
+                        ExpirationDate = combined.wd.ExpirationDate.ToString("yyyy-MM-dd"),
+                        WarrantyStatus = combined.wd.WarrantyStatus,
+                        ProductModel = pd.ProductModel,
+                        ProductBrand = pd.ProductBrand,
+                        ProductColor = pd.ProductColor,
+                        ProductImageUrl = pd.ProductImageUrl,
+                        ProductPrice = pd.ProductPrice,
+                    }
+                )
+                .FirstOrDefaultAsync();
+
+            if (productOwnerDetails == null)
             {
                 return NotFound();
             }
 
-            return productOwner;
+            var getFullProductDescDto = new GetFullProductDescDto
+            {
+                ProductOwnerId = productOwnerDetails.ProductOwnerId,
+                OwnerFirstName = productOwnerDetails.OwnerFirstName,
+                OwnerLastName = productOwnerDetails.OwnerLastName,
+                EmailAddress = productOwnerDetails.EmailAddress,
+                PhoneNum = productOwnerDetails.PhoneNum,
+                ProductSerialNumber = productOwnerDetails.ProductSerialNumber,
+                ExpirationDate = productOwnerDetails.ExpirationDate,
+                WarrantyStatus = productOwnerDetails.WarrantyStatus,
+                ProductModel = productOwnerDetails.ProductModel,
+                ProductBrand = productOwnerDetails.ProductBrand,
+                ProductColor = productOwnerDetails.ProductColor,
+                ProductImageUrl = productOwnerDetails.ProductImageUrl,
+                ProductPrice = productOwnerDetails.ProductPrice,
+            };
+
+
+            //return Ok(getFullProductDescDto);
+            return getFullProductDescDto.ProductOwnerId;
 
         }
+
+        // GET: api/ProductDetails/Warranty
+        [HttpGet("Warranty")]
+        public async Task<ActionResult<ProductOwner>> GetDetailsOfWarranty()
+        {
+            if (_context.ProductOwners == null)
+            {
+                return NotFound();
+            }
+
+            var productOwners = await _context.ProductOwners
+            .Join(
+                _context.WarrantyDetails,
+                po => po.WarrantyDetailId,
+                wd => wd.WarrantyDetailId,
+                (po, wd) => new
+                {
+                    po.ProductOwnerId,
+                    po.OwnerFirstName,
+                    po.OwnerLastName,
+                    po.ProductSerialNumber,
+                    wd.ExpirationDate,
+                    wd.WarrantyStatus,
+                    wd.WarrantyDetailId
+                })
+            .ToListAsync();
+
+            var productOwnersDto = productOwners.Select(po => new GetWarrantyDetailDto
+            {
+                ProductOwnerId = po.ProductOwnerId,
+                OwnerFirstName = po.OwnerFirstName,
+                OwnerLastName = po.OwnerLastName,
+                ProductSerialNumber = po.ProductSerialNumber,
+                ExpirationDate = po.ExpirationDate.ToString("yyyy-MM-dd"),  // Format date here
+                WarrantyStatus = po.WarrantyStatus,
+                WarrantyDetailId = po.WarrantyDetailId
+            }).ToList();
+
+            return Ok(productOwnersDto);
+        }
+
 
         // PUT: api/ProductOwners/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -96,54 +290,126 @@ namespace DripCheckAPI.Controllers
             return Ok(await _context.ProductOwners.ToListAsync());
         }
 
-        // POST: api/ProductOwners
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<ProductOwner>> PostProductOwner(ProductOwner productOwner)
-        {
-          if (_context.ProductOwners == null)
-          {
-              return Problem("Entity set 'ApplicationDbContext.ProductOwners'  is null.");
-          }
+        //// POST: api/ProductOwners
+        //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        //[HttpPost]
+        //public async Task<ActionResult<ProductOwner>> PostProductOwner(ProductOwner productOwner)
+        //{
+        //  if (_context.ProductOwners == null)
+        //  {
+        //      return Problem("Entity set 'ApplicationDbContext.ProductOwners'  is null.");
+        //  }
 
-            // Configure warranty expiration date and status
+        //    // Configure warranty expiration date and status
+        //    var warrantyDetail = new WarrantyDetail
+        //    {
+        //        ExpirationDate = DateTime.Now.AddYears(2).Date,
+        //        WarrantyStatus = "Active",
+        //    };
+
+
+        //    productOwner.ProductSerialNumber = await GenerateUniqueSerialNumberAsync();
+
+        //    // Query ProductDetail
+        //    var productDetail = await _context.ProductDetails.FirstOrDefaultAsync(pd => pd.ProductDetailId == productOwner.ProductDetailId);
+
+        //    if (productDetail == null) { 
+        //        return BadRequest();
+        //    }
+
+
+        //    var newProductOwner = new ProductOwner
+        //    {
+        //        OwnerFirstName = productOwner.OwnerFirstName,
+        //        OwnerLastName = productOwner.OwnerLastName,
+        //        EmailAddress = productOwner.EmailAddress,
+        //        PhoneNum = productOwner.PhoneNum,
+        //        ProductSerialNumber = productOwner.ProductSerialNumber,
+        //        ProductDetailId = productOwner.ProductDetailId,
+        //        ProductDetail = productDetail,
+        //        WarrantyDetail = warrantyDetail
+        //    };
+
+        //    // Setting the reverse navigation property
+        //    warrantyDetail.ProductOwner = newProductOwner;
+        //    productDetail.ProductOwners.Add(newProductOwner);
+
+        //    _context.ProductOwners.Add(newProductOwner);
+        //    await _context.SaveChangesAsync();
+
+        //    return Ok(await _context.ProductOwners.ToListAsync());
+        //}
+
+        // POST
+        [HttpPost]
+        public async Task<ActionResult<int>> PostProductOwner(CreateProductOwnerDto createProductOwnerDto)
+        {
+            if (_context.ProductOwners == null) 
+            {
+                return Problem("Entity set 'ApplicationDbContext.ProductOwners'  is null.");
+            }
+
+            // Create a new WarrantyDetail instance
             var warrantyDetail = new WarrantyDetail
             {
                 ExpirationDate = DateTime.Now.AddYears(2).Date,
-                WarrantyStatus = "Active",
+                WarrantyStatus = "Active"
             };
 
+            // Add the WarrantyDetail entity to the context
+            _context.WarrantyDetails.Add(warrantyDetail);
 
-            productOwner.ProductSerialNumber = await GenerateUniqueSerialNumberAsync();
-            
-            // Query ProductDetail
-            var productDetail = await _context.ProductDetails.FirstOrDefaultAsync(pd => pd.ProductDetailId == productOwner.ProductDetailId);
+            // Save changes to the database
+            await _context.SaveChangesAsync();
 
-            if (productDetail == null) { 
-                return BadRequest();
-            }
-            
-            
-            var newProductOwner = new ProductOwner
+            // Create a new ProductOwner instance
+            var productOwner = new ProductOwner()
             {
+                OwnerFirstName = createProductOwnerDto.OwnerFirstName,
+                OwnerLastName = createProductOwnerDto.OwnerLastName,
+                EmailAddress = createProductOwnerDto.EmailAddress,
+                PhoneNum    = createProductOwnerDto.PhoneNum,
+                ProductDetailId = createProductOwnerDto.ProductDetailId,
+                ProductSerialNumber = await GenerateUniqueSerialNumberAsync(),
+                WarrantyDetailId = warrantyDetail.WarrantyDetailId,
+            };
+
+            // Add the ProductOwner entity to the context
+            _context.ProductOwners.Add(productOwner);
+
+            // Save changes to the database
+            await _context.SaveChangesAsync();
+
+            // Create DTO for the newly created entities
+            var productOwnerDto = new ProductOwnerDto
+            {
+                ProductOwnerId = productOwner.ProductOwnerId,
                 OwnerFirstName = productOwner.OwnerFirstName,
                 OwnerLastName = productOwner.OwnerLastName,
                 EmailAddress = productOwner.EmailAddress,
                 PhoneNum = productOwner.PhoneNum,
                 ProductSerialNumber = productOwner.ProductSerialNumber,
                 ProductDetailId = productOwner.ProductDetailId,
-                ProductDetail = productDetail,
-                WarrantyDetail = warrantyDetail
+                WarrantyDetailId = productOwner.WarrantyDetailId,
             };
 
-            // Setting the reverse navigation property
-            warrantyDetail.ProductOwner = newProductOwner;
-            productDetail.ProductOwners.Add(newProductOwner);
+            var warrantyDetailDto = new WarrantyDetailDto
+            {
+                WarrantyDetailId = warrantyDetail.WarrantyDetailId,
+                ExpirationDate = warrantyDetail.ExpirationDate,
+                WarrantyStatus = warrantyDetail.WarrantyStatus
+            };
 
-            _context.ProductOwners.Add(newProductOwner);
-            await _context.SaveChangesAsync();
 
-            return Ok(await _context.ProductOwners.ToListAsync());
+            //return CreatedAtAction(nameof())
+            //return CreatedAtAction("GetProductOwner", new { id = productOwnerDto.ProductDetailId }, new
+            //{
+            //    ProductOwner = productOwnerDto,
+            //    WarrantyDetail = warrantyDetailDto
+            //});
+
+            return productOwnerDto.ProductOwnerId;
+
         }
 
         // DELETE: api/ProductOwners/5

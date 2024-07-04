@@ -1,11 +1,10 @@
 export class WarrantyDetail {
-    warrantyDetailId: number = 0
-    // ownerFirstName: string = ""
-    // ownerLastName: string = ""
-    // emailAddress: string = ""
-    // phoneNum: string = ""
+    productOwnerId!: number
+    ownerFirstName: string = ""
+    ownerLastName: string = ""
+    productSerialNumber: string = ""
     expirationDate: string = ""
     warrantyStatus: string = ""
-    productOwner: string | undefined;
+    warrantyDetailId!: number
 }
 
