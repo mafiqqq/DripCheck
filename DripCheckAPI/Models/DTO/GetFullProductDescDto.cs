@@ -18,5 +18,6 @@ namespace DripCheckAPI.Models.DTO
         public decimal ProductPrice { get; set; }
         public string ExpirationDate { get; set; } = "";
         public string WarrantyStatus { get; set; } = "";
+        public int WarrantyDetailId { get; set; }
     }
 }

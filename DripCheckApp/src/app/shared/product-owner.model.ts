@@ -15,5 +15,6 @@ export class ProductOwner {
     warrantyStatus: string = "";
     expirationDate: string = "";
     productDetailId: number = 0;
+    warrantyDetailId: number = 0;
 }
 

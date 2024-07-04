@@ -45,7 +45,6 @@ export class ProductOwnerService {
     return this.http.get(this.url + '/' + id)
     .subscribe({
       next: res => {
-        // console.log(res)
         this.productOwner = res as ProductOwner
       },
       error: err => {

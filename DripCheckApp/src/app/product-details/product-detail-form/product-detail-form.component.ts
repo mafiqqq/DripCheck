@@ -25,7 +25,7 @@ export class ProductDetailFormComponent {
   }
 
   onSubmit(form:NgForm) {
-    this.service.addProductDetail(this.imageUrl)
+    this.service.addProductDetail(this.imageUrl) 
     .subscribe({
       next: res => {
         console.log(res)

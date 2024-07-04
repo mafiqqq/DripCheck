@@ -11,29 +11,13 @@ import { ProductOwner } from './product-owner.model';
 export class WarrantyDetailService {
 
   url:string = environment.apiBaseUrl+'/WarrantyDetails'
-  // list: WarrantyDetail[] = []
-  // warrantyList: [] = []
   formData: WarrantyDetail = new WarrantyDetail ()
   formSubmitted: boolean = false
   constructor(private http: HttpClient) { }
 
-  // refreshList(){
-  //   this.http.get(this.url)
-  //   .subscribe({
-  //     next: res=> {
-  //       this.list = res as WarrantyDetail[]
-  //     },
-  //     error: err=> {console.log(err)}
-  //   })
-  // }
-
   postWarrantyDetail() {
     return this.http.post(this.url, this.formData)
   }
-
-  // putWarrantyDetail() {
-  //   return this.http.put(this.url + '/' + this.formData.warrantyDetailId, this.formData)
-  // }
 
   deleteWarrantyDetail(id:number) {
     return this.http.delete(this.url + '/' + id)

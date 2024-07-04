@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductOwner } from '../shared/product-owner.model';
 import { SafeUrl, SafeValue } from '@angular/platform-browser';
 import { FixMeLater } from 'angularx-qrcode';
+import { WarrantyDetailService } from '../shared/warranty-detail.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-view',
@@ -20,17 +22,31 @@ export class ProductViewComponent implements OnInit {
   angxUrlDl!: SafeUrl;
   constructor(
     public service: ProductOwnerService,
-    private route: ActivatedRoute) {
+    public serviceWarranty: WarrantyDetailService,
+    private route: ActivatedRoute,
+    private toastr:ToastrService) {
 
   }
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id') || '';
-    this.angxUrl = "http://localhost:4200/view-product/" + this.id;
-    this.angxUrlDl = this.angxUrl
-    console.log(this.angxUrlDl)
-    console.log(this.id + 'owner id');
+    // this.angxUrl = "http://localhost:4200/view-product/" + this.id;
+    // this.angxUrlDl = this.angxUrl
     this.refreshList();
+  }
+
+  extendWarranty(id: number) {
+    this.serviceWarranty.extendWarrantyDetail(id)
+    .subscribe({
+      next: res => {
+        console.log(res)
+        this.refreshList()
+        this.toastr.success('Updated successfully', 'Warranty Update')
+      },
+      error: err => {
+        console.log(err)
+      }
+    })
   }
 
   refreshList() {
@@ -49,8 +65,6 @@ export class ProductViewComponent implements OnInit {
     parentElement = parent.qrcElement.nativeElement
     .querySelector("canvas")
     .toDataURL("image/png")
-
-    // console.log(parentElement)
 
     if (parentElement) {
       // converts base 64 encoded image to blobData

@@ -33,13 +33,10 @@ export class SerialDetailFormComponent {
   onSubmit(form:NgForm) {
     this.serviceOwner.validSerial = false;
     this.serviceOwner.invalidSerial = null;
-    // console.log(this.serialNumber)
     this.serviceOwner.checkSerialNumber()
     .subscribe({
       next: res => {
         this.serviceOwner.validSerial = true
-        console.log(this.serviceOwner.validSerial+'cc')
-        console.log(res)
         this.checkRedirect(res);
       },
       error: err => {
@@ -55,7 +52,6 @@ export class SerialDetailFormComponent {
     if (this.serviceOwner.validSerial == false) {
       this.openModal();
     } else {
-      console.log("ya");  
       this.router.navigate(['view-product/' + res])
     }
   }

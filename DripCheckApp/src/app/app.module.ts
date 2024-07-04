@@ -3,13 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { WarrantyDetailsComponent } from './warranty-details/warranty-details.component';
-import { WarrantyDetailFormComponent } from './warranty-details/warranty-detail-form/warranty-detail-form.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ToastrModule } from 'ngx-toastr';
-import { SerialDetailsComponent } from './serial-details/serial-details.component';
 import { SerialDetailFormComponent } from './serial-details/serial-detail-form/serial-detail-form.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -27,8 +25,6 @@ import { QRCodeModule } from 'angularx-qrcode';
   declarations: [
     AppComponent,
     WarrantyDetailsComponent,
-    WarrantyDetailFormComponent,
-    SerialDetailsComponent,
     SerialDetailFormComponent,
     HeaderComponent,
     FooterComponent,
