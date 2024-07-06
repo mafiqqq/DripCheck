@@ -6,6 +6,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DripCheckAPI.Models;
+using System.Drawing.Printing;
+using System.Security.Cryptography;
+using System.Text;
+using DripCheckAPI.Models.DTO;
+
 
 namespace DripCheckAPI.Controllers
 {
@@ -80,19 +85,29 @@ namespace DripCheckAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Logins
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // POST:
         [HttpPost]
-        public async Task<ActionResult<Login>> PostLogin(Login login)
-        {
-          if (_context.Logins == null)
-          {
-              return Problem("Entity set 'ApplicationDbContext.Logins'  is null.");
-          }
-            _context.Logins.Add(login);
-            await _context.SaveChangesAsync();
+        public async Task<IActionResult> Login(LoginDto loginDto)
+        { 
+            var existingUser = await _context.Logins.FirstOrDefaultAsync(u => u.Username == loginDto.Username);
+            
+            if (existingUser == null  || !VerifyPassword(loginDto.PasswordHash, existingUser.PasswordHash)) 
+            {
+                return Unauthorized("Invalid username or password");
+            }
 
-            return CreatedAtAction("GetLogin", new { id = login.Id }, login);
+            return Ok(existingUser);
+
+        }
+
+        private bool VerifyPassword(string enteredPassword, string storedHash)
+        {
+            using (var sha256 = SHA256.Create())
+            { 
+                var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(enteredPassword));
+                var enteredHash = Encoding.UTF8.GetString(hashedBytes);
+                return enteredHash == storedHash;
+            }
         }
 
         // DELETE: api/Logins/5

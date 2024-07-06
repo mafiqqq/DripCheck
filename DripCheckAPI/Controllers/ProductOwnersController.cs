@@ -351,7 +351,7 @@ namespace DripCheckAPI.Controllers
                 return Problem("Entity set 'ApplicationDbContext.ProductOwners'  is null.");
             }
 
-            // Create a new WarrantyDetail instance
+            // Create a new WarrantyDetail instance - Because we create a new warranty automatically user buy
             var warrantyDetail = new WarrantyDetail
             {
                 ExpirationDate = DateTime.Now.AddYears(2).Date,
@@ -382,7 +382,7 @@ namespace DripCheckAPI.Controllers
             // Save changes to the database
             await _context.SaveChangesAsync();
 
-            // Create DTO for the newly created entities
+            // Create DTO for the newly created entities - so we can define what exactly we want to return to response 
             var productOwnerDto = new ProductOwnerDto
             {
                 ProductOwnerId = productOwner.ProductOwnerId,
@@ -403,13 +403,7 @@ namespace DripCheckAPI.Controllers
             };
 
 
-            //return CreatedAtAction(nameof())
-            //return CreatedAtAction("GetProductOwner", new { id = productOwnerDto.ProductDetailId }, new
-            //{
-            //    ProductOwner = productOwnerDto,
-            //    WarrantyDetail = warrantyDetailDto
-            //});
-
+            // but we decided to only return ID sbb we using router-navigate at Frontend to navigate to view-product/$id page tu
             return productOwnerDto.ProductOwnerId;
 
         }

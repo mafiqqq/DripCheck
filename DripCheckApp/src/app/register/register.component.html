@@ -102,26 +102,24 @@
                 <div>
                     <h2 class="mb-3 fw-light">Get Register For Free</h2>
                     <h6 class="subtitle fw-normal">Register now to Check your mobile</h6>
-                    <form class="mt-3">
+                    <form class="mt-3" #form="ngForm" (submit)="onSubmit(form)">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="mb-3">
-                                    <input class="form-control" type="text" placeholder="Username">
+                                    <input class="form-control" type="text" placeholder="Username"
+                                    #username="ngModel" name="username" [(ngModel)]="service.formData.username" required>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="mb-3">
-                                    <input class="form-control" type="email" placeholder="Email address">
+                                    <input class="form-control" type="email" placeholder="Email address"
+                                    #email="ngModel" name="email" [(ngModel)]="service.formData.email" required>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
+                            <div class="col-lg-12">
                                 <div class="mb-3">
-                                    <input class="form-control" type="password" placeholder="Password">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="mb-3">
-                                    <input class="form-control" type="password" placeholder="Confirm password">
+                                    <input class="form-control" type="password" placeholder="Password"
+                                    #passwordHash="ngModel" name="passwordHash" [(ngModel)]="service.formData.passwordHash" required>
                                 </div>
                             </div>
                             <div class="col-lg-12">
