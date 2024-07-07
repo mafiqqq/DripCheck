@@ -5,6 +5,8 @@ export class ProductDetail {
         productModel: string = ""
         productBrand: string = ""
         productColor: string = ""
-        productImageUrl: string = ""
+        productImageUrl1: string = ""
+        productImageUrl2: string = ""
+        productImageUrl3: string = ""
         productPrice!: number
 }

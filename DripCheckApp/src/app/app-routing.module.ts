@@ -8,14 +8,17 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ProductViewComponent } from './product-view/product-view.component';
 import { SerialDetailFormComponent } from './serial-details/serial-detail-form/serial-detail-form.component';
+import { authGuard } from './guards/auth.guard';
+import { ProductViewSingleComponent } from './product-view-single/product-view-single.component';
 
 const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
     {path: 'home', component: HomeComponent},
-    {path: 'warranty', component: WarrantyDetailsComponent},
+    {path: 'warranty', component: WarrantyDetailsComponent, canActivate: [authGuard]},
     {path: 'serial', component: SerialDetailFormComponent},
-    {path: 'register-product', component: ProductDetailFormComponent},
+    {path: 'register-product', component: ProductDetailFormComponent, canActivate: [authGuard]},
     {path: 'all-products', component: ProductDetailsComponent},
+    {path: 'view-product-single', component: ProductViewSingleComponent},
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'view-product/:id', component: ProductViewComponent}

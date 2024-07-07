@@ -20,6 +20,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ProductViewComponent } from './product-view/product-view.component';
 import { QRCodeModule } from 'angularx-qrcode';
+import { ProductViewSingleComponent } from './product-view-single/product-view-single.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     ProductDetailFormComponent,
     LoginComponent,
     RegisterComponent,
-    ProductViewComponent
+    ProductViewComponent,
+    ProductViewSingleComponent
   ],
   imports: [
     BrowserModule,

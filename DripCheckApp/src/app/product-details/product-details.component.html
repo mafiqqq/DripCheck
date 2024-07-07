@@ -160,14 +160,14 @@
         <div class="col-5 mb-4" style="flex: 0 0 auto; width: 20%;"  *ngFor="let pd of detailService.productList">
         <div class="card mx-auto">
             <img class='mx-auto img-thumbnail'
-                [src]="pd.productImageUrl"
+                [src]="pd.productImageUrl1"
                 alt="{{pd.productModel}}"
                 style="width: 100%; height: auto;">
             <div class="card-body text-center mx-auto">
             <div class='cvp'>
                 <h5 class="card-title font-weight-bold">{{pd.productModel}}</h5>
                 <p class="card-text">RM {{pd.productPrice}}</p>
-                <a href="#" class="btn details px-auto">View Details</a><br />
+                <a class="btn details px-auto" (click)="openViewDetails()">View Details</a><br />
                 <a class="btn cart px-auto" (click)="openModal(); selectProductDetailId(pd.productDetailId) ">Buy Now</a>
             </div>
             </div>
@@ -176,6 +176,7 @@
     </div>
 </div>
 
+<!-- Modal Buy Now -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" #exampleModal>
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -234,5 +235,11 @@
     </div>
   </div>
   
+<!-- Modal view details
+<div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true" #viewModal>
+    
+  </div> -->
+
+
 
 <app-footer />

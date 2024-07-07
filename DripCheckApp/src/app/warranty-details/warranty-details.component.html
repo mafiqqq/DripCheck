@@ -9,7 +9,7 @@
 }
 
 .card {
-    max-width: 61%;
+    max-width: 71%;
     min-height: 400px;
     margin: auto;
     padding: 24px;
@@ -217,36 +217,80 @@ td.id {
 </div>
 <div class="bg-custom">
     <div class="card">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <a class="nav-link active" id="warranty-tab" data-bs-toggle="tab" href="#warranty" role="tab" aria-controls="warranty" aria-selected="true">Active Warranty</a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" id="another-tab" data-bs-toggle="tab" href="#request" role="tab" aria-controls="another" aria-selected="false">Requested Warranty</a>
+            </li>
+          </ul>
         <div class="card-body">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col" class="username">Username</th>
-                        <th scope="col" class="designation">Expiration Date</th>
-                        <th scope="col" class="imei">IMEI Serial Number</th>
-                        <th scope="col" class="status">Status</th>
-                        <th scope="col" class="action">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr style="height:70px" *ngFor="let wd of serviceOwner.warrantyList">
-                        <td class="username">
-                                {{wd.ownerFirstName}} {{wd.ownerLastName}} 
-                        </td>
-                        <td class="designation">{{wd.expirationDate}}</td>
-                        <td class="imei">{{wd.productSerialNumber}}</td>
-                        <td class="status">
-                            <button class="btn btn status-button bu">{{wd.warrantyStatus}}</button>
-                        </td>
-                        <td class="action">
-                            <div class="btn-group" role="group" aria-label="Action buttons">
-                                <button class="btn btn status-button btnaction" type="button" (click)="extendWarranty(wd.warrantyDetailId)">Extend</button>
-                            <button class="btn btn status-button btnaction" type="button" (click)="viewDetails(wd.productOwnerId)">View Details</button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="warranty" role="tabpanel" aria-labelledby="warranty-tab">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="username">Username</th>
+                                <th scope="col" class="designation">Expiration Date</th>
+                                <th scope="col" class="imei">IMEI Serial Number</th>
+                                <th scope="col" class="status">Status</th>
+                                <th scope="col" class="action">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="height:70px" *ngFor="let wd of serviceOwner.warrantyList">
+                                <td class="username">
+                                        {{wd.ownerFirstName}} {{wd.ownerLastName}} 
+                                </td>
+                                <td class="designation">{{wd.expirationDate}}</td>
+                                <td class="imei">{{wd.productSerialNumber}}</td>
+                                <td class="status">
+                                    <button class="btn btn status-button bu">{{wd.warrantyStatus}}</button>
+                                </td>
+                                <td class="action">
+                                    <div class="btn-group" role="group" aria-label="Action buttons">
+                                        <button class="btn btn status-button btnaction" type="button" (click)="extendWarranty(wd.warrantyDetailId)">Extend</button>
+                                    <button class="btn btn status-button btnaction" type="button" (click)="viewDetails(wd.productOwnerId)">View Details</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+            </div>
+            <div class="tab-pane fade" id="request" role="tabpanel" aria-labelledby="another-tab">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="username">Username</th>
+                            <th scope="col" class="designation">Expiration Date</th>
+                            <th scope="col" class="imei">IMEI Serial Number</th>
+                            <th scope="col" class="status">Status</th>
+                            <th scope="col" class="action">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="height:70px" *ngFor="let wd of serviceOwner.warrantyList">
+                            <td class="username">
+                                    {{wd.ownerFirstName}} {{wd.ownerLastName}} 
+                            </td>
+                            <td class="designation">{{wd.expirationDate}}</td>
+                            <td class="imei">{{wd.productSerialNumber}}</td>
+                            <td class="status">
+                                <button class="btn btn status-button bu">{{wd.warrantyStatus}}</button>
+                            </td>
+                            <td class="action">
+                                <div class="btn-group" role="group" aria-label="Action buttons">
+                                    <button class="btn btn status-button btnaction" type="button" (click)="extendWarranty(wd.warrantyDetailId)">Extend</button>
+                                <button class="btn btn status-button btnaction" type="button" (click)="viewDetails(wd.productOwnerId)">View Details</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
         </div>
     </div>
 </div>

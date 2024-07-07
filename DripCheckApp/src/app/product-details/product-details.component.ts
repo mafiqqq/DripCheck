@@ -18,6 +18,7 @@ declare var $: any;
 export class ProductDetailsComponent implements OnInit {
 
   @ViewChild('exampleModal') exampleModal!: ElementRef;
+  @ViewChild('viewModal') viewModal!: ElementRef;
   selectedProductDetailId: number = 0;
 
   constructor(
@@ -35,6 +36,11 @@ export class ProductDetailsComponent implements OnInit {
 
   openModal() {
     const modal = new bootstrap.Modal(this.exampleModal.nativeElement);
+    modal.show();
+  }
+
+  openViewDetails() {
+    const modal = new bootstrap.Modal(this.viewModal.nativeElement)
     modal.show();
   }
 

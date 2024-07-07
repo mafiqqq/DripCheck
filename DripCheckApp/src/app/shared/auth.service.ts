@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { Auth } from './auth.model';
 
@@ -12,6 +12,7 @@ export class AuthService {
   
   url: string = environment.apiBaseUrl;
   formData: Auth = new Auth ()
+  loginCred: Auth = new Auth()
 
   constructor(private http: HttpClient) { }
 
@@ -20,6 +21,18 @@ export class AuthService {
   }
 
   login() {
-    return this.http.post(this.url+'/logins', this.formData);
+    return this.http.post(this.url+'/logins', this.formData)
+  }
+
+  setUser(userName: string) {
+    localStorage.setItem('currentUser', userName);
+  }
+
+  getUser(): string | null {
+    return localStorage.getItem('currentUser');
+  }
+
+  logout(): void {
+    localStorage.removeItem('currentUser');
   }
 }

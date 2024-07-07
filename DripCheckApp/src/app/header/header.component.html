@@ -28,7 +28,7 @@
 
     <div class=" collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav mx-auto ">
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="user === 'admin'" >
           <a class="nav-link mx-2" aria-current="page" routerLink="/register-product">Register Product</a>
         </li>
         <li class="nav-item">
@@ -39,13 +39,13 @@
             <img src="assets/images/DripCheckLogoWhite.png" height="80" />
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="user === 'admin'">
           <a class="nav-link mx-2" routerLink="/warranty">Warranty</a>
         </li>
         <li class="nav-item">
           <a class="nav-link mx-2" routerLink="/serial">Check IMEI</a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" *ngIf="!user">
           <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Login
           </a>
@@ -53,6 +53,9 @@
             <li><a class="dropdown-item" routerLink="/login" >Login</a></li>
             <li><a class="dropdown-item" routerLink="/register">Register</a></li>
           </ul>
+        </li>
+        <li class="nav-item" *ngIf="user">
+          <a class="nav-link mx-2" routerLink="/" (click)="logout()">Logout</a>
         </li>
       </ul>
     </div>

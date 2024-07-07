@@ -16,7 +16,7 @@ export class ProductDetailService {
   constructor(private http: HttpClient) { }
 
   addProductDetail(imageUrl: string) {
-    this.formData.productImageUrl = imageUrl;
+    this.formData.productImageUrl1 = imageUrl;
     console.log(this.formData)
     return this.http.post(this.url, this.formData)
   }
