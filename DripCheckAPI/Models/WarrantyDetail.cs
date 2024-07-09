@@ -11,6 +11,7 @@ namespace DripCheckAPI.Models
         [DisplayFormat(DataFormatString = "{0:dd:MM:yyyy}", ApplyFormatInEditMode = true)]
         public DateTime ExpirationDate { get; set; }
         public string WarrantyStatus { get; set; } = "";
+        public int ReqDuration { get; set; } = 0;
         [ValidateNever]
         public ProductOwner? ProductOwner { get; set; }
 

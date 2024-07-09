@@ -210,6 +210,7 @@ td.id {
 .dropdown-item i {
     cursor: pointer !important;
 }
+
 </style>
 <app-header />
 <div class="text-center py-5 rounded-2" style="background-image: url('assets/images/BackgroundImg.jpg');">
@@ -250,7 +251,8 @@ td.id {
                                 </td>
                                 <td class="action">
                                     <div class="btn-group" role="group" aria-label="Action buttons">
-                                        <button class="btn btn status-button btnaction" type="button" (click)="extendWarranty(wd.warrantyDetailId)">Extend</button>
+                                        <!-- <button class="btn btn status-button btnaction" type="button" (click)="extendWarranty(wd.warrantyDetailId)">Extend</button> -->
+                                        <button class="btn btn status-button btnaction" type="button" (click)="openExtendedWarrantyModel(wd.warrantyDetailId)">Extend</button>
                                     <button class="btn btn status-button btnaction" type="button" (click)="viewDetails(wd.productOwnerId)">View Details</button>
                                     </div>
                                 </td>
@@ -259,6 +261,7 @@ td.id {
                     </table>
                     </div>
             </div>
+            <!-- Requested warranty -->
             <div class="tab-pane fade" id="request" role="tabpanel" aria-labelledby="another-tab">
                 <table class="table">
                     <thead>
@@ -271,7 +274,7 @@ td.id {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr style="height:70px" *ngFor="let wd of serviceOwner.warrantyList">
+                        <tr style="height:70px" *ngFor="let wd of serviceOwner.requestedWarrantyList">
                             <td class="username">
                                     {{wd.ownerFirstName}} {{wd.ownerLastName}} 
                             </td>
@@ -282,16 +285,98 @@ td.id {
                             </td>
                             <td class="action">
                                 <div class="btn-group" role="group" aria-label="Action buttons">
-                                    <button class="btn btn status-button btnaction" type="button" (click)="extendWarranty(wd.warrantyDetailId)">Extend</button>
+                                    <!-- <button class="btn btn status-button btnaction" type="button" (click)="extendWarranty(wd.warrantyDetailId)">Extend</button> -->
+                                    <button class="btn btn status-button btnaction" type="button" (click)="openExtendedWarrantyModel(wd.warrantyDetailId)">Extend</button>
                                 <button class="btn btn status-button btnaction" type="button" (click)="viewDetails(wd.productOwnerId)">View Details</button>
                                 </div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+
+                <!-- Modal Content
+                <div class="modal-content" id="warrantyModal" tabindex="-1" aria-labelledby="warrantyModalLabel" aria-hidden="true" #warrantyModal>
+                    <div class="modal-header">
+                    <h5 class="modal-title">Extend Warranty</h5>
+                    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                    <p>Select Warranty Duration:</p>
+                    <select class="form-control" [(ngModel)]="selectedDuration">
+                        <option value="2">2 years</option>
+                        <option value="3">3 years</option>
+                        <option value="5">5 years</option>
+                    </select>
+                    <p>Are you sure you want to extend the warranty?</p>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="closeModal()">No</button>
+                    <button type="button" class="btn btn-primary" (click)="extendWarranty()">Yes</button>
+                    </div>
+                </div> -->
+
+                
+  
             </div>
             
         </div>
     </div>
+    <!-- Modal -->
+    <!-- <div class="modal fade" id="warrantyModal" tabindex="-1" aria-labelledby="warrantyModalLabel" aria-hidden="true" #warrantyModal>
+        <div class="modal-dialog" role="document">
+            <div class="card">
+                <div class="text-right cross"> <i class="fa fa-times"></i> </div>
+                <div class="card-body text-center"> <img src="assets/images/BadError.jpg" style="max-width: 40%; max-height: 30%;">
+                    <h4>Error - Invalid IMEI</h4>
+                    <p>Your IMEI is invalid. Please check and try again</p> <button class="btn btn-out btn-square continue">CONTINUE</button>
+                </div>
+                <div class="modal-body">
+                    <p>Select Warranty Duration:</p>
+                    <select class="form-control" [(ngModel)]="selectedDuration">
+                        <option value="2">2 years</option>
+                        <option value="3">3 years</option>
+                        <option value="5">5 years</option>
+                    </select>
+                    <p>Are you sure you want to extend the warranty?</p>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="closeModal()">No</button>
+                    <button type="button" class="btn btn-primary" (click)="extendWarranty()">Yes</button>
+                    </div>
+            </div>
+        </div>
+    </div> -->
+    <div class="modal fade" id="warrantyModal" tabindex="-1" aria-labelledby="warrantyModalLabel" aria-hidden="true" #warrantyModal>
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="ModalLabel">Select duration to extend warranty</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form (ngSubmit)="extendWarranty()">
+                <div class="form-group">
+                  <label>Select Warranty Duration:</label>
+                  <div class="btn-group btn-group-toggle d-flex justify-content-between" data-toggle="buttons">
+                    <label class="btn btn-outline-primary" [class.active]="selectedDuration === 2" (click)="selectDuration(2)">
+                      <input type="radio" name="options" [value]="2" autocomplete="off" [checked]="selectedDuration === 2"> 2 years
+                    </label>
+                    <label class="btn btn-outline-primary" [class.active]="selectedDuration === 3" (click)="selectDuration(3)">
+                      <input type="radio" name="options" [value]="3" autocomplete="off" [checked]="selectedDuration === 3"> 3 years
+                    </label>
+                    <label class="btn btn-outline-primary" [class.active]="selectedDuration === 5" (click)="selectDuration(5)">
+                      <input type="radio" name="options" [value]="5" autocomplete="off" [checked]="selectedDuration === 5"> 5 years
+                    </label>
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-success mt-3 me-2">Submit</button>
+                <button type="button" class="btn btn-light mt-3" data-bs-dismiss="modal">Close</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
 </div>
 <app-footer></app-footer>

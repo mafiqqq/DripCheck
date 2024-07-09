@@ -350,6 +350,49 @@ namespace DripCheckAPI.Controllers
             return Ok(productOwnersDto);
         }
 
+        // GET: api/ProductDetails/RequestedWarranty
+        [HttpGet("RequestedWarranty")]
+        public async Task<ActionResult<ProductOwner>> GetDetailsOfRequestedWarranty()
+        {
+            if (_context.ProductOwners == null)
+            {
+                return NotFound();
+            }
+
+            var productOwners = await _context.ProductOwners
+            .Join(
+                _context.WarrantyDetails,
+                po => po.WarrantyDetailId,
+                wd => wd.WarrantyDetailId,
+                (po, wd) => new
+                {
+                    po.ProductOwnerId,
+                    po.OwnerFirstName,
+                    po.OwnerLastName,
+                    po.ProductSerialNumber,
+                    wd.ExpirationDate,
+                    wd.WarrantyStatus,
+                    wd.WarrantyDetailId,
+                    wd.ReqDuration
+                })
+            .Where(result => result.WarrantyStatus == "Requested")
+            .ToListAsync();
+
+            var productOwnersDto = productOwners.Select(po => new GetWarrantyDetailDto
+            {
+                ProductOwnerId = po.ProductOwnerId,
+                OwnerFirstName = po.OwnerFirstName,
+                OwnerLastName = po.OwnerLastName,
+                ProductSerialNumber = po.ProductSerialNumber,
+                ExpirationDate = po.ExpirationDate.ToString("yyyy-MM-dd"),  // Format date here
+                WarrantyStatus = po.WarrantyStatus,
+                WarrantyDetailId = po.WarrantyDetailId,
+                ReqDuration = po.ReqDuration
+            }).ToList();
+
+            return Ok(productOwnersDto);
+        }
+
 
         // PUT: api/ProductOwners/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

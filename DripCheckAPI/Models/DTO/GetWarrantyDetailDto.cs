@@ -9,5 +9,6 @@
         public string ExpirationDate { get; set; } = "";
         public string WarrantyStatus { get; set; } = "";
         public int WarrantyDetailId { get; set; }
+        public int ReqDuration { get; set; }
     }
 }

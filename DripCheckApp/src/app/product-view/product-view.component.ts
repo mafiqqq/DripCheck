@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ProductOwnerService } from '../shared/product-owner.service';
 import { ActivatedRoute } from '@angular/router';
 import { ProductOwner } from '../shared/product-owner.model';
@@ -6,6 +6,8 @@ import { SafeUrl, SafeValue } from '@angular/platform-browser';
 import { FixMeLater } from 'angularx-qrcode';
 import { WarrantyDetailService } from '../shared/warranty-detail.service';
 import { ToastrService } from 'ngx-toastr';
+
+declare var bootstrap: any;
 
 @Component({
   selector: 'app-product-view',
@@ -20,6 +22,9 @@ export class ProductViewComponent implements OnInit {
   qrCodeSrc!: SafeUrl;
   angxUrl: string = "";
   angxUrlDl!: SafeUrl;
+  @ViewChild('warrantyModal') warrantyModal!: ElementRef;
+  selectedDuration!: number;
+  warrantyDetailId!: number;
   constructor(
     public service: ProductOwnerService,
     public serviceWarranty: WarrantyDetailService,
@@ -35,8 +40,8 @@ export class ProductViewComponent implements OnInit {
     this.refreshList();
   }
 
-  extendWarranty(id: number) {
-    this.serviceWarranty.extendWarrantyDetail(id)
+  extendWarranty() {
+    this.serviceWarranty.extendWarrantyDetail(this.warrantyDetailId, this.selectedDuration)
     .subscribe({
       next: res => {
         console.log(res)
@@ -47,6 +52,21 @@ export class ProductViewComponent implements OnInit {
         console.log(err)
       }
     })
+  }
+
+  openExtendedWarrantyModel(id: number){
+    this.warrantyDetailId = id;
+    const modalW = new bootstrap.Modal(this.warrantyModal.nativeElement);
+    modalW.show(); 
+  }
+
+  closeModal() {
+    const modalW = new bootstrap.Modal(this.warrantyModal.nativeElement);
+    modalW.hide();
+  }
+
+  selectDuration(duration: number) {
+    this.selectedDuration = duration;
   }
 
   refreshList() {

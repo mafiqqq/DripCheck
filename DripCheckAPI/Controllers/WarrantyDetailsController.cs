@@ -44,10 +44,22 @@ namespace DripCheckAPI.Controllers
             return warrantyDetail;
         }
 
-        // PUT: api/WarrantyDetails/5
+        // GET: api/WarrantyDetails/Requested
+        [HttpGet("Requested")]
+        public async Task<ActionResult<IEnumerable<WarrantyDetail>>> GetWarrantyDetailsRequested()
+        {
+            if (_context.WarrantyDetails == null)
+            {
+                return NotFound();
+            }
+            return await _context.WarrantyDetails.Where(wd => wd.WarrantyStatus == "Requested").ToListAsync();
+        }
+
+
+        // PUT: api/WarrantyDetails/Admin/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutWarrantyDetail(int id)
+        [HttpPut("Admin/{id}")]
+        public async Task<IActionResult> PutWarrantyDetailAdmin(int id, int duration)
         {
             var warrantyDetail = await _context.WarrantyDetails.FindAsync(id);
 
@@ -56,7 +68,7 @@ namespace DripCheckAPI.Controllers
                 return NotFound(new { Message = "Warranty Not Found!" });
             }
 
-            warrantyDetail.ExpirationDate = warrantyDetail.ExpirationDate.AddYears(2);
+            warrantyDetail.ExpirationDate = warrantyDetail.ExpirationDate.AddYears(duration);
             warrantyDetail.WarrantyStatus = "Active";
 
             _context.WarrantyDetails.Update(warrantyDetail);
@@ -78,6 +90,42 @@ namespace DripCheckAPI.Controllers
 
             return NoContent();
             
+        }
+
+        // PUT: api/WarrantyDetails/Admin/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("User/{id}")]
+        public async Task<IActionResult> PutWarrantyDetailUser(int id, int duration)
+        {
+            var warrantyDetail = await _context.WarrantyDetails.FindAsync(id);
+
+            if (warrantyDetail == null)
+            {
+                return NotFound(new { Message = "Warranty Not Found!" });
+            }
+
+            warrantyDetail.ReqDuration = duration;
+            warrantyDetail.WarrantyStatus = "Requested";
+
+            _context.WarrantyDetails.Update(warrantyDetail);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                if (!_context.WarrantyDetails.Any(e => e.WarrantyDetailId == id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw (ex);
+                }
+            }
+
+            return NoContent();
+
         }
 
         // POST: api/WarrantyDetails

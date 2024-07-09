@@ -29,7 +29,7 @@ export class WarrantyDetailService {
     this.formSubmitted = false
   }
 
-  extendWarrantyDetail(id: number) {
+  extendWarrantyDetail(id: number, year: number) {
     console.log(this.url + '/' + id.toString())
     return this.http.put(this.url + '/' + id.toString(), id)
   }

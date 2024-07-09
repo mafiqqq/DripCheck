@@ -202,42 +202,66 @@ button:focus {
                                         class="form-control" placeholder="Product Width" #productWidth="ngModel" name="productWidth" [(ngModel)]="service.formData.productWidth"> </div>
                                 <div class="form-group"> <label for="productDisplayType">Product Display Type</label> <input type="text"
                                         class="form-control" placeholder="Product Display Type" #productDisplayType="ngModel" name="productDisplayType" [(ngModel)]="service.formData.productDisplayType"></div>
-                                <div class="form-group"> <label for="time">Product Front Camera</label> <input type="text"
-                                        class="form-control" placeholder="" #productDisplayType="ngModel" name="productDisplayType" [(ngModel)]="service.formData.productDisplayType"> </div>
-                                <div class="form-group"><label for="skill">Product Memory RAM</label> <input type="text"
-                                        class="form-control" id="skill" placeholder=""> </div>
+                                <div class="form-group"> <label for="productFrontCamera">Product Front Camera</label> <input type="text"
+                                        class="form-control" placeholder="Product Front Camera" #productFrontCamera="ngModel" name="productFrontCamera" [(ngModel)]="service.formData.productFrontCamera"> </div>
+                                        <div class="form-group">
+                                            <label for="productMemoryRAM">Product Memory RAM</label>
+                                            <input type="text" class="form-control" placeholder="Product Memory RAM" #productMemoryRAM="ngModel"
+                                                name="productMemoryRAM" [(ngModel)]="service.formData.productMemoryRAM">
+                                        </div>
+                                          
                             </div>
                             <div class="col-lg-3 col-md-4 col-sm-12">
-                                <div class="form-group"> <label for="last-name">Product Brand</label> <input type="text"
-                                        class="form-control" id="last-name" placeholder=""> </div>
-                                <div class="form-group"> <label for="phone">Product Height</label> <input type="email"
-                                        class="form-control" id="email" placeholder=""> </div>
-                                <div class="form-group"> <label for="Evaluate Budget">Product Display Size</label> <input type="text"
-                                        class="form-control" id="Evaluate Budget" placeholder=""> </div>
-                                <div class="form-group"> <label for="Company-Name">Product Rear Camera</label> <input type="text"
-                                        class="form-control" id="Company-Name" placeholder=""> </div>
-                                <div class="form-group"> <label for="inputEmail4">Product Memory ROM</label> <select
-                                        class="form-control">
-                                        <option>India</option>
-                                        <option>China</option>
-                                        <option>UK</option>
-                                    </select></div>
+                                <div class="form-group">
+                                    <label for="product-brand">Product Brand</label>
+                                    <input type="text" class="form-control" placeholder="Product Brand" #productBrand="ngModel" name="productBrand" [(ngModel)]="service.formData.productBrand">
+                                  </div>
+                                  
+                                  <div class="form-group">
+                                    <label for="product-height">Product Height</label>
+                                    <input type="email" class="form-control" placeholder="Product Height" #productHeight="ngModel" name="productHeight" [(ngModel)]="service.formData.productHeight">
+                                  </div>
+                                  
+                                  <div class="form-group">
+                                    <label for="product-display-size">Product Display Size</label>
+                                    <input type="text" class="form-control" placeholder="Product Display Size" #productDisplaySize="ngModel" name="productDisplaySize" [(ngModel)]="service.formData.productDisplaySize">
+                                  </div>
+                                  
+                                  <div class="form-group">
+                                    <label for="product-rear-camera">Product Rear Camera</label>
+                                    <input type="text" class="form-control" placeholder="Product Rear Camera" #productRearCamera="ngModel" name="productRearCamera" [(ngModel)]="service.formData.productRearCamera">
+                                  </div>
+                                  
+                                  <div class="form-group">
+                                    <label for="product-memory-rom">Product Memory ROM</label>
+                                    <input type="text" class="form-control" placeholder="Product Memory ROM" #productMemoryROM="ngModel" name="productMemoryROM" [(ngModel)]="service.formData.productMemoryROM">
+                                  </div>                                  
                             </div>
                             <div class="col-lg-3 col-md-4 col-sm-12">
-                                <div class="form-group"> <label for="last-name">Product Color</label> <input type="text"
-                                        class="form-control" id="last-name" placeholder=""> </div>
-                                <div class="form-group"> <label for="phone">Product Weight</label> <input type="email"
-                                        class="form-control" id="email" placeholder=""> </div>
-                                <div class="form-group"> <label for="Evaluate Budget">Product Resolution</label> <input type="text"
-                                        class="form-control" id="Evaluate Budget" placeholder=""> </div>
-                                <div class="form-group"> <label for="Company-Name">Product Battery</label> <input type="text"
-                                        class="form-control" id="Company-Name" placeholder=""> </div>
-                                <div class="form-group"> <label for="inputEmail4">Product Processor</label> <select
-                                        class="form-control">
-                                        <option>India</option>
-                                        <option>China</option>
-                                        <option>UK</option>
-                                    </select></div>
+                                <div class="form-group">
+                                    <label for="product-color">Product Color</label>
+                                    <input type="text" class="form-control" placeholder="Product Color" #productColor="ngModel" name="productColor" [(ngModel)]="service.formData.productColor">
+                                  </div>
+                                  
+                                  <div class="form-group">
+                                    <label for="product-weight">Product Weight</label>
+                                    <input type="email" class="form-control" placeholder="Product Weight" #productWeight="ngModel" name="productWeight" [(ngModel)]="service.formData.productWeight">
+                                  </div>
+                                  
+                                  <div class="form-group">
+                                    <label for="product-resolution">Product Resolution</label>
+                                    <input type="text" class="form-control" placeholder="Product Resolution" #productResolution="ngModel" name="productResolution" [(ngModel)]="service.formData.productResolution">
+                                  </div>
+                                  
+                                  <div class="form-group">
+                                    <label for="product-battery">Product Battery</label>
+                                    <input type="text" class="form-control" placeholder="Product Battery" #productBattery="ngModel" name="productBattery" [(ngModel)]="service.formData.productBattery">
+                                  </div>
+                                  
+                                  <div class="form-group">
+                                    <label for="product-processor">Product Processor</label>
+                                    <input type="text" class="form-control" placeholder="Product Processor" #productProcessor="ngModel" name="productProcessor" [(ngModel)]="service.formData.productProcessor">
+                                  </div>                                  
                             </div>
                         </div>
                 

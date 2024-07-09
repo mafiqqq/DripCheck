@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ProductOwnerService } from '../shared/product-owner.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-product-view-single',
@@ -6,6 +8,18 @@ import { Component } from '@angular/core';
   styles: [
   ]
 })
-export class ProductViewSingleComponent {
+export class ProductViewSingleComponent implements OnInit {
 
+  id!: string;
+
+  constructor(public service: ProductOwnerService, private route: ActivatedRoute,) {}
+
+  ngOnInit(): void {
+    this.id = this.route.snapshot.paramMap.get('id') || '';
+    // this.refreshList();
+  }
+
+  getProductFullDetails() {
+    this.service.getFullProductInfo(this.id)
+  }
 }

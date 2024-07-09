@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
+import { ProductDetail } from './product-detail.model';
 import { ProductOwner } from './product-owner.model';
 import { WarrantyDetail } from './warranty-detail.model';
 
@@ -13,7 +14,9 @@ export class ProductOwnerService {
   formData: ProductOwner = new ProductOwner ()
   formSubmitted: boolean = false
   warrantyList: WarrantyDetail[] = []
+  requestedWarrantyList: WarrantyDetail[] = []
   productOwner: ProductOwner = new ProductOwner;
+  productInfo: ProductDetail = new ProductDetail;
   serialNumber!: number;
   validSerial: boolean = false
   invalidSerial: string | null = null
@@ -37,6 +40,19 @@ export class ProductOwnerService {
     })
   }
 
+  getRequestedWarrantyList() {
+    return this.http.get(this.url + '/RequestedWarranty')
+    .subscribe({
+      next: res => {
+        console.log(res)
+        this.requestedWarrantyList = res as WarrantyDetail[]
+      },
+      error: err => {
+        console.log(err)
+      }
+    }) 
+  }
+
   checkSerialNumber() {
     return this.http.get(this.url + '/SerialNumber/' + this.serialNumber)
   }
@@ -46,6 +62,20 @@ export class ProductOwnerService {
     .subscribe({
       next: res => {
         this.productOwner = res as ProductOwner
+        console.log(this.productOwner)
+      },
+      error: err => {
+        console.log(err)
+      }
+    })
+  }
+
+  getFullProductInfo(id: string) {
+    return this.http.get(this.url + '/' + id)
+    .subscribe({
+      next: res => {
+        console.log(res)
+        this.productInfo = res as ProductDetail
       },
       error: err => {
         console.log(err)

@@ -9,4 +9,17 @@ export class ProductDetail {
         productImageUrl2: string = ""
         productImageUrl3: string = ""
         productPrice!: number
+        productHeight: string = ""
+        productWidth: string = ""
+        productWeight: string = ""
+        productDisplaySize: string = ""
+        productDisplayType: string = ""
+        productResolution: string = ""
+        productProcessor: string = ""
+        productOS: string = ""
+        productMemoryRAM: string = ""
+        productMemoryROM: string = ""
+        productRearCamera: string = ""
+        productFrontCamera: string = ""
+        productBattery: string = ""
 }
