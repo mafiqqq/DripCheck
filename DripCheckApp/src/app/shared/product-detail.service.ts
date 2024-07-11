@@ -14,10 +14,19 @@ export class ProductDetailService {
   formSubmitted: boolean = false
   productList: ProductDetail[] = []
   productInfo: ProductDetail = new ProductDetail ()
+  serialNumArray: string[] = [];
   constructor(private http: HttpClient) { }
 
   addProductDetail(imageUrls: {[key:string]: string} ) {
-    
+    console.log(this.formData.productSerialNumbersText)
+    if (this.formData.productSerialNumbersText.trim()) {
+      this.serialNumArray = this.formData.productSerialNumbersText.split('\n').filter(line => line.trim() !== '');
+    } else {
+      this.serialNumArray = [];
+    }
+    console.log(this.serialNumArray)
+    this.formData.serialNumbers = this.serialNumArray;
+    console.log(this.formData)
     this.formData.productImageUrl1 = imageUrls["imageUrl1"];
     this.formData.productImageUrl2 = imageUrls["imageUrl2"];
     this.formData.productImageUrl3 = imageUrls["imageUrl3"];

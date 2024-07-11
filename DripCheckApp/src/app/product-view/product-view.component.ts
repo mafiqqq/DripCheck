@@ -94,7 +94,6 @@ export class ProductViewComponent implements OnInit {
 
   onChangeURL(url: SafeUrl){
     this.qrCodeSrc = url
-    console.log(this.qrCodeSrc)
   }
 
   saveAsImage(parent: FixMeLater) {

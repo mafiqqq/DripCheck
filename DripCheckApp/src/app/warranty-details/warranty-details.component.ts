@@ -75,17 +75,15 @@ export class WarrantyDetailsComponent implements OnInit {
   }
 
   closeModal() {
-    // const modalW = new bootstrap.Modal(this.warrantyModal.nativeElement);
-    // console.log(modalW)
-    // modalW.hide();
     const modalElementWr = document.getElementById('warrantyModal');
     const modalInstanceWr = bootstrap.Modal.getInstance(modalElementWr);
     modalInstanceWr.hide();
   }
 
   closeApproveModal() {
-    const modalW = new bootstrap.Modal(this.approveModal.nativeElement);
-    modalW.hide();
+    const modalElementA = document.getElementById('approveModal');
+    const modalInstanceA = bootstrap.Modal.getInstance(modalElementA);
+    modalInstanceA.hide();
   }
 
   selectDuration(duration: number) {
@@ -96,10 +94,10 @@ export class WarrantyDetailsComponent implements OnInit {
     this.service.apporoveWarrantyReq(this.warrantyDetailId)
     .subscribe({
       next: res => {
+        this.closeApproveModal();
         this.serviceOwner.getWarrantyList();
         this.serviceOwner.getRequestedWarrantyList();
         this.toastr.success('Updated successfully', 'Warranty Approval')
-        this.closeApproveModal();
       },
       error: err => {
         console.log(err)

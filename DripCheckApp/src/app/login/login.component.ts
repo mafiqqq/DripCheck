@@ -24,7 +24,9 @@ export class LoginComponent {
     .subscribe({
       next: res => {
         this.loginCred = res as Auth
+        console.log(this.loginCred)
         this.service.setUser(this.loginCred.username)
+        this.service.setUserId(this.loginCred.loginId)
         if (this.loginCred.username === 'admin') {
           this.router.navigate(['/warranty'])
         } else {

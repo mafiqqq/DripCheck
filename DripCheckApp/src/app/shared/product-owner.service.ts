@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment.development';
 import { ProductDetail } from './product-detail.model';
 import { ProductOwner } from './product-owner.model';
 import { WarrantyDetail } from './warranty-detail.model';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,10 +21,15 @@ export class ProductOwnerService {
   serialNumber!: number;
   validSerial: boolean = false
   invalidSerial: string | null = null
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    public authService: AuthService
+  ) { }
 
   purchaseProduct(selectedProductDetailId: number) {
     this.formData.productDetailId = selectedProductDetailId
+    this.formData.loginId = this.authService.getUserId()
+    console.log(this.formData)
     return this.http.post(this.url, this.formData)
   }
 
@@ -59,7 +65,6 @@ export class ProductOwnerService {
     return this.http.get(this.url + '/' + id)
     .subscribe({
       next: res => {
-        console.log(res)
         this.productOwner = res as ProductOwner
       },
       error: err => {

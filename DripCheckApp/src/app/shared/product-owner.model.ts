@@ -31,5 +31,6 @@ export class ProductOwner {
     productRearCamera: string = "";
     productFrontCamera: string = "";
     productBattery: string = "";
+    loginId?: string | null
 }
 

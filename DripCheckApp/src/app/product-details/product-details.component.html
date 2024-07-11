@@ -2,7 +2,7 @@
     body{
         background:#E0E0E0;
     }
-    .details {
+    /* .details {
         border: 1.5px solid grey;
         color: #212121;
         width: 100%;
@@ -49,7 +49,60 @@
         box-shadow: 0 20px 40px rgba(0, 0, 0, .2);
         border-radius: 5px;
         padding-bottom: 10px;
-    }
+    } */
+
+    /* Newwwwwwwww */
+    /* Ensure all cards are the same size */
+.card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 200px; /* Fixed height for the images */
+  object-fit: cover; /* Ensures images cover the specified area without distortion */
+}
+
+.card-body {
+  flex: 1; /* Makes sure the card body takes up available space */
+}
+
+/* Center-align text and buttons */
+.card-title {
+  font-weight: bold;
+}
+
+.card-text {
+  margin: 10px 0; /* Add margin for spacing */
+}
+
+/* Uniform button styling */
+.btn {
+  width: 100%; /* Make buttons fill the width of the card */
+  padding: 10px;
+  font-size: 16px;
+}
+
+.details {
+  background-color: #007bff; /* Primary button color */
+  color: #fff;
+}
+
+.cart {
+  background-color: #00e2b1; /* Secondary button color */
+  color: #fff;
+}
+
+.cart:hover, .details:hover {
+  opacity: 0.8; /* Slightly change opacity on hover */
+}
+
+.mt-2 {
+  margin-top: 10px;
+}
+
 
     /* Modal style */
     /* html{
@@ -155,7 +208,7 @@
     <h1 class="display-6 fw-bold">All Products</h1>
 </div>
 
-<div class="container mt-5" style="max-width: 70%;">
+<!-- <div class="container mt-5" style="max-width: 70%;">
     <div class="row">
         <div class="col-5 mb-4" style="flex: 0 0 auto; width: 20%;"  *ngFor="let pd of detailService.productList">
         <div class="card mx-auto">
@@ -174,7 +227,22 @@
         </div>
         </div>
     </div>
-</div>
+</div> -->
+<div class="container mt-5" style="max-width: 80%;">
+    <div class="row">
+      <div class="col-md-4 mb-4" *ngFor="let pd of detailService.productList">
+        <div class="card">
+          <img class="card-img-top" [src]="pd.productImageUrl1" alt="{{pd.productModel}}" />
+          <div class="card-body text-center">
+            <h5 class="card-title">{{pd.productModel}}</h5>
+            <p class="card-text">RM {{pd.productPrice}}</p>
+            <a class="btn btn-outline-primary" (click)="navigateToPage(pd.productDetailId)">View Details</a><br />
+            <a class="btn btn-outline-success mt-2" (click)="openModal(); selectProductDetailId(pd.productDetailId)">Buy Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <!-- Modal Buy Now -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" #exampleModal>
@@ -266,6 +334,26 @@
         </div>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary" (click)="routeToLogin()">Login</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- out of stock -->
+  <div class="modal fade" id="outModal" tabindex="-1" aria-labelledby="outModalLabel" aria-hidden="true" #outModal>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="outModalLabel">Out of stock</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="card-body text-center"> 
+                <img src="assets/images/Login-amico.png" style="max-width: 40%; max-height: 30%;">
+                <h4>Oops sorry!</h4>
+                <p>Product is currently out of stock. Please check again later</p>
+            </div>
+        </div>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

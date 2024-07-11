@@ -14,6 +14,7 @@ export class HeaderComponent implements OnInit {
   title = 'Drip Check'
 
   user: string | null = null;
+  userId: string | null = null;
 
   // constructor(private activatedRoute: ActivatedRoute) {}
   // @Input()
@@ -24,6 +25,9 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.authService.getUser();
+    this.userId = this.authService.getUserId();
+    console.log(this.user)
+    console.log(this.userId)
   }
 
   logout(): void {

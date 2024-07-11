@@ -28,11 +28,20 @@ export class AuthService {
     localStorage.setItem('currentUser', userName);
   }
 
+  setUserId(id: number) {
+    localStorage.setItem('currentUserId', id.toString());
+  }
+
   getUser(): string | null {
     return localStorage.getItem('currentUser');
   }
 
+  getUserId(): string | null {
+    return localStorage.getItem('currentUserId');
+  }
+
   logout(): void {
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('currentUserId');
   }
 }

@@ -22,6 +22,7 @@ export class ProductDetailsComponent implements OnInit {
   @ViewChild('exampleModal') exampleModal!: ElementRef;
   @ViewChild('viewModal') viewModal!: ElementRef;
   @ViewChild('errorModal') errorModal! : ElementRef;
+  @ViewChild('outModal') outModal! : ElementRef;
   selectedProductDetailId: number = 0;
   user: string | null = null;
 
@@ -52,6 +53,11 @@ export class ProductDetailsComponent implements OnInit {
     }
   }
 
+  openOutModal() {
+    const modal = new bootstrap.Modal(this.outModal.nativeElement);
+    modal.show();
+  }
+
   openViewDetails() {
     const modal = new bootstrap.Modal(this.viewModal.nativeElement)
     modal.show();
@@ -68,6 +74,12 @@ export class ProductDetailsComponent implements OnInit {
     const modalElement = document.getElementById('errorModal');
     const modalInstance = bootstrap.Modal.getInstance(modalElement);
     modalInstance.hide();
+  }
+
+  closeOutModal() {
+    const modalElementO = document.getElementById('outModal');
+    const modalInstanceO = bootstrap.Modal.getInstance(modalElementO);
+    modalInstanceO.hide();
   }
 
   hideBackdrop() {
@@ -98,7 +110,9 @@ export class ProductDetailsComponent implements OnInit {
         this.router.navigate(['/view-product/'+ res ])
       },
       error: err => {
-        this.openModal()
+        this.closeModal()
+        this.openOutModal()
+        console.log('yes er')
       }
     })
   }

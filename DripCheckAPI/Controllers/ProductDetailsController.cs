@@ -173,15 +173,9 @@ namespace DripCheckAPI.Controllers
                 ProductFrontCamera = createProductDetailDto.ProductFrontCamera,
                 ProductBattery = createProductDetailDto.ProductBattery,
                 ProductRelDate = createProductDetailDto.ProductRelDate,
-                ////ProductSerialNumbers = createProductDetailDto.ProductSerialNumbers,
-                //ProductSerialNumbers = createProductDetailDto.SerialNumbers.Select(sn => new ProductSerialNumber
-                //{ 
-                //    SerialNumber = sn,
-                //    isAvailable = true,
-                //}).ToList(),
             };
 
-            _context.ProductDetails.Add(productDetail);
+            _context.ProductDetails.Add(productDetail); // alrdy save
             await _context.SaveChangesAsync();
 
             // Process each serial number
@@ -189,7 +183,7 @@ namespace DripCheckAPI.Controllers
             {
                 SerialNumber = serialNumber,
                 isAvailable = true,
-                ProductDetailId = productDetail.ProductDetailId
+                ProductDetailId = productDetail.ProductDetailId // get ID here
             }).ToList();
 
             // Add serial numbers to the database
@@ -222,10 +216,6 @@ namespace DripCheckAPI.Controllers
                 ProductRelDate = productDetail.ProductRelDate,
                 ////ProductSerialNumbers = productDetail.ProductSerialNumbers,
             };
-
-
-            //_context.ProductDetails.Add(productDetail);
-            //await _context.SaveChangesAsync();
 
             //return CreatedAtAction("GetProductDetail", new { id = productDetail.ProductDetailId }, productDetail);
             return CreatedAtAction("GetProductDetail", new { id = productDetailDto.ProductDetailId }, productDetailDto);

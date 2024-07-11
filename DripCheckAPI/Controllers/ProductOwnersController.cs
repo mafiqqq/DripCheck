@@ -114,6 +114,7 @@ namespace DripCheckAPI.Controllers
                 ProductFrontCamera = productOwnerDetails.ProductFrontCamera,
                 ProductBattery = productOwnerDetails.ProductBattery,
                 ProductRelDate = productOwnerDetails.ProductRelDate,
+                LoginId = productOwnerDetails.LoginId,
             };
 
             //return await _context.ProductOwners.ToListAsync();
@@ -129,7 +130,7 @@ namespace DripCheckAPI.Controllers
               return NotFound();
           }
             var productOwnerDetails = await _context.ProductOwners
-                .Where(po => po.ProductOwnerId == id)
+                .Where(po => po.LoginId == id)
                 .Join(
                   _context.WarrantyDetails,
                   po => po.WarrantyDetailId,
@@ -140,7 +141,13 @@ namespace DripCheckAPI.Controllers
                   _context.ProductDetails,
                   combined => combined.po.ProductDetailId,
                   pd => pd.ProductDetailId,
-                  (combined, pd) => new GetFullProductDescDto
+                  (combined, pd) => new {combined.po, combined.wd, pd}
+                  )
+              .Join(
+                    _context.Logins,
+                    combined => combined.po.LoginId,
+                    lg => lg.LoginId,
+                    (combined, lg) => new GetFullProductDescDto
                   {
                       ProductOwnerId = combined.po.ProductOwnerId,
                       OwnerFirstName = combined.po.OwnerFirstName,
@@ -151,27 +158,27 @@ namespace DripCheckAPI.Controllers
                       WarrantyDetailId = combined.wd.WarrantyDetailId,
                       ExpirationDate = combined.wd.ExpirationDate.ToString("yyyy-MM-dd"),
                       WarrantyStatus = combined.wd.WarrantyStatus,
-                      ProductModel = pd.ProductModel,
-                      ProductBrand = pd.ProductBrand,
-                      ProductColor = pd.ProductColor,
-                      ProductImageUrl1 = pd.ProductImageUrl1,
-                      ProductImageUrl2 = pd.ProductImageUrl2,
-                      ProductImageUrl3 = pd.ProductImageUrl3,
-                      ProductPrice = pd.ProductPrice,
-                      ProductHeight = pd.ProductHeight,
-                      ProductWidth = pd.ProductWidth,
-                      ProductWeight = pd.ProductWeight,
-                      ProductDisplaySize = pd.ProductDisplaySize,
-                      ProductDisplayType = pd.ProductDisplayType,
-                      ProductResolution = pd.ProductResolution,
-                      ProductProcessor = pd.ProductProcessor,
-                      ProductOS = pd.ProductOS,
-                      ProductMemoryRAM = pd.ProductMemoryRAM,
-                      ProductMemoryROM = pd.ProductMemoryROM,
-                      ProductRearCamera = pd.ProductRearCamera,
-                      ProductFrontCamera = pd.ProductFrontCamera,
-                      ProductBattery = pd.ProductBattery,
-                      ProductRelDate = pd.ProductRelDate,
+                      ProductModel = combined.pd.ProductModel,
+                      ProductBrand = combined.pd.ProductBrand,
+                      ProductColor = combined.pd.ProductColor,
+                      ProductImageUrl1 = combined.pd.ProductImageUrl1,
+                      ProductImageUrl2 = combined.pd.ProductImageUrl2,
+                      ProductImageUrl3 = combined.pd.ProductImageUrl3,
+                      ProductPrice = combined.pd.ProductPrice,
+                      ProductHeight = combined.pd.ProductHeight,
+                      ProductWidth = combined.pd.ProductWidth,
+                      ProductWeight = combined.pd.ProductWeight,
+                      ProductDisplaySize = combined.pd.ProductDisplaySize,
+                      ProductDisplayType = combined.pd.ProductDisplayType,
+                      ProductResolution = combined.pd.ProductResolution,
+                      ProductProcessor = combined.pd.ProductProcessor,
+                      ProductOS = combined.pd.ProductOS,
+                      ProductMemoryRAM = combined.pd.ProductMemoryRAM,
+                      ProductMemoryROM = combined.pd.ProductMemoryROM,
+                      ProductRearCamera = combined.pd.ProductRearCamera,
+                      ProductFrontCamera = combined.pd.ProductFrontCamera,
+                      ProductBattery = combined.pd.ProductBattery,
+                      ProductRelDate = combined.pd.ProductRelDate,
                   }
               )
               .FirstOrDefaultAsync();
@@ -514,6 +521,7 @@ namespace DripCheckAPI.Controllers
                 EmailAddress = createProductOwnerDto.EmailAddress,
                 PhoneNum    = createProductOwnerDto.PhoneNum,
                 ProductDetailId = createProductOwnerDto.ProductDetailId,
+                // Retrieve from db. Available SerialNumber
                 ProductSerialNumberId = await GetAvailableSerialNumberAsync(createProductOwnerDto.ProductDetailId),
                 WarrantyDetailId = warrantyDetail.WarrantyDetailId,
                 LoginId = createProductOwnerDto.LoginId,
@@ -526,7 +534,7 @@ namespace DripCheckAPI.Controllers
             await _context.SaveChangesAsync();
 
             // After success Update isAvailable to false?
-            var succ = UpdateProductSerialNumberAvailability(productOwner.ProductSerialNumberId, false);
+            var succ = await UpdateProductSerialNumberAvailability(productOwner.ProductSerialNumberId, false);
 
             // Create DTO for the newly created entities - so we can define what exactly we want to return to response 
             var productOwnerDto = new ProductOwnerDto
@@ -551,10 +559,11 @@ namespace DripCheckAPI.Controllers
 
 
             // but we decided to only return ID sbb we using router-navigate at Frontend to navigate to view-product/$id page tu
-            return productOwnerDto.ProductOwnerId;
+            return productOwnerDto.LoginId;
 
         }
 
+        [HttpGet("AvailableSerial")]
         public async Task<bool> UpdateProductSerialNumberAvailability(int id, bool isAvailable)
         {
             var productSerialNumber = await _context.ProductSerialNumbers
@@ -604,10 +613,33 @@ namespace DripCheckAPI.Controllers
 
         private async Task<int> GetAvailableSerialNumberAsync(int productDetailId)
         {
-            return await _context.ProductSerialNumbers
-            .Where(po => po.isAvailable && po.ProductDetailId == productDetailId)
-            .Select(po => po.ProductSerialNumberId)
-            .FirstOrDefaultAsync();
+            //return await _context.ProductSerialNumbers
+            //.Where(po => po.isAvailable && po.ProductDetailId == productDetailId)
+            //.Select(po => po.ProductSerialNumberId)
+            //.FirstOrDefaultAsync();
+
+            try
+            {
+                var productSerialNumberId = await _context.ProductSerialNumbers
+                    .Where(po => po.isAvailable && po.ProductDetailId == productDetailId)
+                    .Select(po => po.ProductSerialNumberId)
+                    .FirstOrDefaultAsync();
+
+                // Check if no serial number was found
+                if (productSerialNumberId == 0)
+                {
+                    // Throw a custom exception or handle the case as needed
+                    throw new InvalidOperationException("Product out of stock.");
+                }
+
+                return productSerialNumberId;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as necessary
+                // Example: _logger.LogError(ex, "An error occurred while retrieving the product serial number.");
+                throw; // Re-throw the exception to be handled by the calling method or global exception handler
+            }
         }
 
         private string GenerateRandomSerialNumber()
