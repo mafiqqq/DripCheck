@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace DripCheckAPI.Models
 {
@@ -9,6 +10,7 @@ namespace DripCheckAPI.Models
         public string Username { get; set; } = "";
         public string PasswordHash { get; set; } = "";
         public string Email { get; set; } = "";
-
+        [ValidateNever]
+        public ICollection<ProductOwner>? ProductOwners { get; set; }
     }
 }

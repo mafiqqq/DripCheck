@@ -10,6 +10,7 @@ export class ProductDetail {
         productImageUrl3: string = ""
         productPrice!: number
         productHeight: string = ""
+        productSerialNumbers: string = ""
         productWidth: string = ""
         productWeight: string = ""
         productDisplaySize: string = ""

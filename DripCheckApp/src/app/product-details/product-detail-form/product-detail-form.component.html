@@ -288,6 +288,20 @@ button:focus {
                         <div class="row justify-content-center">
                             <div class="col-md-12 col-lg-10 col-12">
                                 <div class="form-group files"><label class="my-auto">Upload Your File </label> 
+                                    <textarea type="text" class="form-control" placeholder="Product Operating System" #productOS="ngModel" name="productOS" [(ngModel)]="service.formData.productOS"></textarea>
+                                </div>
+                                <div class="form-group files"><label class="my-auto">Product Serial Number(s) </label> 
+                                <!-- TODO  Chg IMEI-->
+                                    <div class="form-floating">
+                                    <textarea class="form-control" id="floatingTextarea2" style="height: 100px" #productSerialNumber name="productSerialNumber" [(ngModel)]="service.formData.productSerialNumbers" maxlength="150"></textarea>
+                                    <label for="floatingTextarea2">Enter Product Serial Numbers. New-line separated</label>
+                                  </div>
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-md-12 col-lg-10 col-12">
+                                <div class="form-group files"><label class="my-auto">Upload Your File </label> 
                                     <input id="file" type="file" class="form-control" (change)="onFileSelected($event)" multiple />
                                 </div>
                             </div>

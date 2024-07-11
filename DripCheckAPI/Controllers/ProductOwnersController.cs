@@ -50,7 +50,7 @@ namespace DripCheckAPI.Controllers
                     OwnerLastName = combined.po.OwnerLastName,
                     EmailAddress = combined.po.EmailAddress,
                     PhoneNum = combined.po.PhoneNum,
-                    ProductSerialNumber = combined.po.ProductSerialNumber,
+                    //ProductSerialNumber = combined.po.ProductSerialNumber,
                     ExpirationDate = combined.wd.ExpirationDate.ToString("yyyy-MM-dd"),
                     WarrantyStatus = combined.wd.WarrantyStatus,
                     ProductModel = pd.ProductModel,
@@ -90,7 +90,7 @@ namespace DripCheckAPI.Controllers
                 OwnerLastName = productOwnerDetails.OwnerLastName,
                 EmailAddress = productOwnerDetails.EmailAddress,
                 PhoneNum = productOwnerDetails.PhoneNum,
-                ProductSerialNumber = productOwnerDetails.ProductSerialNumber,
+                //ProductSerialNumber = productOwnerDetails.ProductSerialNumber,
                 ExpirationDate = productOwnerDetails.ExpirationDate,
                 WarrantyStatus = productOwnerDetails.WarrantyStatus,
                 ProductModel = productOwnerDetails.ProductModel,
@@ -147,7 +147,7 @@ namespace DripCheckAPI.Controllers
                       OwnerLastName = combined.po.OwnerLastName,
                       EmailAddress = combined.po.EmailAddress,
                       PhoneNum = combined.po.PhoneNum,
-                      ProductSerialNumber = combined.po.ProductSerialNumber,
+                      //ProductSerialNumber = combined.po.ProductSerialNumber,
                       WarrantyDetailId = combined.wd.WarrantyDetailId,
                       ExpirationDate = combined.wd.ExpirationDate.ToString("yyyy-MM-dd"),
                       WarrantyStatus = combined.wd.WarrantyStatus,
@@ -188,7 +188,7 @@ namespace DripCheckAPI.Controllers
                 OwnerLastName = productOwnerDetails.OwnerLastName,
                 EmailAddress = productOwnerDetails.EmailAddress,
                 PhoneNum = productOwnerDetails.PhoneNum,
-                ProductSerialNumber = productOwnerDetails.ProductSerialNumber,
+                //ProductSerialNumber = productOwnerDetails.ProductSerialNumber,
                 WarrantyDetailId = productOwnerDetails.WarrantyDetailId,
                 ExpirationDate = productOwnerDetails.ExpirationDate,
                 WarrantyStatus = productOwnerDetails.WarrantyStatus,
@@ -220,101 +220,101 @@ namespace DripCheckAPI.Controllers
             return Ok(getFullProductDescDto);
         }
 
-        // GET: api/ProductOwners/SerialNumber/{serialNumber}
-        [HttpGet("SerialNumber/{serialNumber}")]
-        public async Task<ActionResult<int>> GetBySerialNumber(string serialNumber)
-        {
+        //// GET: api/ProductOwners/SerialNumber/{serialNumber}
+        //[HttpGet("SerialNumber/{serialNumber}")]
+        //public async Task<ActionResult<int>> GetBySerialNumber(string serialNumber)
+        //{
 
-            var productOwnerDetails = await _context.ProductOwners
-                .Where(po => po.ProductSerialNumber == serialNumber)
-                .Join(
-                    _context.WarrantyDetails,
-                    po => po.WarrantyDetailId,
-                    wd => wd.WarrantyDetailId,
-                    (po, wd) => new { po, wd }
-                    )
-                .Join(
-                    _context.ProductDetails,
-                    combined => combined.po.ProductDetailId,
-                    pd => pd.ProductDetailId,
-                    (combined, pd) => new GetFullProductDescDto
-                    {
-                        ProductOwnerId = combined.po.ProductOwnerId,
-                        OwnerFirstName = combined.po.OwnerFirstName,
-                        OwnerLastName = combined.po.OwnerLastName,
-                        EmailAddress = combined.po.EmailAddress,
-                        PhoneNum = combined.po.PhoneNum,
-                        ProductSerialNumber = combined.po.ProductSerialNumber,
-                        ExpirationDate = combined.wd.ExpirationDate.ToString("yyyy-MM-dd"),
-                        WarrantyStatus = combined.wd.WarrantyStatus,
-                        ProductModel = pd.ProductModel,
-                        ProductBrand = pd.ProductBrand,
-                        ProductColor = pd.ProductColor,
-                        ProductImageUrl1 = pd.ProductImageUrl1,
-                        ProductImageUrl2 = pd.ProductImageUrl2,
-                        ProductImageUrl3 = pd.ProductImageUrl3,
-                        ProductPrice = pd.ProductPrice,
-                        ProductHeight = pd.ProductHeight,
-                        ProductWidth = pd.ProductWidth,
-                        ProductWeight = pd.ProductWeight,
-                        ProductDisplaySize = pd.ProductDisplaySize,
-                        ProductDisplayType = pd.ProductDisplayType,
-                        ProductResolution = pd.ProductResolution,
-                        ProductProcessor = pd.ProductProcessor,
-                        ProductOS = pd.ProductOS,
-                        ProductMemoryRAM = pd.ProductMemoryRAM,
-                        ProductMemoryROM = pd.ProductMemoryROM,
-                        ProductRearCamera = pd.ProductRearCamera,
-                        ProductFrontCamera = pd.ProductFrontCamera,
-                        ProductBattery = pd.ProductBattery,
-                        ProductRelDate = pd.ProductRelDate,
-                    }
-                )
-                .FirstOrDefaultAsync();
+        //    var productOwnerDetails = await _context.ProductOwners
+        //        .Where(po => po.ProductSerialNumber == serialNumber)
+        //        .Join(
+        //            _context.WarrantyDetails,
+        //            po => po.WarrantyDetailId,
+        //            wd => wd.WarrantyDetailId,
+        //            (po, wd) => new { po, wd }
+        //            )
+        //        .Join(
+        //            _context.ProductDetails,
+        //            combined => combined.po.ProductDetailId,
+        //            pd => pd.ProductDetailId,
+        //            (combined, pd) => new GetFullProductDescDto
+        //            {
+        //                ProductOwnerId = combined.po.ProductOwnerId,
+        //                OwnerFirstName = combined.po.OwnerFirstName,
+        //                OwnerLastName = combined.po.OwnerLastName,
+        //                EmailAddress = combined.po.EmailAddress,
+        //                PhoneNum = combined.po.PhoneNum,
+        //                ProductSerialNumber = combined.po.ProductSerialNumber,
+        //                ExpirationDate = combined.wd.ExpirationDate.ToString("yyyy-MM-dd"),
+        //                WarrantyStatus = combined.wd.WarrantyStatus,
+        //                ProductModel = pd.ProductModel,
+        //                ProductBrand = pd.ProductBrand,
+        //                ProductColor = pd.ProductColor,
+        //                ProductImageUrl1 = pd.ProductImageUrl1,
+        //                ProductImageUrl2 = pd.ProductImageUrl2,
+        //                ProductImageUrl3 = pd.ProductImageUrl3,
+        //                ProductPrice = pd.ProductPrice,
+        //                ProductHeight = pd.ProductHeight,
+        //                ProductWidth = pd.ProductWidth,
+        //                ProductWeight = pd.ProductWeight,
+        //                ProductDisplaySize = pd.ProductDisplaySize,
+        //                ProductDisplayType = pd.ProductDisplayType,
+        //                ProductResolution = pd.ProductResolution,
+        //                ProductProcessor = pd.ProductProcessor,
+        //                ProductOS = pd.ProductOS,
+        //                ProductMemoryRAM = pd.ProductMemoryRAM,
+        //                ProductMemoryROM = pd.ProductMemoryROM,
+        //                ProductRearCamera = pd.ProductRearCamera,
+        //                ProductFrontCamera = pd.ProductFrontCamera,
+        //                ProductBattery = pd.ProductBattery,
+        //                ProductRelDate = pd.ProductRelDate,
+        //            }
+        //        )
+        //        .FirstOrDefaultAsync();
 
-            if (productOwnerDetails == null)
-            {
-                return NotFound();
-            }
+        //    if (productOwnerDetails == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var getFullProductDescDto = new GetFullProductDescDto
-            {
-                ProductOwnerId = productOwnerDetails.ProductOwnerId,
-                OwnerFirstName = productOwnerDetails.OwnerFirstName,
-                OwnerLastName = productOwnerDetails.OwnerLastName,
-                EmailAddress = productOwnerDetails.EmailAddress,
-                PhoneNum = productOwnerDetails.PhoneNum,
-                ProductSerialNumber = productOwnerDetails.ProductSerialNumber,
-                ExpirationDate = productOwnerDetails.ExpirationDate,
-                WarrantyStatus = productOwnerDetails.WarrantyStatus,
-                ProductModel = productOwnerDetails.ProductModel,
-                ProductBrand = productOwnerDetails.ProductBrand,
-                ProductColor = productOwnerDetails.ProductColor,
-                ProductImageUrl1 = productOwnerDetails.ProductImageUrl1,
-                ProductImageUrl2 = productOwnerDetails.ProductImageUrl2,
-                ProductImageUrl3 = productOwnerDetails.ProductImageUrl3,
-                ProductPrice = productOwnerDetails.ProductPrice,
-                ProductHeight = productOwnerDetails.ProductHeight,
-                ProductWidth = productOwnerDetails.ProductWidth,
-                ProductWeight = productOwnerDetails.ProductWeight,
-                ProductDisplaySize = productOwnerDetails.ProductDisplaySize,
-                ProductDisplayType = productOwnerDetails.ProductDisplayType,
-                ProductResolution = productOwnerDetails.ProductResolution,
-                ProductProcessor = productOwnerDetails.ProductProcessor,
-                ProductOS = productOwnerDetails.ProductOS,
-                ProductMemoryRAM = productOwnerDetails.ProductMemoryRAM,
-                ProductMemoryROM = productOwnerDetails.ProductMemoryROM,
-                ProductRearCamera = productOwnerDetails.ProductRearCamera,
-                ProductFrontCamera = productOwnerDetails.ProductFrontCamera,
-                ProductBattery = productOwnerDetails.ProductBattery,
-                ProductRelDate = productOwnerDetails.ProductRelDate
-            };
+        //    var getFullProductDescDto = new GetFullProductDescDto
+        //    {
+        //        ProductOwnerId = productOwnerDetails.ProductOwnerId,
+        //        OwnerFirstName = productOwnerDetails.OwnerFirstName,
+        //        OwnerLastName = productOwnerDetails.OwnerLastName,
+        //        EmailAddress = productOwnerDetails.EmailAddress,
+        //        PhoneNum = productOwnerDetails.PhoneNum,
+        //        ProductSerialNumber = productOwnerDetails.ProductSerialNumber,
+        //        ExpirationDate = productOwnerDetails.ExpirationDate,
+        //        WarrantyStatus = productOwnerDetails.WarrantyStatus,
+        //        ProductModel = productOwnerDetails.ProductModel,
+        //        ProductBrand = productOwnerDetails.ProductBrand,
+        //        ProductColor = productOwnerDetails.ProductColor,
+        //        ProductImageUrl1 = productOwnerDetails.ProductImageUrl1,
+        //        ProductImageUrl2 = productOwnerDetails.ProductImageUrl2,
+        //        ProductImageUrl3 = productOwnerDetails.ProductImageUrl3,
+        //        ProductPrice = productOwnerDetails.ProductPrice,
+        //        ProductHeight = productOwnerDetails.ProductHeight,
+        //        ProductWidth = productOwnerDetails.ProductWidth,
+        //        ProductWeight = productOwnerDetails.ProductWeight,
+        //        ProductDisplaySize = productOwnerDetails.ProductDisplaySize,
+        //        ProductDisplayType = productOwnerDetails.ProductDisplayType,
+        //        ProductResolution = productOwnerDetails.ProductResolution,
+        //        ProductProcessor = productOwnerDetails.ProductProcessor,
+        //        ProductOS = productOwnerDetails.ProductOS,
+        //        ProductMemoryRAM = productOwnerDetails.ProductMemoryRAM,
+        //        ProductMemoryROM = productOwnerDetails.ProductMemoryROM,
+        //        ProductRearCamera = productOwnerDetails.ProductRearCamera,
+        //        ProductFrontCamera = productOwnerDetails.ProductFrontCamera,
+        //        ProductBattery = productOwnerDetails.ProductBattery,
+        //        ProductRelDate = productOwnerDetails.ProductRelDate
+        //    };
 
 
-            //return Ok(getFullProductDescDto);
-            return getFullProductDescDto.ProductOwnerId;
+        //    //return Ok(getFullProductDescDto);
+        //    return getFullProductDescDto.ProductOwnerId;
 
-        }
+        //}
 
         // GET: api/ProductDetails/Warranty
         [HttpGet("Warranty")]
@@ -335,7 +335,7 @@ namespace DripCheckAPI.Controllers
                     po.ProductOwnerId,
                     po.OwnerFirstName,
                     po.OwnerLastName,
-                    po.ProductSerialNumber,
+                    //po.ProductSerialNumber,
                     wd.ExpirationDate,
                     wd.WarrantyStatus,
                     wd.WarrantyDetailId
@@ -348,7 +348,7 @@ namespace DripCheckAPI.Controllers
                 ProductOwnerId = po.ProductOwnerId,
                 OwnerFirstName = po.OwnerFirstName,
                 OwnerLastName = po.OwnerLastName,
-                ProductSerialNumber = po.ProductSerialNumber,
+                //ProductSerialNumber = po.ProductSerialNumber,
                 ExpirationDate = po.ExpirationDate.ToString("yyyy-MM-dd"),  // Format date here
                 WarrantyStatus = po.WarrantyStatus,
                 WarrantyDetailId = po.WarrantyDetailId
@@ -376,7 +376,7 @@ namespace DripCheckAPI.Controllers
                     po.ProductOwnerId,
                     po.OwnerFirstName,
                     po.OwnerLastName,
-                    po.ProductSerialNumber,
+                    //po.ProductSerialNumber,
                     wd.ExpirationDate,
                     wd.WarrantyStatus,
                     wd.WarrantyDetailId,
@@ -391,7 +391,7 @@ namespace DripCheckAPI.Controllers
                 ProductOwnerId = po.ProductOwnerId,
                 OwnerFirstName = po.OwnerFirstName,
                 OwnerLastName = po.OwnerLastName,
-                ProductSerialNumber = po.ProductSerialNumber,
+                //ProductSerialNumber = po.ProductSerialNumber,
                 ExpirationDate = po.ExpirationDate.ToString("yyyy-MM-dd"),  // Format date here
                 WarrantyStatus = po.WarrantyStatus,
                 WarrantyDetailId = po.WarrantyDetailId,
@@ -514,9 +514,9 @@ namespace DripCheckAPI.Controllers
                 EmailAddress = createProductOwnerDto.EmailAddress,
                 PhoneNum    = createProductOwnerDto.PhoneNum,
                 ProductDetailId = createProductOwnerDto.ProductDetailId,
-                ProductSerialNumber = await GenerateUniqueSerialNumberAsync(),
+                ProductSerialNumberId = await GetAvailableSerialNumberAsync(createProductOwnerDto.ProductDetailId),
                 WarrantyDetailId = warrantyDetail.WarrantyDetailId,
-                //LoginId = Login.LoginId,
+                LoginId = createProductOwnerDto.LoginId,
             };
 
             // Add the ProductOwner entity to the context
@@ -524,6 +524,9 @@ namespace DripCheckAPI.Controllers
 
             // Save changes to the database
             await _context.SaveChangesAsync();
+
+            // After success Update isAvailable to false?
+            var succ = UpdateProductSerialNumberAvailability(productOwner.ProductSerialNumberId, false);
 
             // Create DTO for the newly created entities - so we can define what exactly we want to return to response 
             var productOwnerDto = new ProductOwnerDto
@@ -533,9 +536,10 @@ namespace DripCheckAPI.Controllers
                 OwnerLastName = productOwner.OwnerLastName,
                 EmailAddress = productOwner.EmailAddress,
                 PhoneNum = productOwner.PhoneNum,
-                ProductSerialNumber = productOwner.ProductSerialNumber,
+                //ProductSerialNumber = productOwner.ProductSerialNumber,
                 ProductDetailId = productOwner.ProductDetailId,
                 WarrantyDetailId = productOwner.WarrantyDetailId,
+                LoginId = productOwner.LoginId,
             };
 
             var warrantyDetailDto = new WarrantyDetailDto
@@ -549,6 +553,22 @@ namespace DripCheckAPI.Controllers
             // but we decided to only return ID sbb we using router-navigate at Frontend to navigate to view-product/$id page tu
             return productOwnerDto.ProductOwnerId;
 
+        }
+
+        public async Task<bool> UpdateProductSerialNumberAvailability(int id, bool isAvailable)
+        {
+            var productSerialNumber = await _context.ProductSerialNumbers
+                .FirstOrDefaultAsync(psn => psn.ProductSerialNumberId == id);
+
+            if (productSerialNumber == null)
+            {
+                return false;
+            }
+
+            productSerialNumber.isAvailable = isAvailable;
+            await _context.SaveChangesAsync();
+
+            return true;
         }
 
         // DELETE: api/ProductOwners/5
@@ -571,15 +591,23 @@ namespace DripCheckAPI.Controllers
             return Ok(await _context.ProductOwners.ToListAsync());
         }
 
-        private async Task<string> GenerateUniqueSerialNumberAsync()
-        {
-            string serialNumber;
-            do
-            {
-                serialNumber = GenerateRandomSerialNumber();
-            } while (await _context.ProductOwners.AnyAsync(p => p.ProductSerialNumber == serialNumber));
+        //private async Task<string> GenerateUniqueSerialNumberAsync()
+        //{
+        //    string serialNumber;
+        //    do
+        //    {
+        //        serialNumber = GenerateRandomSerialNumber();
+        //    } while (await _context.ProductOwners.AnyAsync(p => p.ProductSerialNumber == serialNumber));
 
-            return serialNumber;
+        //    return serialNumber;
+        //}
+
+        private async Task<int> GetAvailableSerialNumberAsync(int productDetailId)
+        {
+            return await _context.ProductSerialNumbers
+            .Where(po => po.isAvailable && po.ProductDetailId == productDetailId)
+            .Select(po => po.ProductSerialNumberId)
+            .FirstOrDefaultAsync();
         }
 
         private string GenerateRandomSerialNumber()

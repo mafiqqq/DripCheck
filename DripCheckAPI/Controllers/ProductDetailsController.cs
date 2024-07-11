@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DripCheckAPI.Models;
 using DripCheckAPI.Models.DTO;
+using Azure.Core;
 
 namespace DripCheckAPI.Controllers
 {
@@ -148,7 +149,7 @@ namespace DripCheckAPI.Controllers
             {
                 return Problem("Entity set 'ApplicationDbContext.ProductDetails'  is null.");
             }
-            
+
             var productDetail = new ProductDetail()
             {
                 ProductModel = createProductDetailDto.ProductModel,
@@ -171,10 +172,28 @@ namespace DripCheckAPI.Controllers
                 ProductRearCamera = createProductDetailDto.ProductRearCamera,
                 ProductFrontCamera = createProductDetailDto.ProductFrontCamera,
                 ProductBattery = createProductDetailDto.ProductBattery,
-                ProductRelDate = createProductDetailDto.ProductRelDate
+                ProductRelDate = createProductDetailDto.ProductRelDate,
+                ////ProductSerialNumbers = createProductDetailDto.ProductSerialNumbers,
+                //ProductSerialNumbers = createProductDetailDto.SerialNumbers.Select(sn => new ProductSerialNumber
+                //{ 
+                //    SerialNumber = sn,
+                //    isAvailable = true,
+                //}).ToList(),
             };
 
             _context.ProductDetails.Add(productDetail);
+            await _context.SaveChangesAsync();
+
+            // Process each serial number
+            var productSerialNumbers = createProductDetailDto.SerialNumbers.Select(serialNumber => new ProductSerialNumber
+            {
+                SerialNumber = serialNumber,
+                isAvailable = true,
+                ProductDetailId = productDetail.ProductDetailId
+            }).ToList();
+
+            // Add serial numbers to the database
+            _context.ProductSerialNumbers.AddRange(productSerialNumbers);
             await _context.SaveChangesAsync();
 
             var productDetailDto = new ProductDetailDto
@@ -201,6 +220,7 @@ namespace DripCheckAPI.Controllers
                 ProductFrontCamera = productDetail.ProductFrontCamera,
                 ProductBattery = productDetail.ProductBattery,
                 ProductRelDate = productDetail.ProductRelDate,
+                ////ProductSerialNumbers = productDetail.ProductSerialNumbers,
             };
 
 

@@ -33,6 +33,8 @@ namespace DripCheckAPI.Models
         public string ProductFrontCamera { get; set; } = "";
         public string ProductBattery { get; set; } = "";
         public string ProductRelDate { get; set; } = "";
+        public ICollection<ProductSerialNumber>? ProductSerialNumbers { get; set; }  // Navigation property for related serial numbers
+
         public ICollection<ProductOwner>? ProductOwners { get; set; }
     }
 }

@@ -23,5 +23,8 @@
         public string ProductFrontCamera { get; set; } = "";
         public string ProductBattery { get; set; } = "";
         public string ProductRelDate { get; set; } = "";
+        public List<string>? SerialNumbers { get; set; }
+        //public ICollection<ProductSerialNumber>? ProductSerialNumbers { get; set; }
+        //public string 
     }
 }

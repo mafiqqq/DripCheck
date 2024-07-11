@@ -17,15 +17,16 @@ namespace DripCheckAPI.Models
         [Column(TypeName = "nvarchar(20)")]
         [RegularExpression(@"^\+?[1-9]\d{1,14}$", ErrorMessage = "Invalid phone number.")]
         public string PhoneNum { get; set; } = "";
-        public string ProductSerialNumber { get; set; } = "";
-        public int ProductDetailId { get; set; }
+        public int ProductDetailId { get; set; } // Foreign key
         [ValidateNever]
-        public ProductDetail? ProductDetail { get; set; }
-        public int WarrantyDetailId { get; set; }
+        public ProductDetail? ProductDetail { get; set; } // Navigation Property
+        public int WarrantyDetailId { get; set; } // Foreign key
         [ValidateNever]
-        public WarrantyDetail? WarrantyDetail { get; set;}
-        public int LoginId { get; set; }
+        public WarrantyDetail? WarrantyDetail { get; set; } // Navigation Property
+        public int LoginId { get; set; } // Foreign key 
         [ValidateNever]
-        public Login? Login { get; set; }
+        public Login? Login { get; set; } // Navigation Property
+        public int ProductSerialNumberId { get; set; } // Foreign key
+        public ProductSerialNumber? ProductSerialNumber { get; set; } // Navigation Property
     }
 }

@@ -5,7 +5,7 @@
 namespace DripCheckAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class PostWarranty : Migration
+    public partial class AddControllers : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

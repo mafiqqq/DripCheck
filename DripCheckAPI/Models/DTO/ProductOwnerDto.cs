@@ -12,8 +12,9 @@ namespace DripCheckAPI.Models.DTO
         public string OwnerLastName { get; set; } = "";
         public string EmailAddress { get; set; } = "";
         public string PhoneNum { get; set; } = "";
-        public string ProductSerialNumber { get; set; } = "";
+        //public string ProductSerialNumber { get; set; } = "";
         public int ProductDetailId { get; set; }
         public int WarrantyDetailId { get; set; }
+        public int LoginId { get; set; }
     }
 }
