@@ -5,6 +5,8 @@ import { ProductOwnerService } from '../shared/product-owner.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { ProductOwner } from '../shared/product-owner.model';
+import { Auth } from '../shared/auth.model';
+import { AuthService } from '../shared/auth.service';
 
 declare var bootstrap: any;
 declare var $: any;
@@ -19,11 +21,14 @@ export class ProductDetailsComponent implements OnInit {
 
   @ViewChild('exampleModal') exampleModal!: ElementRef;
   @ViewChild('viewModal') viewModal!: ElementRef;
+  @ViewChild('errorModal') errorModal! : ElementRef;
   selectedProductDetailId: number = 0;
+  user: string | null = null;
 
   constructor(
     public detailService: ProductDetailService, 
-    public ownerService: ProductOwnerService, 
+    public ownerService: ProductOwnerService,
+    public authService: AuthService, 
     private toastr:ToastrService,
     private renderer: Renderer2,
     private router: Router) {
@@ -32,11 +37,19 @@ export class ProductDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.detailService.getAllProducts();
+    this.user = this.authService.getUser();
   }
 
   openModal() {
-    const modal = new bootstrap.Modal(this.exampleModal.nativeElement);
-    modal.show();
+    
+    if (this.user) {
+      const modal = new bootstrap.Modal(this.exampleModal.nativeElement);
+      modal.show();
+    } else {
+      const errModal = new bootstrap.Modal(this.errorModal.nativeElement);
+      errModal.show()
+      console.log('Please login')
+    }
   }
 
   openViewDetails() {
@@ -51,14 +64,29 @@ export class ProductDetailsComponent implements OnInit {
     }
   }
 
+  closeErrorModal() {
+    const modalElement = document.getElementById('errorModal');
+    const modalInstance = bootstrap.Modal.getInstance(modalElement);
+    modalInstance.hide();
+  }
+
   hideBackdrop() {
     const backdrop = document.querySelector('.modal-backdrop');
     backdrop?.classList.remove('fade', 'show');
   }
 
   selectProductDetailId(id: number): void {
-    console.log("id" + id)
     this.selectedProductDetailId = id;
+  }
+
+  routeToLogin() {
+    try {
+      this.closeErrorModal();
+    } catch (err) { 
+      this.openModal();
+    }
+
+    this.router.navigate(['/login'])
   }
 
   purchaseProduct(form: NgForm) {
@@ -68,12 +96,15 @@ export class ProductDetailsComponent implements OnInit {
         this.toastr.success('Purchased successfully', 'Product Purchase')
         this.closeModal()
         this.router.navigate(['/view-product/'+ res ])
-        console.log(res)
       },
       error: err => {
         this.openModal()
       }
     })
+  }
+
+  navigateToPage(id: number) {
+    this.router.navigate(['/view-product-single/' + id.toString()])
   }
 
 }

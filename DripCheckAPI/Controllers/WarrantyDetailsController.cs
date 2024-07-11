@@ -92,10 +92,10 @@ namespace DripCheckAPI.Controllers
             
         }
 
-        // PUT: api/WarrantyDetails/Admin/5
+        // PUT: api/WarrantyDetails/User/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("User/{id}")]
-        public async Task<IActionResult> PutWarrantyDetailUser(int id, int duration)
+        public async Task<IActionResult> PutWarrantyDetailUser(int id, int duration, string reason)
         {
             var warrantyDetail = await _context.WarrantyDetails.FindAsync(id);
 
@@ -105,7 +105,46 @@ namespace DripCheckAPI.Controllers
             }
 
             warrantyDetail.ReqDuration = duration;
+            warrantyDetail.ReqReason = reason;
             warrantyDetail.WarrantyStatus = "Requested";
+
+            _context.WarrantyDetails.Update(warrantyDetail);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                if (!_context.WarrantyDetails.Any(e => e.WarrantyDetailId == id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw (ex);
+                }
+            }
+
+            return NoContent();
+
+        }
+
+        // PUT: api/WarrantyDetails/UserApprove/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("UserApprove/{id}")]
+        public async Task<IActionResult> PutWarrantyDetailUserApprove(int id)
+        {
+            var warrantyDetail = await _context.WarrantyDetails.FindAsync(id);
+
+            if (warrantyDetail == null)
+            {
+                return NotFound(new { Message = "Warranty Not Found!" });
+            }
+
+            warrantyDetail.WarrantyStatus = "Active";
+            warrantyDetail.ExpirationDate = warrantyDetail.ExpirationDate.AddYears(warrantyDetail.ReqDuration);
+            warrantyDetail.ReqDuration = 0;
+            warrantyDetail.ReqReason = "";
 
             _context.WarrantyDetails.Update(warrantyDetail);
             try

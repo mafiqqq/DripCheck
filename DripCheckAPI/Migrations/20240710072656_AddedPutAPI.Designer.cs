@@ -4,6 +4,7 @@ using DripCheckAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DripCheckAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240710072656_AddedPutAPI")]
+    partial class AddedPutAPI
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,11 +27,11 @@ namespace DripCheckAPI.Migrations
 
             modelBuilder.Entity("DripCheckAPI.Models.Login", b =>
                 {
-                    b.Property<int>("LoginId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LoginId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -42,7 +45,7 @@ namespace DripCheckAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("LoginId");
+                    b.HasKey("Id");
 
                     b.ToTable("Logins");
                 });
@@ -122,10 +125,6 @@ namespace DripCheckAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ProductRelDate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ProductResolution")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -155,9 +154,6 @@ namespace DripCheckAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<int>("LoginId")
-                        .HasColumnType("int");
-
                     b.Property<string>("OwnerFirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(100)");
@@ -182,8 +178,6 @@ namespace DripCheckAPI.Migrations
 
                     b.HasKey("ProductOwnerId");
 
-                    b.HasIndex("LoginId");
-
                     b.HasIndex("ProductDetailId");
 
                     b.HasIndex("WarrantyDetailId")
@@ -206,10 +200,6 @@ namespace DripCheckAPI.Migrations
                     b.Property<int>("ReqDuration")
                         .HasColumnType("int");
 
-                    b.Property<string>("ReqReason")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("WarrantyStatus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -221,12 +211,6 @@ namespace DripCheckAPI.Migrations
 
             modelBuilder.Entity("DripCheckAPI.Models.ProductOwner", b =>
                 {
-                    b.HasOne("DripCheckAPI.Models.Login", "Login")
-                        .WithMany()
-                        .HasForeignKey("LoginId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("DripCheckAPI.Models.ProductDetail", "ProductDetail")
                         .WithMany("ProductOwners")
                         .HasForeignKey("ProductDetailId")
@@ -238,8 +222,6 @@ namespace DripCheckAPI.Migrations
                         .HasForeignKey("DripCheckAPI.Models.ProductOwner", "WarrantyDetailId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Login");
 
                     b.Navigation("ProductDetail");
 

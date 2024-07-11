@@ -10,6 +10,7 @@ import { ProductViewComponent } from './product-view/product-view.component';
 import { SerialDetailFormComponent } from './serial-details/serial-detail-form/serial-detail-form.component';
 import { authGuard } from './guards/auth.guard';
 import { ProductViewSingleComponent } from './product-view-single/product-view-single.component';
+import { MyProductComponent } from './my-product/my-product.component';
 
 const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -18,10 +19,11 @@ const routes: Routes = [
     {path: 'serial', component: SerialDetailFormComponent},
     {path: 'register-product', component: ProductDetailFormComponent, canActivate: [authGuard]},
     {path: 'all-products', component: ProductDetailsComponent},
-    {path: 'view-product-single', component: ProductViewSingleComponent},
+    {path: 'view-product-single/:id', component: ProductViewSingleComponent},
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
-    {path: 'view-product/:id', component: ProductViewComponent}
+    {path: 'view-product/:id', component: ProductViewComponent},
+    {path: 'my-product/:id', component: MyProductComponent}
 ];
 
 @NgModule({

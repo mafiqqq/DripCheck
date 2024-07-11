@@ -22,5 +22,6 @@
         public string ProductRearCamera { get; set; } = "";
         public string ProductFrontCamera { get; set; } = "";
         public string ProductBattery { get; set; } = "";
+        public string ProductRelDate { get; set; } = "";
     }
 }

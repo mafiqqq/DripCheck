@@ -1,0 +1,329 @@
+<style>
+body{
+    background: #ddd;
+    min-height: 100vh;
+    vertical-align: middle;
+    display: flex;
+    
+}
+.card{
+    margin: auto;
+    width: 600px;
+    padding: 3rem 3.5rem;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.mt-50 {
+    margin-top: 50px
+}
+
+.mb-50 {
+    margin-bottom: 50px
+}
+
+
+@media(max-width:767px){
+    .card{
+        width: 90%;
+        padding: 1.5rem;
+    }
+}
+@media(height:1366px){
+    .card{
+        width: 90%;
+        padding: 8vh;
+    }
+}
+.card-title{
+    font-weight: 700;
+    font-size: 2.5em;
+}
+.nav{
+    display: flex;
+}
+.nav ul{
+    list-style-type: none;
+    display: flex;
+    padding-inline-start: unset;
+    margin-bottom: 6vh;
+}
+.nav li{
+    padding: 1rem;
+}
+.nav li a{
+    color: black;
+    text-decoration: none;
+}
+.active{
+    border-bottom: 2px solid black;
+    font-weight: bold;
+}
+
+input{
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #000;
+    width: 100%;
+    min-width: unset;
+    background-color: transparent;
+    border-color: transparent;
+    margin: 0;
+}
+form a{
+    color:grey;
+    text-decoration: none;
+    font-size: 0.87rem;
+    font-weight: bold;
+}
+form a:hover{
+    color:grey;
+    text-decoration: none;
+}
+form .row{
+    margin: 0;
+    overflow: hidden;
+}
+form .row-1{
+    border: 1px solid rgba(0, 0, 0, 0.137);
+    padding: 0.5rem;
+    outline: none;
+    width: 100%;
+    min-width: unset;
+    border-radius: 5px;
+    background-color: rgba(221, 228, 236, 0.301);
+    border-color: rgba(221, 228, 236, 0.459);
+    margin: 2vh 0;
+    overflow: hidden;
+}
+form .row-2{
+    border: none;
+    outline: none;
+    background-color: transparent;
+    margin: 0;
+    padding: 0 0.8rem;
+}
+form .row .row-2{
+    border: none;
+    outline: none;
+    background-color: transparent;
+    margin: 0;
+    padding: 0 0.8rem;
+}
+form .row .col-2,.col-7,.col-3{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    padding: 0 1vh;
+}
+form .row .col-2{
+    padding-right: 0;
+}
+
+#card-header{
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+#card-inner{
+    font-size: 0.7rem;
+    color: gray;
+}
+.three .col-7{
+    padding-left: 0;
+}
+.three{
+    overflow: hidden;
+    justify-content: space-between;
+}
+.three .col-2{
+    border: 1px solid rgba(0, 0, 0, 0.137);
+    padding: 0.5rem;
+    outline: none;
+    width: 100%;
+    min-width: unset;
+    border-radius: 5px;
+    background-color: rgba(221, 228, 236, 0.301);
+    border-color: rgba(221, 228, 236, 0.459);
+    margin: 2vh 0;
+    width: fit-content;
+    overflow: hidden; 
+}
+.three .col-2 input{
+    font-size: 0.7rem;
+    margin-left: 1vh;
+}
+.btn{
+    width: 100%;
+    background-color: rgb(65, 202, 127);
+    border-color: rgb(65, 202, 127);
+    color: white;
+    justify-content: center;
+    padding: 2vh 0;
+    margin-top: 3vh;
+}
+.btn:focus{
+    box-shadow: none;
+    outline: none;
+    box-shadow: none;
+    color: white;
+    -webkit-box-shadow: none;
+    user-select: none;
+    transition: none; 
+}
+.btn:hover{
+    color: white;
+}
+input:focus::-webkit-input-placeholder { 
+    color:transparent; 
+}
+input:focus:-moz-placeholder { 
+    color:transparent; 
+} 
+input:focus::-moz-placeholder { 
+    color:transparent; 
+} 
+input:focus:-ms-input-placeholder { 
+    color:transparent; 
+}
+
+</style>
+<div class="card mt-50 mb-50">
+    <div class="card-title mx-auto">
+        Warranty Details
+    </div>
+    <div class="nav">
+        <ul class="mx-auto nav nav-tabs" id="settingsTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="account-tab" data-bs-toggle="tab" data-bs-target="#account" type="button" role="tab" aria-controls="account" aria-selected="true" >Account</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" id="product-tab" data-bs-toggle="tab" data-bs-target="#product" type="button" role="tab" aria-controls="product" aria-selected="false">Product</a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content" id="settingsTabContent">
+        <div class="tab-pane fade show active" id="account" role="tabpanel" aria-labelledby="account-tab">
+    <!-- Account information -->
+    <form>
+        <span id="card-header">Personal Information:</span>
+        <div class="row row-1">
+            <div class="col-2"><img class="img-fluid" src="https://img.icons8.com/?size=100&id=20751&format=png&color=000000"/></div>
+            <div class="col-7">
+                <input type="text" [value]="service.productOwner.ownerFirstName + ' ' + service.productOwner.ownerLastName" disabled>
+            </div>
+            <!-- <div class="col-3 d-flex justify-content-center">
+                <a href="#">Remove card</a>
+            </div> -->
+        </div>
+        <div class="row row-1">
+            <div class="col-2"><img  class="img-fluid" src="https://img.icons8.com/?size=100&id=1viFT1VgXwm3&format=png&color=000000"/></div>
+            <div class="col-7">
+                <input type="text" [value]="service.productOwner.emailAddress" disabled>
+            </div>
+            <!-- <div class="col-3 d-flex justify-content-center">
+                <a href="#">Remove card</a>
+            </div> -->
+        </div>
+        <div class="row row-1">
+            <div class="col-2"><img  class="img-fluid" src="https://img.icons8.com/?size=100&id=12921&format=png&color=000000"/></div>
+            <div class="col-7">
+                <input type="text" [value]="service.productOwner.phoneNum" disabled>
+            </div>
+            <!-- <div class="col-3 d-flex justify-content-center">
+                <a href="#">Remove card</a>
+            </div> -->
+        </div>
+        <span id="card-header">Warranty Information:</span>
+        <div class="row-1">
+            <div class="row row-2">
+                <span id="card-inner">Product IMEI Serial Number</span>
+            </div>
+            <div class="row row-2">
+                <input type="text" [value]="service.productOwner.productSerialNumber" disabled>
+            </div>
+        </div>
+        <div class="row three">
+            <div class="col-5">
+                <div class="row-1">
+                    <div class="row row-2">
+                        <span id="card-inner">Warranty Status</span>
+                    </div>
+                    <div class="row row-2">
+                        <input type="text" [value]="service.productOwner.warrantyStatus" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="col-5">
+                <div class="row-1">
+                    <div class="row row-2">
+                        <span id="card-inner">Expiration Date</span>
+                    </div>
+                    <div class="row row-2">
+                        <input type="text" [value]="service.productOwner.expirationDate" disabled>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="http://localhost:4200/all-products" class="btn d-flex mx-auto" style="color: white;">Visit Drip Check</a>
+    </form>
+    </div>
+    <div class="tab-pane fade" id="product" role="tabpanel" aria-labelledby="product-tab">
+        <form>
+            <span id="card-header">Product Details:</span>
+            <div class="row row-1">
+                <div class="col-2"><img class="img-fluid" src="https://img.icons8.com/?size=100&id=yL8eNVNhjNED&format=png&color=000000"/></div>
+                <div class="col-7">
+                    <input type="text" [value]="service.productOwner.productBrand + ' | ' + service.productOwner.productModel" disabled>
+                </div>
+            </div>
+            <div class="row row-1">
+                <div class="col-2"><img  class="img-fluid" src="https://img.icons8.com/?size=100&id=0dmK4aEfUqJi&format=png&color=000000"/></div>
+                <div class="col-7">
+                    <input type="text" [value]="'RM ' + service.productOwner.productPrice" disabled>
+                </div>
+            </div>
+            <span id="card-header">Tech Specifications:</span>
+            <div class="row-1">
+                <div class="row row-2">
+                    <span id="card-inner">Product OS | Product Processor</span>
+                </div>
+                <div class="row row-2">
+                    <input type="text" [value]="service.productOwner.productOS + ' | ' + service.productOwner.productProcessor" disabled>
+                </div>
+            </div>
+            <span id="card-header">Product Images:</span>
+            <div class="row-1">
+                <div id="carouselExampleIndicators" class="carousel slide">
+                    <div class="carousel-indicators">
+                      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
+                    <div class="carousel-inner">
+                      <div class="carousel-item active">
+                        <img [src]="service.productOwner.productImageUrl1" class="d-block w-100" alt="...">
+                      </div>
+                      <div class="carousel-item">
+                        <img [src]="service.productOwner.productImageUrl2" class="d-block w-100" alt="...">
+                      </div>
+                      <div class="carousel-item">
+                        <img [src]="service.productOwner.productImageUrl3" class="d-block w-100" alt="...">
+                      </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                  </div>
+            </div>
+            
+            <!-- <button class="btn d-flex mx-auto"><b>Visit Drip Check</b></button> -->
+            <a href="http://localhost:4200/all-products" class="btn d-flex mx-auto" style="color: white;">Visit Drip Check</a>
+        </form>
+    </div>
+</div>

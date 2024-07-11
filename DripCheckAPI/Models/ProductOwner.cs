@@ -24,5 +24,8 @@ namespace DripCheckAPI.Models
         public int WarrantyDetailId { get; set; }
         [ValidateNever]
         public WarrantyDetail? WarrantyDetail { get; set;}
+        public int LoginId { get; set; }
+        [ValidateNever]
+        public Login? Login { get; set; }
     }
 }

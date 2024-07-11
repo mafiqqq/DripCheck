@@ -21,6 +21,7 @@ import { RegisterComponent } from './register/register.component';
 import { ProductViewComponent } from './product-view/product-view.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { ProductViewSingleComponent } from './product-view-single/product-view-single.component';
+import { MyProductComponent } from './my-product/my-product.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { ProductViewSingleComponent } from './product-view-single/product-view-s
     LoginComponent,
     RegisterComponent,
     ProductViewComponent,
-    ProductViewSingleComponent
+    ProductViewSingleComponent,
+    MyProductComponent
   ],
   imports: [
     BrowserModule,

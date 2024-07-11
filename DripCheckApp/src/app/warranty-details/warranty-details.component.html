@@ -20,7 +20,7 @@
 .status-button {
     border-radius: 50px;
     padding: 5px 15px;
-    max-width: 80px;
+    max-width: 100px;
     min-height: 22px;
 }
 
@@ -49,8 +49,6 @@ th.username {
     font-weight: 600;
     line-height: 18px;
     text-align: left;
-
-
 }
 
 th.designation {
@@ -113,6 +111,10 @@ th.imei,
 td.imei,
 th.status,
 td.status,
+th.reason,
+td.reason,
+th.duration,
+td.duration,
 th.action,
 td.action th.id,
 td.id {
@@ -137,6 +139,21 @@ td.id {
 .btnaction:hover {
     background: #4285f4;
     color: #fff;
+}
+
+.bu7,
+.bu3 {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 8px;
+    background-color: #ffd900;
+    color: #020202;
+}
+
+.bu7:hover,
+.bu3:hover {
+    background-color: #ffee00;
+    color: #004d1f;
 }
 
 .bu,
@@ -191,24 +208,6 @@ td.id {
 .bu5:hover {
     background-color: #E4A5A5;
     color: #600000;
-}
-
-.dropdown-menu {
-    min-width: 100px;
-    max-height: 150px;
-}
-
-.dropdown-toggle::after {
-    display: none !important;
-}
-
-.dropdown-item i {
-    margin-right: 5px;
-}
-
-.dropdown-toggle,
-.dropdown-item i {
-    cursor: pointer !important;
 }
 
 </style>
@@ -270,6 +269,8 @@ td.id {
                             <th scope="col" class="designation">Expiration Date</th>
                             <th scope="col" class="imei">IMEI Serial Number</th>
                             <th scope="col" class="status">Status</th>
+                            <th scope="col" class="status">Request Reason</th>
+                            <th scope="col" class="status">Request Duration</th>
                             <th scope="col" class="action">Action</th>
                         </tr>
                     </thead>
@@ -281,14 +282,13 @@ td.id {
                             <td class="designation">{{wd.expirationDate}}</td>
                             <td class="imei">{{wd.productSerialNumber}}</td>
                             <td class="status">
-                                <button class="btn btn status-button bu">{{wd.warrantyStatus}}</button>
+                                <button class="btn btn status-button bu7">{{wd.warrantyStatus}}</button>
                             </td>
+                            <td class="reason">{{wd.reqReason}}</td>
+                            <td class="duration" style="text-align: center;">{{wd.reqDuration}}</td>
                             <td class="action">
                                 <div class="btn-group" role="group" aria-label="Action buttons">
-                                    <!-- <button class="btn btn status-button btnaction" type="button" (click)="extendWarranty(wd.warrantyDetailId)">Extend</button> -->
-                                    <button class="btn btn status-button btnaction" type="button" (click)="openExtendedWarrantyModel(wd.warrantyDetailId)">Extend</button>
-                                <button class="btn btn status-button btnaction" type="button" (click)="viewDetails(wd.productOwnerId)">View Details</button>
-                                </div>
+                                    <button class="btn btn status-button btnaction" type="button" (click)="openApprovalWarrantyModal(wd.warrantyDetailId)">Approve</button>                                </div>
                             </td>
                         </tr>
                     </tbody>
@@ -348,6 +348,8 @@ td.id {
             </div>
         </div>
     </div> -->
+
+    <!-- TODO Fix the warranty modal for both -->
     <div class="modal fade" id="warrantyModal" tabindex="-1" aria-labelledby="warrantyModalLabel" aria-hidden="true" #warrantyModal>
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -374,6 +376,23 @@ td.id {
                 <button type="submit" class="btn btn-success mt-3 me-2">Submit</button>
                 <button type="button" class="btn btn-light mt-3" data-bs-dismiss="modal">Close</button>
               </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Approve modal -->
+      <div class="modal fade" id="approveModal" tabindex="-1" aria-labelledby="approveModalLabel" aria-hidden="true" #approveModal>
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="ModalLabel">Approve this warranty request?</h3>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <button type="submit" class="btn btn-success mt-3 me-2" (click)="approveWarranty()">Yes</button>
+                <button type="button" class="btn btn-danger mt-3" data-bs-dismiss="modal">No</button>
             </div>
           </div>
         </div>

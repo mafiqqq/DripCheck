@@ -31,6 +31,7 @@ namespace DripCheckAPI.Models.DTO
         public string ProductRearCamera { get; set; } = "";
         public string ProductFrontCamera { get; set; } = "";
         public string ProductBattery { get; set; } = "";
+        public string ProductRelDate { get; set; } = "";
         public string ExpirationDate { get; set; } = "";
         public string WarrantyStatus { get; set; } = "";
         public int WarrantyDetailId { get; set; }

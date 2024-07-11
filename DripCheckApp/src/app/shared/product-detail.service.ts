@@ -13,11 +13,14 @@ export class ProductDetailService {
   formData: ProductDetail = new ProductDetail ()
   formSubmitted: boolean = false
   productList: ProductDetail[] = []
+  productInfo: ProductDetail = new ProductDetail ()
   constructor(private http: HttpClient) { }
 
-  addProductDetail(imageUrl: string) {
-    this.formData.productImageUrl1 = imageUrl;
-    console.log(this.formData)
+  addProductDetail(imageUrls: {[key:string]: string} ) {
+    
+    this.formData.productImageUrl1 = imageUrls["imageUrl1"];
+    this.formData.productImageUrl2 = imageUrls["imageUrl2"];
+    this.formData.productImageUrl3 = imageUrls["imageUrl3"];
     return this.http.post(this.url, this.formData)
   }
 
@@ -25,10 +28,22 @@ export class ProductDetailService {
     return this.http.get(this.url)
     .subscribe({
       next: res => {
-        console.log(res)
         this.productList = res as ProductDetail[]
       },
       error: err => {console.log(err)}
+    })
+  }
+
+  getFullProductInfo(id: string) {
+    return this.http.get(this.url + '/' + id)
+    .subscribe({
+      next: res => {
+        console.log(res)
+        this.productInfo = res as ProductDetail
+      },
+      error: err => {
+        console.log(err)
+      }
     })
   }
 

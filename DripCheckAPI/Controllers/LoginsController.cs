@@ -59,7 +59,7 @@ namespace DripCheckAPI.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutLogin(int id, Login login)
         {
-            if (id != login.Id)
+            if (id != login.LoginId)
             {
                 return BadRequest();
             }
@@ -132,7 +132,7 @@ namespace DripCheckAPI.Controllers
 
         private bool LoginExists(int id)
         {
-            return (_context.Logins?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Logins?.Any(e => e.LoginId == id)).GetValueOrDefault();
         }
     }
 }

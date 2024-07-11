@@ -247,7 +247,8 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <!-- <button class="btn btn-primary" (click)="extendWarranty(service.productOwner.warrantyDetailId)">Extend Warranty</button> -->
-                                        <button class="btn btn status-button btnaction" type="button" (click)="openExtendedWarrantyModel(service.productOwner.warrantyDetailId)">Extend</button>
+                                        <button class="btn btn status-button btnaction" type="button" 
+                                            (click)="openExtendedWarrantyModel(service.productOwner.warrantyDetailId)">Extend</button>
                                     </div>
                                 </div>
                                 <ul class="social-link list-unstyled m-t-40 m-b-10">
@@ -281,7 +282,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form (ngSubmit)="extendWarranty()">
+              <form #form="ngForm" (ngSubmit)="extendWarranty(form)">
                 <div class="form-group">
                   <label>Select Warranty Duration:</label>
                   <div class="btn-group btn-group-toggle d-flex justify-content-between" data-toggle="buttons">
@@ -294,6 +295,13 @@
                     <label class="btn btn-outline-primary" [class.active]="selectedDuration === 5" (click)="selectDuration(5)">
                       <input type="radio" name="options" [value]="5" autocomplete="off" [checked]="selectedDuration === 5"> 5 years
                     </label>
+                  </div>
+                  <div>
+                    <label>Explain Warranty Reason</label>
+                    <div class="form-floating">
+                        <textarea class="form-control" id="floatingTextarea2" style="height: 100px" #reqReason="ngModel" name="reqReason" [(ngModel)]="serviceWarranty.reqReason" maxlength="150"></textarea>
+                        <label for="floatingTextarea2">Reason</label>
+                      </div>
                   </div>
                 </div>
                 <button type="submit" class="btn btn-success mt-3 me-2">Submit</button>

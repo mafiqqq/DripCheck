@@ -6,6 +6,7 @@ import { SafeUrl, SafeValue } from '@angular/platform-browser';
 import { FixMeLater } from 'angularx-qrcode';
 import { WarrantyDetailService } from '../shared/warranty-detail.service';
 import { ToastrService } from 'ngx-toastr';
+import { NgForm } from '@angular/forms';
 
 declare var bootstrap: any;
 
@@ -25,6 +26,7 @@ export class ProductViewComponent implements OnInit {
   @ViewChild('warrantyModal') warrantyModal!: ElementRef;
   selectedDuration!: number;
   warrantyDetailId!: number;
+  reqReason: string = "";
   constructor(
     public service: ProductOwnerService,
     public serviceWarranty: WarrantyDetailService,
@@ -40,13 +42,27 @@ export class ProductViewComponent implements OnInit {
     this.refreshList();
   }
 
-  extendWarranty() {
-    this.serviceWarranty.extendWarrantyDetail(this.warrantyDetailId, this.selectedDuration)
+  // extendWarranty() {
+  //   console.log(this.reqReason)
+  //   // this.serviceWarranty.extendWarrantyDetailUser(this.warrantyDetailId, this.selectedDuration)
+  //   // .subscribe({
+  //   //   next: res => {
+  //   //     this.refreshList()
+  //   //     this.toastr.success('Updated successfully', 'Warranty Update')
+  //   //   },
+  //   //   error: err => {
+  //   //     console.log(err)
+  //   //   }
+  //   // })
+  // }
+
+  extendWarranty(form:NgForm) {
+    this.serviceWarranty.extendWarrantyDetailUser(this.warrantyDetailId, this.selectedDuration)
     .subscribe({
       next: res => {
-        console.log(res)
         this.refreshList()
         this.toastr.success('Updated successfully', 'Warranty Update')
+        this.closeModal();
       },
       error: err => {
         console.log(err)
@@ -61,8 +77,11 @@ export class ProductViewComponent implements OnInit {
   }
 
   closeModal() {
-    const modalW = new bootstrap.Modal(this.warrantyModal.nativeElement);
-    modalW.hide();
+    // const modalW = new bootstrap.Modal(this.warrantyModal.nativeElement);
+    // modalW.hide();
+    const modalElementW = document.getElementById('warrantyModal');
+    const modalInstanceW = bootstrap.Modal.getInstance(modalElementW);
+    modalInstanceW.hide();
   }
 
   selectDuration(duration: number) {

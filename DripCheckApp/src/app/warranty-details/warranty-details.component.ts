@@ -4,6 +4,7 @@ import { WarrantyDetail } from '../shared/warranty-detail.model';
 import { ToastrService } from 'ngx-toastr';
 import { ProductOwnerService } from '../shared/product-owner.service';
 import { Router } from '@angular/router';
+import { Modal } from 'bootstrap';
 
 declare var bootstrap: any;
 
@@ -17,9 +18,12 @@ export class WarrantyDetailsComponent implements OnInit {
   
   warrantyList: WarrantyDetail | undefined;
   requestedWarrantyList: WarrantyDetail | undefined;
+  modalInstance!: Modal;
   @ViewChild('warrantyModal') warrantyModal!: ElementRef;
+  @ViewChild('approveModal') approveModal!: ElementRef;
   selectedDuration!: number;
   warrantyDetailId!: number;
+  reqReason: string = "";
   constructor(
     public service: WarrantyDetailService, 
     public serviceOwner: ProductOwnerService,
@@ -33,23 +37,29 @@ export class WarrantyDetailsComponent implements OnInit {
     this.serviceOwner.getRequestedWarrantyList();
   }
 
+  ngAfterViewInit() {
+    this.modalInstance = new Modal(this.warrantyModal.nativeElement);
+  }
+
   populateForm(selectedRecord: WarrantyDetail) {
     this.service.formData = Object.assign({},selectedRecord);
   }
 
   extendWarranty() {
     console.log(this.warrantyDetailId + '/' + this.selectedDuration)
-    this.service.extendWarrantyDetail(this.warrantyDetailId, this.selectedDuration)
+    this.service.extendWarrantyDetailAdmin(this.warrantyDetailId, this.selectedDuration)
     .subscribe({
       next: res => {
-        console.log(res)
+        this.closeModal();
         this.serviceOwner.getWarrantyList()
         this.toastr.success('Updated successfully', 'Warranty Update')
+        this.router.navigate(['/warranty'])
       },
       error: err => {
         console.log(err)
       }
     })
+    this.closeModal();
   }
 
   openExtendedWarrantyModel(id: number){
@@ -58,13 +68,43 @@ export class WarrantyDetailsComponent implements OnInit {
     modalW.show(); 
   }
 
+  openApprovalWarrantyModal(id: number){
+    this.warrantyDetailId = id;
+    const modalW = new bootstrap.Modal(this.approveModal.nativeElement);
+    modalW.show(); 
+  }
+
   closeModal() {
-    const modalW = new bootstrap.Modal(this.warrantyModal.nativeElement);
+    // const modalW = new bootstrap.Modal(this.warrantyModal.nativeElement);
+    // console.log(modalW)
+    // modalW.hide();
+    const modalElementWr = document.getElementById('warrantyModal');
+    const modalInstanceWr = bootstrap.Modal.getInstance(modalElementWr);
+    modalInstanceWr.hide();
+  }
+
+  closeApproveModal() {
+    const modalW = new bootstrap.Modal(this.approveModal.nativeElement);
     modalW.hide();
   }
 
   selectDuration(duration: number) {
     this.selectedDuration = duration;
+  }
+
+  approveWarranty() {
+    this.service.apporoveWarrantyReq(this.warrantyDetailId)
+    .subscribe({
+      next: res => {
+        this.serviceOwner.getWarrantyList();
+        this.serviceOwner.getRequestedWarrantyList();
+        this.toastr.success('Updated successfully', 'Warranty Approval')
+        this.closeApproveModal();
+      },
+      error: err => {
+        console.log(err)
+      }
+    })
   }
 
 
@@ -74,7 +114,6 @@ export class WarrantyDetailsComponent implements OnInit {
       next: (res) => {
         console.log(res)
         this.warrantyList = res as WarrantyDetail
-        console.log(this.warrantyList.productOwnerId)
         this.router.navigate(['view-product/' + this.warrantyList.productOwnerId])
       },
       error: err => {

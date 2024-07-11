@@ -31,7 +31,6 @@ export class ProductOwnerService {
     return this.http.get(this.url + '/Warranty')
     .subscribe({
       next: res => {
-        console.log(res)
         this.warrantyList = res as WarrantyDetail[]
       },
       error: err => {
@@ -44,7 +43,6 @@ export class ProductOwnerService {
     return this.http.get(this.url + '/RequestedWarranty')
     .subscribe({
       next: res => {
-        console.log(res)
         this.requestedWarrantyList = res as WarrantyDetail[]
       },
       error: err => {
@@ -61,21 +59,8 @@ export class ProductOwnerService {
     return this.http.get(this.url + '/' + id)
     .subscribe({
       next: res => {
-        this.productOwner = res as ProductOwner
-        console.log(this.productOwner)
-      },
-      error: err => {
-        console.log(err)
-      }
-    })
-  }
-
-  getFullProductInfo(id: string) {
-    return this.http.get(this.url + '/' + id)
-    .subscribe({
-      next: res => {
         console.log(res)
-        this.productInfo = res as ProductDetail
+        this.productOwner = res as ProductOwner
       },
       error: err => {
         console.log(err)

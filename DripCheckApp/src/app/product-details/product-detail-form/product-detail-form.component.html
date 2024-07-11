@@ -133,7 +133,7 @@ button:focus {
 </style>
 <app-header />
 <div class="text-center py-5 rounded-2" style="background-image: url('assets/images/BackgroundImg.jpg');">
-    <h1 class="display-6 fw-bold">Register New Product</h1>
+    <h1 class="display-6 fw-bold">Product Registration</h1>
 </div>
 <!-- <div class="container" style="max-width: 960px;">
     <form #form="ngForm" (submit)="onSubmit(form)"
@@ -184,11 +184,11 @@ button:focus {
 
 </form>
 </div> -->
-
+<form #form="ngForm" (submit)="onSubmit(form)" [class.submitted]="service.formSubmitted">
 <div class="container card-0 justify-content-center ">
     <div class="card-body px-sm-4 px-0">
         <div class="row justify-content-center mb-5">
-            <div class="col-md-10 col"><h3 class="font-weight-bold ml-md-0 mx-auto text-center text-sm-left"> Request a new product </h3><p class="mt-md-4  ml-md-0 ml-2 text-center text-sm-left"> Entrust with heigh professionalism we are offering pixel perfect web and mobile application development third party integration and solution to our.</p></div>
+            <div class="col-md-10 col"><h3 class="font-weight-bold ml-md-0 mx-auto text-center text-sm-left"> Register a new product </h3><p class="mt-md-4  ml-md-0 ml-2 text-center text-sm-left"> Add all the following details and attach 3 images of the product.</p></div>
         </div>
         <div class="row justify-content-center round">
             <div class="col-lg-12 col-md-12 ">
@@ -196,35 +196,43 @@ button:focus {
                     <div class="card-body inner-card">
                         <div class="row justify-content-center">
                             <div class="col-lg-3 col-md-4 col-sm-12">
-                                <div class="form-group"><label for="productModel">Product Model</label><input type="text"
-                                        class="form-control" placeholder="Product Model" #productModel="ngModel" name="productModel" [(ngModel)]="service.formData.productModel" > </div>
-                                <div class="form-group"> <label for="productWidth">Product Width</label> <input type="text"
-                                        class="form-control" placeholder="Product Width" #productWidth="ngModel" name="productWidth" [(ngModel)]="service.formData.productWidth"> </div>
-                                <div class="form-group"> <label for="productDisplayType">Product Display Type</label> <input type="text"
-                                        class="form-control" placeholder="Product Display Type" #productDisplayType="ngModel" name="productDisplayType" [(ngModel)]="service.formData.productDisplayType"></div>
-                                <div class="form-group"> <label for="productFrontCamera">Product Front Camera</label> <input type="text"
-                                        class="form-control" placeholder="Product Front Camera" #productFrontCamera="ngModel" name="productFrontCamera" [(ngModel)]="service.formData.productFrontCamera"> </div>
-                                        <div class="form-group">
-                                            <label for="productMemoryRAM">Product Memory RAM</label>
-                                            <input type="text" class="form-control" placeholder="Product Memory RAM" #productMemoryRAM="ngModel"
-                                                name="productMemoryRAM" [(ngModel)]="service.formData.productMemoryRAM">
-                                        </div>
-                                          
-                            </div>
-                            <div class="col-lg-3 col-md-4 col-sm-12">
                                 <div class="form-group">
                                     <label for="product-brand">Product Brand</label>
                                     <input type="text" class="form-control" placeholder="Product Brand" #productBrand="ngModel" name="productBrand" [(ngModel)]="service.formData.productBrand">
+                                </div>
+                                <div class="form-group"> <label for="productWidth">Product Width</label> <input type="text" class="form-control"
+                                        placeholder="Product Width (mm)" #productWidth="ngModel" name="productWidth"
+                                        [(ngModel)]="service.formData.productWidth"> </div>
+                                <div class="form-group"> <label for="productDisplayType">Product Display Type</label> <input type="text"
+                                        class="form-control" placeholder="Product Display Type" #productDisplayType="ngModel" name="productDisplayType"
+                                        [(ngModel)]="service.formData.productDisplayType"></div>
+                                <div class="form-group"> <label for="productFrontCamera">Product Front Camera</label> <input type="text"
+                                        class="form-control" placeholder="Product Front Camera" #productFrontCamera="ngModel" name="productFrontCamera"
+                                        [(ngModel)]="service.formData.productFrontCamera"> </div>
+                                <div class="form-group">
+                                    <label for="productMemoryRAM">Product Memory RAM</label>
+                                    <input type="text" class="form-control" placeholder="Product Memory RAM (GB)" #productMemoryRAM="ngModel"
+                                        name="productMemoryRAM" [(ngModel)]="service.formData.productMemoryRAM">
+                                </div>
+                              
+                                <div class="form-group">
+                                    <label for="product-os">Product OS</label>
+                                    <input type="text" class="form-control" placeholder="Product Operating System" #productOS="ngModel" name="productOS" [(ngModel)]="service.formData.productOS">
                                   </div>
-                                  
+                                          
+                            </div>
+                            <div class="col-lg-3 col-md-4 col-sm-12">
+                                <div class="form-group"><label for="productModel">Product Model</label><input type="text" class="form-control"
+                                    placeholder="Product Model" #productModel="ngModel" name="productModel"
+                                    [(ngModel)]="service.formData.productModel"> </div>
                                   <div class="form-group">
                                     <label for="product-height">Product Height</label>
-                                    <input type="email" class="form-control" placeholder="Product Height" #productHeight="ngModel" name="productHeight" [(ngModel)]="service.formData.productHeight">
+                                    <input type="email" class="form-control" placeholder="Product Height (mm)" #productHeight="ngModel" name="productHeight" [(ngModel)]="service.formData.productHeight">
                                   </div>
                                   
                                   <div class="form-group">
                                     <label for="product-display-size">Product Display Size</label>
-                                    <input type="text" class="form-control" placeholder="Product Display Size" #productDisplaySize="ngModel" name="productDisplaySize" [(ngModel)]="service.formData.productDisplaySize">
+                                    <input type="text" class="form-control" placeholder="Product Display Size (inches)" #productDisplaySize="ngModel" name="productDisplaySize" [(ngModel)]="service.formData.productDisplaySize">
                                   </div>
                                   
                                   <div class="form-group">
@@ -234,8 +242,15 @@ button:focus {
                                   
                                   <div class="form-group">
                                     <label for="product-memory-rom">Product Memory ROM</label>
-                                    <input type="text" class="form-control" placeholder="Product Memory ROM" #productMemoryROM="ngModel" name="productMemoryROM" [(ngModel)]="service.formData.productMemoryROM">
-                                  </div>                                  
+                                    <input type="text" class="form-control" placeholder="Product Memory ROM (GB)" #productMemoryROM="ngModel" name="productMemoryROM" [(ngModel)]="service.formData.productMemoryROM">
+                                  </div>
+                                  
+                                  <div class="form-group">
+                                    <label for="productRelDate">Product Release Date</label>
+                                    <input type="text" class="form-control" placeholder="Product Release Date (e.g March 2020)" #productRelDate="ngModel"
+                                        name="productRelDate" [(ngModel)]="service.formData.productRelDate">
+                                </div>
+
                             </div>
                             <div class="col-lg-3 col-md-4 col-sm-12">
                                 <div class="form-group">
@@ -245,7 +260,7 @@ button:focus {
                                   
                                   <div class="form-group">
                                     <label for="product-weight">Product Weight</label>
-                                    <input type="email" class="form-control" placeholder="Product Weight" #productWeight="ngModel" name="productWeight" [(ngModel)]="service.formData.productWeight">
+                                    <input type="email" class="form-control" placeholder="Product Weight (grams)" #productWeight="ngModel" name="productWeight" [(ngModel)]="service.formData.productWeight">
                                   </div>
                                   
                                   <div class="form-group">
@@ -255,26 +270,44 @@ button:focus {
                                   
                                   <div class="form-group">
                                     <label for="product-battery">Product Battery</label>
-                                    <input type="text" class="form-control" placeholder="Product Battery" #productBattery="ngModel" name="productBattery" [(ngModel)]="service.formData.productBattery">
+                                    <input type="text" class="form-control" placeholder="Product Battery (mAh)" #productBattery="ngModel" name="productBattery" [(ngModel)]="service.formData.productBattery">
                                   </div>
                                   
                                   <div class="form-group">
                                     <label for="product-processor">Product Processor</label>
                                     <input type="text" class="form-control" placeholder="Product Processor" #productProcessor="ngModel" name="productProcessor" [(ngModel)]="service.formData.productProcessor">
-                                  </div>                                  
+                                  </div>
+                                  
+                                  <div class="form-group">
+                                    <label for="product-price">Product Price</label>
+                                    <input type="text" class="form-control" placeholder="Product Price (RM)" #productPrice="ngModel" name="productPrice" [(ngModel)]="service.formData.productPrice">
+                                  </div>   
                             </div>
                         </div>
                 
                         <div class="row justify-content-center">
                             <div class="col-md-12 col-lg-10 col-12">
-                                <div class="form-group files"><label class="my-auto">Upload Your File </label> <input id="file"
-                                        type="file" class="form-control" /></div>
+                                <div class="form-group files"><label class="my-auto">Upload Your File </label> 
+                                    <input id="file" type="file" class="form-control" (change)="onFileSelected($event)" multiple />
+                                </div>
                             </div>
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-md-12 col-lg-10 col-12">
+                              <div class="form-group files" *ngIf="previews.length > 0">
+                                <label class="my-auto">Image Previews</label>
+                                <div class="row">
+                                  <div class="col-md-3" *ngFor="let preview of previews">
+                                    <img [src]="preview" class="img-fluid img-thumbnail" alt="Image preview" style="max-width: 300px; max-height: 400px;" />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        <div class="row justify-content-center">
+                            <div class="col-md-12 col-lg-10 col-12">
                                 <div class="row justify-content-end mb-5">
-                                    <div class="col-lg-12 col-auto "><button type="button" class="btn btn-primary btn-block"><small
+                                    <div class="col-lg-12 col-auto "><button type="submit" class="btn btn-primary btn-block"><small
                                                 class="font-weight-bold">Register Product</small></button> </div>
                                 </div>
                             </div>
@@ -285,5 +318,6 @@ button:focus {
         </div>
     </div>
 </div>
+</form>
 
 <app-footer />

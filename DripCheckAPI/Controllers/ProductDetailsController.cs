@@ -55,6 +55,7 @@ namespace DripCheckAPI.Controllers
                 ProductRearCamera = productDetail.ProductRearCamera,
                 ProductFrontCamera = productDetail.ProductFrontCamera,
                 ProductBattery = productDetail.ProductBattery,
+                ProductRelDate = productDetail.ProductBattery,
             }).ToList();
 
             //return await _context.ProductDetails.ToListAsync();
@@ -99,6 +100,7 @@ namespace DripCheckAPI.Controllers
                 ProductRearCamera = productDetail.ProductRearCamera,
                 ProductFrontCamera = productDetail.ProductFrontCamera,
                 ProductBattery = productDetail.ProductBattery,
+                ProductRelDate = productDetail.ProductRelDate,
             };
 
             return Ok(productDetailsDto);
@@ -169,6 +171,7 @@ namespace DripCheckAPI.Controllers
                 ProductRearCamera = createProductDetailDto.ProductRearCamera,
                 ProductFrontCamera = createProductDetailDto.ProductFrontCamera,
                 ProductBattery = createProductDetailDto.ProductBattery,
+                ProductRelDate = createProductDetailDto.ProductRelDate
             };
 
             _context.ProductDetails.Add(productDetail);
@@ -197,6 +200,7 @@ namespace DripCheckAPI.Controllers
                 ProductRearCamera = productDetail.ProductRearCamera,
                 ProductFrontCamera = productDetail.ProductFrontCamera,
                 ProductBattery = productDetail.ProductBattery,
+                ProductRelDate = productDetail.ProductRelDate,
             };
 
 

@@ -12,6 +12,7 @@ namespace DripCheckAPI.Models
         public DateTime ExpirationDate { get; set; }
         public string WarrantyStatus { get; set; } = "";
         public int ReqDuration { get; set; } = 0;
+        public string ReqReason { get; set; } = "";
         [ValidateNever]
         public ProductOwner? ProductOwner { get; set; }
 

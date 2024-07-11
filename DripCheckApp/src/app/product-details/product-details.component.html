@@ -167,7 +167,7 @@
             <div class='cvp'>
                 <h5 class="card-title font-weight-bold">{{pd.productModel}}</h5>
                 <p class="card-text">RM {{pd.productPrice}}</p>
-                <a class="btn details px-auto" (click)="openViewDetails()">View Details</a><br />
+                <a class="btn details px-auto" (click)="navigateToPage(pd.productDetailId)">View Details</a><br />
                 <a class="btn cart px-auto" (click)="openModal(); selectProductDetailId(pd.productDetailId) ">Buy Now</a>
             </div>
             </div>
@@ -234,12 +234,40 @@
       </div>
     </div>
   </div>
-  
-<!-- Modal view details
-<div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true" #viewModal>
-    
+
+<!-- Modal error -->
+<!-- <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true" #errorModal>
+    <div class="modal-dialog" role="document">
+        <div class="card">
+            <div class="text-right cross"> <i class="fa fa-times"></i> </div>
+            <div class="card-body text-center"> <img src="assets/images/BadError.jpg" style="max-width: 40%; max-height: 30%;">
+                <h4>Login to buy this product</h4>
+                <p>Your purchase details are required to purchase this product..</p> 
+                <button type="button" class="btn btn-primary" (click)="routeToLogin()">Login</button>
+            </div>
+        </div>
+    </div>
   </div> -->
 
-
+  <!-- Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true" #errorModal>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="errorModalLabel">Login required</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="card-body text-center"> 
+                <img src="assets/images/Login-amico.png" style="max-width: 40%; max-height: 30%;">
+                <h4>Please login to purchase this product</h4>
+                <p>Make your purchase by login to buy this product</p>
+            </div>
+        </div>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="routeToLogin()">Login</button>
+      </div>
+    </div>
+  </div>
 
 <app-footer />

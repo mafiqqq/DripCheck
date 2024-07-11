@@ -24,7 +24,6 @@ export class LoginComponent {
     .subscribe({
       next: res => {
         this.loginCred = res as Auth
-        console.log(this.loginCred.username)
         this.service.setUser(this.loginCred.username)
         if (this.loginCred.username === 'admin') {
           this.router.navigate(['/warranty'])
@@ -32,7 +31,6 @@ export class LoginComponent {
           this.router.navigate(['/all-products'])
         }
         this.toastr.success('Login successfully', 'User Login')
-        console.log(res)
       },
       error: err => {
         alert('Invalid username or password')

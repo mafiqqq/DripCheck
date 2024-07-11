@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductOwnerService } from '../shared/product-owner.service';
 import { ActivatedRoute } from '@angular/router';
+import { ProductDetailService } from '../shared/product-detail.service';
 
 @Component({
   selector: 'app-product-view-single',
@@ -12,14 +13,17 @@ export class ProductViewSingleComponent implements OnInit {
 
   id!: string;
 
-  constructor(public service: ProductOwnerService, private route: ActivatedRoute,) {}
+  constructor(
+    public service: ProductOwnerService, 
+    public productService: ProductDetailService,
+    private route: ActivatedRoute,) {}
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id') || '';
-    // this.refreshList();
+    this.getProductFullDetails(this.id);
   }
 
-  getProductFullDetails() {
-    this.service.getFullProductInfo(this.id)
+  getProductFullDetails(id: string) {
+    this.productService.getFullProductInfo(this.id)
   }
 }

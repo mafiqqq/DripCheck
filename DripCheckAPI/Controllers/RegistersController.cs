@@ -50,7 +50,7 @@ namespace DripCheckAPI.Controllers
 
         private bool LoginExists(int id)
         {
-            return (_context.Logins?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (_context.Logins?.Any(e => e.LoginId == id)).GetValueOrDefault();
         }
     }
 }

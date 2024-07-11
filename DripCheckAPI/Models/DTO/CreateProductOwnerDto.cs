@@ -12,5 +12,6 @@ namespace DripCheckAPI.Models.DTO
         public string EmailAddress { get; set; } = "";        
         public string PhoneNum { get; set; } = "";
         public int ProductDetailId { get; set; }
+        public int LoginId { get; set; }
     }
 }

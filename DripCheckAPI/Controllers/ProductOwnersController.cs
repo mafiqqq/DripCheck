@@ -73,6 +73,7 @@ namespace DripCheckAPI.Controllers
                     ProductRearCamera = pd.ProductRearCamera,
                     ProductFrontCamera = pd.ProductFrontCamera,
                     ProductBattery = pd.ProductBattery,
+                    ProductRelDate = pd.ProductRelDate
                 }
             )
             .FirstOrDefaultAsync();
@@ -112,6 +113,7 @@ namespace DripCheckAPI.Controllers
                 ProductRearCamera = productOwnerDetails.ProductRearCamera,
                 ProductFrontCamera = productOwnerDetails.ProductFrontCamera,
                 ProductBattery = productOwnerDetails.ProductBattery,
+                ProductRelDate = productOwnerDetails.ProductRelDate,
             };
 
             //return await _context.ProductOwners.ToListAsync();
@@ -169,6 +171,7 @@ namespace DripCheckAPI.Controllers
                       ProductRearCamera = pd.ProductRearCamera,
                       ProductFrontCamera = pd.ProductFrontCamera,
                       ProductBattery = pd.ProductBattery,
+                      ProductRelDate = pd.ProductRelDate,
                   }
               )
               .FirstOrDefaultAsync();
@@ -209,6 +212,7 @@ namespace DripCheckAPI.Controllers
                 ProductRearCamera = productOwnerDetails.ProductRearCamera,
                 ProductFrontCamera = productOwnerDetails.ProductFrontCamera,
                 ProductBattery = productOwnerDetails.ProductBattery,
+                ProductRelDate = productOwnerDetails.ProductRelDate,
             };
 
 
@@ -263,6 +267,7 @@ namespace DripCheckAPI.Controllers
                         ProductRearCamera = pd.ProductRearCamera,
                         ProductFrontCamera = pd.ProductFrontCamera,
                         ProductBattery = pd.ProductBattery,
+                        ProductRelDate = pd.ProductRelDate,
                     }
                 )
                 .FirstOrDefaultAsync();
@@ -302,6 +307,7 @@ namespace DripCheckAPI.Controllers
                 ProductRearCamera = productOwnerDetails.ProductRearCamera,
                 ProductFrontCamera = productOwnerDetails.ProductFrontCamera,
                 ProductBattery = productOwnerDetails.ProductBattery,
+                ProductRelDate = productOwnerDetails.ProductRelDate
             };
 
 
@@ -334,6 +340,7 @@ namespace DripCheckAPI.Controllers
                     wd.WarrantyStatus,
                     wd.WarrantyDetailId
                 })
+            .Where(result => result.WarrantyStatus != "Requested")
             .ToListAsync();
 
             var productOwnersDto = productOwners.Select(po => new GetWarrantyDetailDto
@@ -373,7 +380,8 @@ namespace DripCheckAPI.Controllers
                     wd.ExpirationDate,
                     wd.WarrantyStatus,
                     wd.WarrantyDetailId,
-                    wd.ReqDuration
+                    wd.ReqDuration,
+                    wd.ReqReason,
                 })
             .Where(result => result.WarrantyStatus == "Requested")
             .ToListAsync();
@@ -387,7 +395,8 @@ namespace DripCheckAPI.Controllers
                 ExpirationDate = po.ExpirationDate.ToString("yyyy-MM-dd"),  // Format date here
                 WarrantyStatus = po.WarrantyStatus,
                 WarrantyDetailId = po.WarrantyDetailId,
-                ReqDuration = po.ReqDuration
+                ReqDuration = po.ReqDuration,
+                ReqReason = po.ReqReason,
             }).ToList();
 
             return Ok(productOwnersDto);
@@ -507,6 +516,7 @@ namespace DripCheckAPI.Controllers
                 ProductDetailId = createProductOwnerDto.ProductDetailId,
                 ProductSerialNumber = await GenerateUniqueSerialNumberAsync(),
                 WarrantyDetailId = warrantyDetail.WarrantyDetailId,
+                //LoginId = Login.LoginId,
             };
 
             // Add the ProductOwner entity to the context

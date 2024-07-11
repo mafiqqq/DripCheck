@@ -12,6 +12,8 @@ export class ProductOwner {
     productColor: string = "";
     productPrice: string = "";
     productImageUrl1: string = "";
+    productImageUrl2: string = "";
+    productImageUrl3: string = "";
     warrantyStatus: string = "";
     expirationDate: string = "";
     productDetailId: number = 0;

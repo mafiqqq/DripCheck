@@ -5,6 +5,8 @@ export class WarrantyDetail {
     productSerialNumber: string = ""
     expirationDate: string = ""
     warrantyStatus: string = ""
+    reqReason: string = ""
+    reqDuration!: number
     warrantyDetailId!: number
 }
 

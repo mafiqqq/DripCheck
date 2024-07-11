@@ -22,4 +22,5 @@ export class ProductDetail {
         productRearCamera: string = ""
         productFrontCamera: string = ""
         productBattery: string = ""
+        productRelDate: string = ""
 }

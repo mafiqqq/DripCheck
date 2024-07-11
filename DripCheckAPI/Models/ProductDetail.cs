@@ -32,6 +32,7 @@ namespace DripCheckAPI.Models
         public string ProductRearCamera { get; set; } = "";
         public string ProductFrontCamera { get; set; } = "";
         public string ProductBattery { get; set; } = "";
+        public string ProductRelDate { get; set; } = "";
         public ICollection<ProductOwner>? ProductOwners { get; set; }
     }
 }
