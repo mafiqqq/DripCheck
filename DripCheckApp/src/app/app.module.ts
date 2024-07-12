@@ -22,6 +22,7 @@ import { ProductViewComponent } from './product-view/product-view.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { ProductViewSingleComponent } from './product-view-single/product-view-single.component';
 import { MyProductComponent } from './my-product/my-product.component';
+import { NgxQrcodeStylingModule } from 'ngx-qrcode-styling';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { MyProductComponent } from './my-product/my-product.component';
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
     RouterModule.forRoot([]),
-    QRCodeModule
+    QRCodeModule,
+    NgxQrcodeStylingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

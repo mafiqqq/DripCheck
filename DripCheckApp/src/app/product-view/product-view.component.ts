@@ -8,6 +8,7 @@ import { WarrantyDetailService } from '../shared/warranty-detail.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgForm } from '@angular/forms';
 import { QRCodeErrorCorrectionLevel } from 'qrcode';
+import { Options } from 'ngx-qrcode-styling';
 
 declare var bootstrap: any;
 
@@ -30,6 +31,24 @@ export class ProductViewComponent implements OnInit {
   reqReason: string = "";
   elementType: QRCodeElementType = 'canvas';
   errorCorrectionLevel: QRCodeErrorCorrectionLevel = "M"
+
+
+
+  config: Options = {
+    width: 200,
+    height: 200,
+    image: "assets/images/DripCheckLogo.jpg",
+    margin: 5,
+    backgroundOptions: {
+      color: "#ffffff",
+    },
+    imageOptions: {
+      crossOrigin: "anonymous",
+      margin: 0
+    }
+  };
+
+
   constructor(
     public service: ProductOwnerService,
     public serviceWarranty: WarrantyDetailService,
@@ -179,4 +198,10 @@ export class ProductViewComponent implements OnInit {
     return new Blob([uInt8Array], { type: imageType })
   }
 
+  onDownload(qrcode: any): void {
+    qrcode.download().subscribe((res: any) => {
+      // TO DO something!
+      console.log("download:", res);
+    });
+  }
 }

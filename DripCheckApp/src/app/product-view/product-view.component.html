@@ -170,7 +170,7 @@
                                     <img [src]="service.productOwner.productImageUrl1" class="img-radius"
                                         alt="Product-Image">
                                 </div>
-                                <qrcode #parent 
+                                <!-- <qrcode #parent 
                                 [qrdata]="'http://localhost:4200/my-product/' + service.productOwner.loginId" [elementType]="'canvas'"
                                 [allowEmptyString]="true" [ariaLabel]="'QR Code image with the following content...'"
                                 [cssClass]="'center'" [colorDark]="'#000000ff'"
@@ -184,7 +184,12 @@
                                     <a [href]="qrCodeSrc" download="qrcode">
                                         Download QR Code
                                     </a>
-                                </button>      
+                                </button>       -->
+
+                                <ngx-qrcode-styling #qrcode [config]="config" [data]="'http://localhost:4200/my-product/' + service.productOwner.loginId"></ngx-qrcode-styling>
+                                <button class="btn btn-primary btnaction" (click)="onDownload(qrcode)">
+                                    Download QR Code Image
+                                  </button>
 
                                 <!-- <qrcode #parent
                                 [qrdata]="'http://localhost:4200/my-product/' + service.productOwner.loginId" [elementType]="elementType"
