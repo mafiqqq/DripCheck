@@ -135,55 +135,6 @@ button:focus {
 <div class="text-center py-5 rounded-2" style="background-image: url('assets/images/BackgroundImg.jpg');">
     <h1 class="display-6 fw-bold">Product Registration</h1>
 </div>
-<!-- <div class="container" style="max-width: 960px;">
-    <form #form="ngForm" (submit)="onSubmit(form)"
-[class.submitted]="service.formSubmitted">
-    <div class="mb-3">
-        <label>Product Model</label>
-        <input class="form-control form-control-lg" 
-        placeholder="Product Model"
-        #productModel="ngModel" name="productModel"
-        [(ngModel)]="service.formData.productModel" required>
-    </div>
-    <div class="mb-3">
-        <label>Product Brand</label>
-        <input class="form-control form-control-lg" 
-        placeholder="Product Brand"
-        #productBrand="ngModel" name="productBrand"
-        [(ngModel)]="service.formData.productBrand" required>
-    </div>
-    <div class="mb-3">
-        <label>Product Color</label>
-        <input class="form-control form-control-lg" 
-        placeholder="Product Color"
-        #productColor="ngModel" name="productColor"
-        [(ngModel)]="service.formData.productColor" required>
-    </div>
-    <div class="mb-3">
-        <label>Product Price</label>
-        <input class="form-control form-control-lg" 
-        placeholder="Product Price"
-        #productPrice="ngModel" name="productPrice"
-        [(ngModel)]="service.formData.productPrice" required>
-    </div>
-    <div class="mb-3">
-        <label>Product Image</label>
-        <input class="form-control form-control-lg" type="file" placeholder="Product Image"
-        #productImageUrl="ngModel" name="productImageUrl" [(ngModel)]="service.formData.productImageUrl"
-        (change)="onFileSelected($event)">
-    </div>
-    <div class="mb-3" *ngIf="imageUrl">
-        <img [src]="imageUrl" alt="Uploaded Image" style="max-width: 30%; max-height: 10%;">
-      </div>
-
-    <div class="d-grid">
-        <button class="btn btn-lg btn-primary" type="submit">
-            Submit
-        </button>
-    </div>
-
-</form>
-</div> -->
 <form #form="ngForm" (submit)="onSubmit(form)" [class.submitted]="service.formSubmitted">
 <div class="container card-0 justify-content-center ">
     <div class="card-body px-sm-4 px-0">

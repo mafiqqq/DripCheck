@@ -23,6 +23,7 @@ export class ProductDetailsComponent implements OnInit {
   @ViewChild('viewModal') viewModal!: ElementRef;
   @ViewChild('errorModal') errorModal! : ElementRef;
   @ViewChild('outModal') outModal! : ElementRef;
+  @ViewChild('addModal') addModal! : ElementRef;
   selectedProductDetailId: number = 0;
   user: string | null = null;
 
@@ -58,6 +59,11 @@ export class ProductDetailsComponent implements OnInit {
     modal.show();
   }
 
+  openAddModal() {
+    const modal = new bootstrap.Modal(this.addModal.nativeElement);
+    modal.show();
+  }
+
   openViewDetails() {
     const modal = new bootstrap.Modal(this.viewModal.nativeElement)
     modal.show();
@@ -80,6 +86,12 @@ export class ProductDetailsComponent implements OnInit {
     const modalElementO = document.getElementById('outModal');
     const modalInstanceO = bootstrap.Modal.getInstance(modalElementO);
     modalInstanceO.hide();
+  }
+
+  closeAddModal() {
+    const modalElementA = document.getElementById('addModal');
+    const modalInstanceA = bootstrap.Modal.getInstance(modalElementA);
+    modalInstanceA.hide();
   }
 
   hideBackdrop() {
@@ -113,6 +125,20 @@ export class ProductDetailsComponent implements OnInit {
         this.closeModal()
         this.openOutModal()
         console.log('yes er')
+      }
+    })
+  }
+
+  updateProduct(form: NgForm) {
+    this.detailService.updateProductDetail(this.selectedProductDetailId)
+    .subscribe({
+      next: res => {        
+        this.toastr.success('Updated successfully', 'Product Restock')
+        this.closeAddModal()
+        this.router.navigate(['/all-products'])
+      },
+      error: err => {
+        console.log(err)
       }
     })
   }

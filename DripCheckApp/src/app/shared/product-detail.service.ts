@@ -33,6 +33,19 @@ export class ProductDetailService {
     return this.http.post(this.url, this.formData)
   }
 
+  updateProductDetail(id: number) {
+    console.log(this.formData.productSerialNumbersText)
+    if (this.formData.productSerialNumbersText.trim()) {
+      this.serialNumArray = this.formData.productSerialNumbersText.split('\n').filter(line => line.trim() !== '');
+    } else {
+      this.serialNumArray = [];
+    }
+    console.log(this.serialNumArray)
+    this.formData.serialNumbers = this.serialNumArray;
+    console.log(this.formData)
+    return this.http.put(this.url + '/Restock/' + id, this.serialNumArray)
+  }
+
   getAllProducts() {
     return this.http.get(this.url)
     .subscribe({

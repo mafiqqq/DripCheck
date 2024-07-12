@@ -170,7 +170,8 @@
                                     <img [src]="service.productOwner.productImageUrl1" class="img-radius"
                                         alt="Product-Image">
                                 </div>
-                                <qrcode #parent [qrdata]="'http://localhost:4200/my-product/' + service.productOwner.loginId" [elementType]="'canvas'"
+                                <qrcode #parent 
+                                [qrdata]="'http://localhost:4200/my-product/' + service.productOwner.loginId" [elementType]="'canvas'"
                                 [allowEmptyString]="true" [ariaLabel]="'QR Code image with the following content...'"
                                 [cssClass]="'center'" [colorDark]="'#000000ff'"
                                 [colorLight]="'#ffffffff'" [errorCorrectionLevel]="'M'"
@@ -183,7 +184,21 @@
                                     <a [href]="qrCodeSrc" download="qrcode">
                                         Download QR Code
                                     </a>
-                                </button>                            
+                                </button>      
+
+                                <!-- <qrcode #parent
+                                [qrdata]="'http://localhost:4200/my-product/' + service.productOwner.loginId" [elementType]="elementType"
+                                [allowEmptyString]="true" [ariaLabel]="'QR Code image with the following content...'"
+                                [cssClass]="'center'" [colorDark]="'#000000ff'"
+                                [colorLight]="'#ffffffff'" [errorCorrectionLevel]="errorCorrectionLevel"
+                                [imageSrc]="'./assets/images/DripCheckLogo.jpg'" [imageHeight]="95"
+                                [imageWidth]="75" [margin]="2"
+                                [scale]="1" [title]="'A custom title attribute'"
+                                [width]="200"
+                                ></qrcode>
+                                <button class="btn btn-primary btnaction" (click)="downloadQRCode(parent)">
+                                    Download QR Code Image
+                                  </button>                       -->
                             </div>
                         </div>
                         <div class="col-sm-8">
@@ -212,12 +227,12 @@
                                 <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Tech Specification</h6>
                                 <div class="row">
                                     <div class="col-sm-4">
-                                        <p class="m-b-10 f-w-600">Product Model</p>
-                                        <h6 class="text-muted f-w-400">{{service.productOwner.productModel}}</h6>
-                                    </div>
-                                    <div class="col-sm-4">
                                         <p class="m-b-10 f-w-600">Product Brand</p>
                                         <h6 class="text-muted f-w-400">{{service.productOwner.productBrand}}</h6>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <p class="m-b-10 f-w-600">Product Model</p>
+                                        <h6 class="text-muted f-w-400">{{service.productOwner.productModel}}</h6>
                                     </div>
                                     <div class="col-sm-4">
                                         <p class="m-b-10 f-w-600">Product Brand</p>
@@ -227,7 +242,7 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <p class="m-b-10 f-w-600">Product Price</p>
-                                        <h6 class="text-muted f-w-400">{{service.productOwner.productPrice}}</h6>
+                                        <h6 class="text-muted f-w-400">RM {{service.productOwner.productPrice}}</h6>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -243,7 +258,7 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <p class="m-b-10 f-w-600">IMEI Serial Number</p>
-                                        <h6 class="text-muted f-w-400">{{service.productOwner.productSerialNumber}}</h6>
+                                        <h6 class="text-muted f-w-400">{{service.productOwner.serialNumber}}</h6>
                                     </div>
                                     <div class="col-sm-6">
                                         <!-- <button class="btn btn-primary" (click)="extendWarranty(service.productOwner.warrantyDetailId)">Extend Warranty</button> -->

@@ -207,27 +207,6 @@
 <div class="text-center py-5 rounded-2" style="background-image: url('assets/images/BackgroundImg.jpg');">
     <h1 class="display-6 fw-bold">All Products</h1>
 </div>
-
-<!-- <div class="container mt-5" style="max-width: 70%;">
-    <div class="row">
-        <div class="col-5 mb-4" style="flex: 0 0 auto; width: 20%;"  *ngFor="let pd of detailService.productList">
-        <div class="card mx-auto">
-            <img class='mx-auto img-thumbnail'
-                [src]="pd.productImageUrl1"
-                alt="{{pd.productModel}}"
-                style="width: 100%; height: auto;">
-            <div class="card-body text-center mx-auto">
-            <div class='cvp'>
-                <h5 class="card-title font-weight-bold">{{pd.productModel}}</h5>
-                <p class="card-text">RM {{pd.productPrice}}</p>
-                <a class="btn details px-auto" (click)="navigateToPage(pd.productDetailId)">View Details</a><br />
-                <a class="btn cart px-auto" (click)="openModal(); selectProductDetailId(pd.productDetailId) ">Buy Now</a>
-            </div>
-            </div>
-        </div>
-        </div>
-    </div>
-</div> -->
 <div class="container mt-5" style="max-width: 80%;">
     <div class="row">
       <div class="col-md-4 mb-4" *ngFor="let pd of detailService.productList">
@@ -238,6 +217,7 @@
             <p class="card-text">RM {{pd.productPrice}}</p>
             <a class="btn btn-outline-primary" (click)="navigateToPage(pd.productDetailId)">View Details</a><br />
             <a class="btn btn-outline-success mt-2" (click)="openModal(); selectProductDetailId(pd.productDetailId)">Buy Now</a>
+            <a class="btn btn-outline-danger mt-2" *ngIf="user === 'admin'" (click)="openAddModal(); selectProductDetailId(pd.productDetailId)">Add Stock</a>
           </div>
         </div>
       </div>
@@ -303,21 +283,7 @@
     </div>
   </div>
 
-<!-- Modal error -->
-<!-- <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true" #errorModal>
-    <div class="modal-dialog" role="document">
-        <div class="card">
-            <div class="text-right cross"> <i class="fa fa-times"></i> </div>
-            <div class="card-body text-center"> <img src="assets/images/BadError.jpg" style="max-width: 40%; max-height: 30%;">
-                <h4>Login to buy this product</h4>
-                <p>Your purchase details are required to purchase this product..</p> 
-                <button type="button" class="btn btn-primary" (click)="routeToLogin()">Login</button>
-            </div>
-        </div>
-    </div>
-  </div> -->
-
-  <!-- Modal -->
+<!-- Modal -->
 <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true" #errorModal>
     <div class="modal-dialog">
       <div class="modal-content">
@@ -357,5 +323,30 @@
       </div>
     </div>
   </div>
+
+    <!-- add stock -->
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true" #addModal>
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="outModalLabel">Add new stock(s)</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <div class="card-body text-center"> 
+                  <img src="assets/images/add-stock.png" style="max-width: 40%; max-height: 30%;">
+                  <form #form="ngForm" (submit)="updateProduct(form)">
+                    <div class="form-floating">
+                      <textarea class="form-control" id="floatingTextarea2" style="height: 100px" #productSerialNumbersText="ngModel" name="productSerialNumber" [(ngModel)]="detailService.formData.productSerialNumbersText" maxlength="300"></textarea>
+                      <label for="floatingTextarea2">Enter Product IMEI Numbers. New-line separated</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Update Stock</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </form>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 <app-footer />

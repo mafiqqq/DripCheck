@@ -2,7 +2,7 @@ export class WarrantyDetail {
     productOwnerId!: number
     ownerFirstName: string = ""
     ownerLastName: string = ""
-    productSerialNumber: string = ""
+    serialNumber: string = ""
     expirationDate: string = ""
     warrantyStatus: string = ""
     reqReason: string = ""

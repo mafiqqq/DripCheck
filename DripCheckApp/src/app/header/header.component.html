@@ -51,8 +51,7 @@
         <li class="nav-item" *ngIf="!user">
           <a class="nav-link mx-2" routerLink="/register" >Register</a>
         </li>
-        <!-- TODO Link to view-product -->
-        <li class="nav-item" *ngIf="user">
+        <li class="nav-item" *ngIf="user && user !== 'admin'">
           <a class="nav-link mx-2" [href]="'http://localhost:4200/view-product/' + userId">My Product</a>
         </li>
         <li class="nav-item" *ngIf="user">

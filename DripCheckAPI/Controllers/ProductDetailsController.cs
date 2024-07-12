@@ -139,6 +139,47 @@ namespace DripCheckAPI.Controllers
             return NoContent();
         }
 
+        // PUT: api/ProductDetails/Restock/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPut("Restock/{id}")]
+        public async Task<IActionResult> RestockProduct(int id, List<string> serialNumbers)
+        {
+            var productDetail = await _context.ProductDetails.FindAsync(id);
+
+            if (productDetail == null)
+            {
+                return NotFound(new { Message = "Product Not Found!" });
+            }
+
+            // Process each serial number
+            var productSerialNumbers = serialNumbers.Select(serialNumber => new ProductSerialNumber
+            {
+                SerialNumber = serialNumber,
+                isAvailable = true,
+                ProductDetailId = productDetail.ProductDetailId // get ID here
+            }).ToList();
+
+            try
+            {
+                // Add serial numbers to the database
+                _context.ProductSerialNumbers.AddRange(productSerialNumbers);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!ProductDetailExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
+
         // POST: api/ProductDetails
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]

@@ -244,7 +244,7 @@ td.id {
                                         {{wd.ownerFirstName}} {{wd.ownerLastName}} 
                                 </td>
                                 <td class="designation">{{wd.expirationDate}}</td>
-                                <td class="imei">{{wd.productSerialNumber}}</td>
+                                <td class="imei">{{wd.serialNumber}}</td>
                                 <td class="status">
                                     <button class="btn btn status-button bu">{{wd.warrantyStatus}}</button>
                                 </td>
@@ -280,7 +280,7 @@ td.id {
                                     {{wd.ownerFirstName}} {{wd.ownerLastName}} 
                             </td>
                             <td class="designation">{{wd.expirationDate}}</td>
-                            <td class="imei">{{wd.productSerialNumber}}</td>
+                            <td class="imei">{{wd.serialNumber}}</td>
                             <td class="status">
                                 <button class="btn btn status-button bu7">{{wd.warrantyStatus}}</button>
                             </td>
@@ -293,63 +293,11 @@ td.id {
                         </tr>
                     </tbody>
                 </table>
-
-                <!-- Modal Content
-                <div class="modal-content" id="warrantyModal" tabindex="-1" aria-labelledby="warrantyModalLabel" aria-hidden="true" #warrantyModal>
-                    <div class="modal-header">
-                    <h5 class="modal-title">Extend Warranty</h5>
-                    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    </div>
-                    <div class="modal-body">
-                    <p>Select Warranty Duration:</p>
-                    <select class="form-control" [(ngModel)]="selectedDuration">
-                        <option value="2">2 years</option>
-                        <option value="3">3 years</option>
-                        <option value="5">5 years</option>
-                    </select>
-                    <p>Are you sure you want to extend the warranty?</p>
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" (click)="closeModal()">No</button>
-                    <button type="button" class="btn btn-primary" (click)="extendWarranty()">Yes</button>
-                    </div>
-                </div> -->
-
-                
-  
             </div>
             
         </div>
     </div>
-    <!-- Modal -->
-    <!-- <div class="modal fade" id="warrantyModal" tabindex="-1" aria-labelledby="warrantyModalLabel" aria-hidden="true" #warrantyModal>
-        <div class="modal-dialog" role="document">
-            <div class="card">
-                <div class="text-right cross"> <i class="fa fa-times"></i> </div>
-                <div class="card-body text-center"> <img src="assets/images/BadError.jpg" style="max-width: 40%; max-height: 30%;">
-                    <h4>Error - Invalid IMEI</h4>
-                    <p>Your IMEI is invalid. Please check and try again</p> <button class="btn btn-out btn-square continue">CONTINUE</button>
-                </div>
-                <div class="modal-body">
-                    <p>Select Warranty Duration:</p>
-                    <select class="form-control" [(ngModel)]="selectedDuration">
-                        <option value="2">2 years</option>
-                        <option value="3">3 years</option>
-                        <option value="5">5 years</option>
-                    </select>
-                    <p>Are you sure you want to extend the warranty?</p>
-                    </div>
-                    <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" (click)="closeModal()">No</button>
-                    <button type="button" class="btn btn-primary" (click)="extendWarranty()">Yes</button>
-                    </div>
-            </div>
-        </div>
-    </div> -->
 
-    <!-- TODO Fix the warranty modal for both -->
     <div class="modal fade" id="warrantyModal" tabindex="-1" aria-labelledby="warrantyModalLabel" aria-hidden="true" #warrantyModal>
         <div class="modal-dialog" role="document">
           <div class="modal-content">

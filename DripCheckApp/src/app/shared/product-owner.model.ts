@@ -6,7 +6,7 @@ export class ProductOwner {
     ownerLastName: string = "";
     emailAddress: string = "";
     phoneNum: string = "";
-    productSerialNumber: string = "";
+    serialNumber: string = "";
     productModel: string = "";
     productBrand: string = "";
     productColor: string = "";
@@ -31,6 +31,6 @@ export class ProductOwner {
     productRearCamera: string = "";
     productFrontCamera: string = "";
     productBattery: string = "";
-    loginId?: string | null
+    loginId?: string | null;
 }
 
