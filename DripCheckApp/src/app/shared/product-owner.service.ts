@@ -51,6 +51,7 @@ export class ProductOwnerService {
     .subscribe({
       next: res => {
         this.requestedWarrantyList = res as WarrantyDetail[]
+        console.log(this.requestedWarrantyList)
       },
       error: err => {
         console.log(err)

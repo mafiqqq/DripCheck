@@ -326,6 +326,7 @@ namespace DripCheckAPI.Controllers
                     po.OwnerFirstName,
                     po.OwnerLastName,
                     po.ProductSerialNumberId,
+                    po.LoginId, // Include LoginId for the next join
                     wd.ExpirationDate,
                     wd.WarrantyStatus,
                     wd.WarrantyDetailId,
@@ -346,7 +347,25 @@ namespace DripCheckAPI.Controllers
                     combined.WarrantyDetailId,
                     combined.ReqReason, 
                     combined.ReqDuration,
-                    ps.SerialNumber, // Include relevant fields from ProductSerialNumbers
+                    combined.LoginId, // Include LoginId for the next join
+                    ps.SerialNumber // Include relevant fields from ProductSerialNumbers
+                })
+            .Join(
+                _context.Logins,
+                combined => combined.LoginId,
+                login => login.LoginId,
+                (combined, login) => new
+                {
+                    combined.ProductOwnerId,
+                    combined.OwnerFirstName,
+                    combined.OwnerLastName,
+                    combined.ExpirationDate,
+                    combined.WarrantyStatus,
+                    combined.WarrantyDetailId,
+                    combined.ReqReason,
+                    combined.ReqDuration,
+                    combined.SerialNumber,
+                    login.LoginId,
                 })
             .Where(result => result.WarrantyStatus == "Requested")
             .ToListAsync();
@@ -360,6 +379,7 @@ namespace DripCheckAPI.Controllers
                 ExpirationDate = po.ExpirationDate.ToString("yyyy-MM-dd"),  // Format date here
                 WarrantyStatus = po.WarrantyStatus,
                 WarrantyDetailId = po.WarrantyDetailId,
+                LoginId = po.LoginId,
                 ReqDuration = po.ReqDuration,
                 ReqReason = po.ReqReason,
             }).ToList();

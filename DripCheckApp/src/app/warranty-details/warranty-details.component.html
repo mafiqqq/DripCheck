@@ -288,7 +288,9 @@ td.id {
                             <td class="duration" style="text-align: center;">{{wd.reqDuration}}</td>
                             <td class="action">
                                 <div class="btn-group" role="group" aria-label="Action buttons">
-                                    <button class="btn btn status-button btnaction" type="button" (click)="openApprovalWarrantyModal(wd.warrantyDetailId)">Approve</button>                                </div>
+                                    <button class="btn btn status-button btnaction" type="button" (click)="openApprovalWarrantyModal(wd.warrantyDetailId)">Approve</button>
+                                    <button class="btn btn status-button btnaction" type="button" (click)="viewDetails(wd.loginId)">View Details</button>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
