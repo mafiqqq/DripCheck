@@ -253,6 +253,7 @@ namespace DripCheckAPI.Controllers
                     po.OwnerFirstName,
                     po.OwnerLastName,
                     po.ProductSerialNumberId,
+                    po.LoginId, // Include LoginId for the next join
                     wd.ExpirationDate,
                     wd.WarrantyStatus,
                     wd.WarrantyDetailId
@@ -261,7 +262,7 @@ namespace DripCheckAPI.Controllers
                 _context.ProductSerialNumbers,
                 combined => combined.ProductSerialNumberId,
                 ps => ps.ProductSerialNumberId,
-                (combined, ps) => new 
+                (combined, ps) => new
                 {
                     combined.ProductOwnerId,
                     combined.OwnerFirstName,
@@ -269,7 +270,23 @@ namespace DripCheckAPI.Controllers
                     combined.ExpirationDate,
                     combined.WarrantyStatus,
                     combined.WarrantyDetailId,
-                    ps.SerialNumber, // Include relevant fields from ProductSerialNumbers
+                    combined.LoginId, // Include LoginId for the next join
+                    ps.SerialNumber // Include relevant fields from ProductSerialNumbers
+                })
+            .Join(
+                _context.Logins,
+                combined => combined.LoginId,
+                login => login.LoginId,
+                (combined, login) => new
+                {
+                    combined.ProductOwnerId,
+                    combined.OwnerFirstName,
+                    combined.OwnerLastName,
+                    combined.ExpirationDate,
+                    combined.WarrantyStatus,
+                    combined.WarrantyDetailId,
+                    combined.SerialNumber,
+                    login.LoginId,
                 })
             .Where(result => result.WarrantyStatus != "Requested")
             .ToListAsync();
@@ -282,7 +299,8 @@ namespace DripCheckAPI.Controllers
                 SerialNumber = po.SerialNumber,
                 ExpirationDate = po.ExpirationDate.ToString("yyyy-MM-dd"),  // Format date here
                 WarrantyStatus = po.WarrantyStatus,
-                WarrantyDetailId = po.WarrantyDetailId
+                WarrantyDetailId = po.WarrantyDetailId,
+                LoginId = po.LoginId
             }).ToList();
 
             return Ok(productOwnersDto);

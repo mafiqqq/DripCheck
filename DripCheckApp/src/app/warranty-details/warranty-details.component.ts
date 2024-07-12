@@ -112,7 +112,7 @@ export class WarrantyDetailsComponent implements OnInit {
       next: (res) => {
         console.log(res)
         this.warrantyList = res as WarrantyDetail
-        this.router.navigate(['view-product/' + this.warrantyList.productOwnerId])
+        this.router.navigate(['view-product/' + this.warrantyList.loginId])
       },
       error: err => {
         console.log(err)

@@ -38,6 +38,7 @@ export class ProductOwnerService {
     .subscribe({
       next: res => {
         this.warrantyList = res as WarrantyDetail[]
+        console.log(this.warrantyList)
       },
       error: err => {
         console.log(err)
@@ -76,6 +77,7 @@ export class ProductOwnerService {
   }
 
   viewProductDetail(id: number) {
+    console.log(id)
     return this.http.get(this.url + '/' + id)
   }
 }

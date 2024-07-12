@@ -8,5 +8,6 @@ export class WarrantyDetail {
     reqReason: string = ""
     reqDuration!: number
     warrantyDetailId!: number
+    loginId!: number
 }
 

@@ -11,5 +11,6 @@
         public int WarrantyDetailId { get; set; }
         public int ReqDuration { get; set; }
         public string ReqReason { get; set; } = "";
+        public int LoginId { get; set; }
     }
 }
