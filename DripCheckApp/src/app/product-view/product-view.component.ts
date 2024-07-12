@@ -3,11 +3,9 @@ import { ProductOwnerService } from '../shared/product-owner.service';
 import { ActivatedRoute } from '@angular/router';
 import { ProductOwner } from '../shared/product-owner.model';
 import { SafeUrl, SafeValue } from '@angular/platform-browser';
-import { FixMeLater, QRCodeElementType, } from 'angularx-qrcode';
 import { WarrantyDetailService } from '../shared/warranty-detail.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgForm } from '@angular/forms';
-import { QRCodeErrorCorrectionLevel } from 'qrcode';
 import { Options } from 'ngx-qrcode-styling';
 import { AuthService } from '../shared/auth.service';
 
@@ -30,8 +28,6 @@ export class ProductViewComponent implements OnInit {
   selectedDuration!: number;
   warrantyDetailId!: number;
   reqReason: string = "";
-  elementType: QRCodeElementType = 'canvas';
-  errorCorrectionLevel: QRCodeErrorCorrectionLevel = "M"
 
 
 
@@ -123,66 +119,6 @@ export class ProductViewComponent implements OnInit {
     console.log(this.qrCodeSrc)
   }
 
-  saveAsImage(parent: FixMeLater) {
-    let parentElement = null
-
-    console.log(parent.qrcElement)
-    parentElement = parent.qrcElement.nativeElement
-    .querySelector("canvas")
-    .toDataURL("image/png")
-
-    if (parentElement) {
-      // converts base 64 encoded image to blobData
-      let blobData = this.convertBase64ToBlob(parentElement)
-      console.log(blobData)
-      // saves as image
-      const blob = new Blob([blobData], { type: "image/png" })
-      const url = window.URL.createObjectURL(blob)
-      console.log(url)
-      const link = document.createElement("a")
-      console.log(this.qrCodeSrc)
-      // link.href = this.qrCodeSrc
-      // name of the file
-      link.download = "angularx-qrcode"
-      link.click()
-    }
-  }
-
-  // downloadQRCode(parent: FixMeLater): void {
-  //   const canvas: HTMLCanvasElement = document.querySelector('qrcode canvas') as HTMLCanvasElement;
-  //   let parentElement = null
-
-  //   if (this.elementType === "canvas") {
-  //     // fetches base 64 data from canvas
-  //     parentElement = parent.qrcElement.nativeElement
-  //       .querySelector("canvas")
-  //       .toDataURL("image/png")
-  //   }
-  //   console.log(canvas)
-  //   console.log(parentElement)
-  //   if (canvas) {
-  //     const dataUrl = canvas.toDataURL('image/png');
-  //     const link = document.createElement('a');
-  //     link.href = dataUrl;
-  //     link.download = 'qrcode.png';
-  //     link.click();
-  //   } else {
-  //     console.error('QR code canvas not found');
-  //   }
-
-    // if (parentElement) {
-    //   // converts base 64 encoded image to blobData
-    //   let blobData = this.convertBase64ToBlob(parentElement)
-    //   // saves as image
-    //   const blob = new Blob([blobData], { type: "image/png" })
-    //   const url = window.URL.createObjectURL(blob)
-    //   const link = document.createElement("a")
-    //   link.href = url
-    //   // name of the file
-    //   link.download = "angularx-qrcode"
-    //   link.click()
-    // }
-  // }
 
   convertBase64ToBlob(Base64Image: string) {
     // split into two parts
