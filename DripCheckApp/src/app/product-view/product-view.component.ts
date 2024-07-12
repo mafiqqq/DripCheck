@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NgForm } from '@angular/forms';
 import { QRCodeErrorCorrectionLevel } from 'qrcode';
 import { Options } from 'ngx-qrcode-styling';
+import { AuthService } from '../shared/auth.service';
 
 declare var bootstrap: any;
 
@@ -52,6 +53,7 @@ export class ProductViewComponent implements OnInit {
   constructor(
     public service: ProductOwnerService,
     public serviceWarranty: WarrantyDetailService,
+    public authService: AuthService,
     private route: ActivatedRoute,
     private toastr:ToastrService) {
 
@@ -112,6 +114,7 @@ export class ProductViewComponent implements OnInit {
 
   refreshList() {
     this.service.getFullProduct(this.id);
+    this.service.productOwner.loginId = this.authService.getUserId();
   }
 
   onChangeURL(url: SafeUrl){
