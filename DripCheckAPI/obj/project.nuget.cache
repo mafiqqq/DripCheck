@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ZxzkHNv2tfg9sL1o5YmP/z/ChVPlmZE3ao1pSz+Uv0bLA3Q+9Pt3Bk8IozyLAMBZ42VbJXjljxWim/nN9nYl2Q==",
+  "dgSpecHash": "ECg51+u7YBcWPiRSiKJxIwnNK2GlxXzqhRjIM2k5RIlXln1MCzi/wuRxJAW/rfi8yK+LRU9ZP03BfGO4m5UY8g==",
   "success": true,
   "projectFilePath": "D:\\Sandbox\\DripCheck\\DripCheckAPI\\DripCheckAPI.csproj",
   "expectedPackageFiles": [
@@ -108,6 +108,7 @@
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
+    "C:\\Users\\PC\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.18.1\\microsoft.visualstudio.azure.containers.tools.targets.1.18.1.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration\\7.0.12\\microsoft.visualstudio.web.codegeneration.7.0.12.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration.core\\7.0.12\\microsoft.visualstudio.web.codegeneration.core.7.0.12.nupkg.sha512",
     "C:\\Users\\PC\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration.design\\7.0.12\\microsoft.visualstudio.web.codegeneration.design.7.0.12.nupkg.sha512",
