@@ -18,4 +18,4 @@ RUN dotnet publish "DripCheckAPI/DripCheckAPI.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "bin/Release/net7.0/DripCheckAPI.dll"]
+ENTRYPOINT ["dotnet", "bin/Debug/net7.0/DripCheckAPI.dll"]
