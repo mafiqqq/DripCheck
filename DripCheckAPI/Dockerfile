@@ -6,7 +6,7 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["DripCheckAPI.csproj", "."]
+COPY ["DripCheckAPI/DripCheckAPI.csproj", "."]
 RUN dotnet restore "./DripCheckAPI.csproj"
 COPY . .
 WORKDIR "/src/."
