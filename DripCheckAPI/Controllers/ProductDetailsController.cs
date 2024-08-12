@@ -31,35 +31,33 @@ namespace DripCheckAPI.Controllers
                 return NotFound();
             }
 
-            var productDetails = await _context.ProductDetails.ToListAsync();
+            var productDetailsDto = await _context.ProductDetails
+                .Select( pd => new ProductDetailDto
+                {
+                    ProductDetailId = pd.ProductDetailId,
+                    ProductModel = pd.ProductModel,
+                    ProductBrand = pd.ProductBrand,
+                    ProductColor = pd.ProductColor,
+                    ProductImageUrl1 = pd.ProductImageUrl1,
+                    ProductImageUrl2 = pd.ProductImageUrl2,
+                    ProductImageUrl3 = pd.ProductImageUrl3,
+                    ProductPrice = pd.ProductPrice,
+                    ProductHeight = pd.ProductHeight,
+                    ProductWidth = pd.ProductWidth,
+                    ProductWeight = pd.ProductWeight,
+                    ProductDisplaySize = pd.ProductDisplaySize,
+                    ProductDisplayType = pd.ProductDisplayType,
+                    ProductResolution = pd.ProductResolution,
+                    ProductProcessor = pd.ProductProcessor,
+                    ProductOS = pd.ProductOS,
+                    ProductMemoryRAM = pd.ProductMemoryRAM,
+                    ProductMemoryROM = pd.ProductMemoryROM,
+                    ProductRearCamera = pd.ProductRearCamera,
+                    ProductFrontCamera = pd.ProductFrontCamera,
+                    ProductBattery = pd.ProductBattery,
+                    ProductRelDate = pd.ProductBattery,
+                }).ToListAsync();
 
-            var productDetailsDto = productDetails.Select(productDetail => new ProductDetailDto()
-            {
-                ProductDetailId = productDetail.ProductDetailId,
-                ProductModel = productDetail.ProductModel,
-                ProductBrand = productDetail.ProductBrand,
-                ProductColor = productDetail.ProductColor,
-                ProductImageUrl1 = productDetail.ProductImageUrl1,
-                ProductImageUrl2 = productDetail.ProductImageUrl2,
-                ProductImageUrl3 = productDetail.ProductImageUrl3,
-                ProductPrice = productDetail.ProductPrice,
-                ProductHeight = productDetail.ProductHeight,
-                ProductWidth = productDetail.ProductWidth,
-                ProductWeight = productDetail.ProductWeight,
-                ProductDisplaySize = productDetail.ProductDisplaySize,
-                ProductDisplayType = productDetail.ProductDisplayType,
-                ProductResolution = productDetail.ProductResolution,
-                ProductProcessor = productDetail.ProductProcessor,
-                ProductOS = productDetail.ProductOS,
-                ProductMemoryRAM = productDetail.ProductMemoryRAM,
-                ProductMemoryROM = productDetail.ProductMemoryROM,
-                ProductRearCamera = productDetail.ProductRearCamera,
-                ProductFrontCamera = productDetail.ProductFrontCamera,
-                ProductBattery = productDetail.ProductBattery,
-                ProductRelDate = productDetail.ProductBattery,
-            }).ToList();
-
-            //return await _context.ProductDetails.ToListAsync();
             return Ok(productDetailsDto);
         }
 
@@ -186,81 +184,83 @@ namespace DripCheckAPI.Controllers
         //public async Task<ActionResult<ProductDetail>> PostProductDetail(ProductDetail productDetail)
         public async Task<ActionResult<ProductDetail>> PostProductDetail(CreateProductDetailDto createProductDetailDto)
         {
-            if (_context.ProductDetails == null)
+
+            using var transaction = await _context.Database.BeginTransactionAsync();
+
+            try
             {
-                return Problem("Entity set 'ApplicationDbContext.ProductDetails'  is null.");
+                var productDetail = new ProductDetail()
+                {
+                    ProductModel = createProductDetailDto.ProductModel,
+                    ProductBrand = createProductDetailDto.ProductBrand,
+                    ProductColor = createProductDetailDto.ProductColor,
+                    ProductImageUrl1 = createProductDetailDto.ProductImageUrl1,
+                    ProductImageUrl2 = createProductDetailDto.ProductImageUrl2,
+                    ProductImageUrl3 = createProductDetailDto.ProductImageUrl3,
+                    ProductPrice = createProductDetailDto.ProductPrice,
+                    ProductHeight = createProductDetailDto.ProductHeight,
+                    ProductWidth = createProductDetailDto.ProductWidth,
+                    ProductWeight = createProductDetailDto.ProductWeight,
+                    ProductDisplaySize = createProductDetailDto.ProductDisplaySize,
+                    ProductDisplayType = createProductDetailDto.ProductDisplayType,
+                    ProductResolution = createProductDetailDto.ProductResolution,
+                    ProductProcessor = createProductDetailDto.ProductProcessor,
+                    ProductOS = createProductDetailDto.ProductOS,
+                    ProductMemoryRAM = createProductDetailDto.ProductMemoryRAM,
+                    ProductMemoryROM = createProductDetailDto.ProductMemoryROM,
+                    ProductRearCamera = createProductDetailDto.ProductRearCamera,
+                    ProductFrontCamera = createProductDetailDto.ProductFrontCamera,
+                    ProductBattery = createProductDetailDto.ProductBattery,
+                    ProductRelDate = createProductDetailDto.ProductRelDate,
+                };
+
+                _context.ProductDetails.Add(productDetail); // alrdy save
+
+                // Process each serial number
+                var productSerialNumbers = createProductDetailDto.SerialNumbers.Select(serialNumber => new ProductSerialNumber
+                {
+                    SerialNumber = serialNumber,
+                    isAvailable = true,
+                    ProductDetailId = productDetail.ProductDetailId // get ID here
+                }).ToList();
+
+                // Add serial numbers to the database
+                _context.ProductSerialNumbers.AddRange(productSerialNumbers);
+
+                var productDetailDto = new ProductDetailDto
+                {
+                    ProductDetailId = productDetail.ProductDetailId,
+                    ProductModel = productDetail.ProductModel,
+                    ProductBrand = productDetail.ProductBrand,
+                    ProductColor = productDetail.ProductColor,
+                    ProductImageUrl1 = productDetail.ProductImageUrl1,
+                    ProductImageUrl2 = productDetail.ProductImageUrl2,
+                    ProductImageUrl3 = productDetail.ProductImageUrl3,
+                    ProductPrice = productDetail.ProductPrice,
+                    ProductHeight = productDetail.ProductHeight,
+                    ProductWidth = productDetail.ProductWidth,
+                    ProductWeight = productDetail.ProductWeight,
+                    ProductDisplaySize = productDetail.ProductDisplaySize,
+                    ProductDisplayType = productDetail.ProductDisplayType,
+                    ProductResolution = productDetail.ProductResolution,
+                    ProductProcessor = productDetail.ProductProcessor,
+                    ProductOS = productDetail.ProductOS,
+                    ProductMemoryRAM = productDetail.ProductMemoryRAM,
+                    ProductMemoryROM = productDetail.ProductMemoryROM,
+                    ProductRearCamera = productDetail.ProductRearCamera,
+                    ProductFrontCamera = productDetail.ProductFrontCamera,
+                    ProductBattery = productDetail.ProductBattery,
+                    ProductRelDate = productDetail.ProductRelDate,
+                };
+
+                //return CreatedAtAction("GetProductDetail", new { id = productDetail.ProductDetailId }, productDetail);
+                return CreatedAtAction("GetProductDetail", new { id = productDetailDto.ProductDetailId }, productDetailDto);
             }
-
-            var productDetail = new ProductDetail()
+            catch (Exception) 
             {
-                ProductModel = createProductDetailDto.ProductModel,
-                ProductBrand = createProductDetailDto.ProductBrand,
-                ProductColor = createProductDetailDto.ProductColor,
-                ProductImageUrl1 = createProductDetailDto.ProductImageUrl1,
-                ProductImageUrl2 = createProductDetailDto.ProductImageUrl2,
-                ProductImageUrl3 = createProductDetailDto.ProductImageUrl3,
-                ProductPrice = createProductDetailDto.ProductPrice,
-                ProductHeight = createProductDetailDto.ProductHeight,
-                ProductWidth = createProductDetailDto.ProductWidth,
-                ProductWeight = createProductDetailDto.ProductWeight,
-                ProductDisplaySize = createProductDetailDto.ProductDisplaySize,
-                ProductDisplayType = createProductDetailDto.ProductDisplayType,
-                ProductResolution = createProductDetailDto.ProductResolution,
-                ProductProcessor = createProductDetailDto.ProductProcessor,
-                ProductOS = createProductDetailDto.ProductOS,
-                ProductMemoryRAM = createProductDetailDto.ProductMemoryRAM,
-                ProductMemoryROM = createProductDetailDto.ProductMemoryROM,
-                ProductRearCamera = createProductDetailDto.ProductRearCamera,
-                ProductFrontCamera = createProductDetailDto.ProductFrontCamera,
-                ProductBattery = createProductDetailDto.ProductBattery,
-                ProductRelDate = createProductDetailDto.ProductRelDate,
-            };
-
-            _context.ProductDetails.Add(productDetail); // alrdy save
-            await _context.SaveChangesAsync();
-
-            // Process each serial number
-            var productSerialNumbers = createProductDetailDto.SerialNumbers.Select(serialNumber => new ProductSerialNumber
-            {
-                SerialNumber = serialNumber,
-                isAvailable = true,
-                ProductDetailId = productDetail.ProductDetailId // get ID here
-            }).ToList();
-
-            // Add serial numbers to the database
-            _context.ProductSerialNumbers.AddRange(productSerialNumbers);
-            await _context.SaveChangesAsync();
-
-            var productDetailDto = new ProductDetailDto
-            {
-                ProductDetailId = productDetail.ProductDetailId,
-                ProductModel = productDetail.ProductModel,
-                ProductBrand = productDetail.ProductBrand,
-                ProductColor = productDetail.ProductColor,
-                ProductImageUrl1 = productDetail.ProductImageUrl1,
-                ProductImageUrl2 = productDetail.ProductImageUrl2,
-                ProductImageUrl3 = productDetail.ProductImageUrl3,
-                ProductPrice = productDetail.ProductPrice,
-                ProductHeight = productDetail.ProductHeight,
-                ProductWidth = productDetail.ProductWidth,
-                ProductWeight = productDetail.ProductWeight,
-                ProductDisplaySize = productDetail.ProductDisplaySize,
-                ProductDisplayType = productDetail.ProductDisplayType,
-                ProductResolution = productDetail.ProductResolution,
-                ProductProcessor = productDetail.ProductProcessor,
-                ProductOS = productDetail.ProductOS,
-                ProductMemoryRAM = productDetail.ProductMemoryRAM,
-                ProductMemoryROM = productDetail.ProductMemoryROM,
-                ProductRearCamera = productDetail.ProductRearCamera,
-                ProductFrontCamera = productDetail.ProductFrontCamera,
-                ProductBattery = productDetail.ProductBattery,
-                ProductRelDate = productDetail.ProductRelDate,
-                ////ProductSerialNumbers = productDetail.ProductSerialNumbers,
-            };
-
-            //return CreatedAtAction("GetProductDetail", new { id = productDetail.ProductDetailId }, productDetail);
-            return CreatedAtAction("GetProductDetail", new { id = productDetailDto.ProductDetailId }, productDetailDto);
-
+                await transaction.RollbackAsync();
+                throw;
+            }
         }
 
         // DELETE: api/ProductDetails/5
