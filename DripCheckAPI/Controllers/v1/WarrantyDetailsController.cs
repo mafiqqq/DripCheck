@@ -1,8 +1,9 @@
-﻿using DripCheckAPI.Models;
+﻿
+using DripCheckAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace DripCheckAPI.Controllers
+namespace DripCheckAPI.Controllers.v1
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -19,10 +20,10 @@ namespace DripCheckAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<WarrantyDetail>>> GetWarrantyDetails()
         {
-          if (_context.WarrantyDetails == null)
-          {
-              return NotFound();
-          }
+            if (_context.WarrantyDetails == null)
+            {
+                return NotFound();
+            }
             return await _context.WarrantyDetails.ToListAsync();
         }
 
@@ -30,10 +31,10 @@ namespace DripCheckAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<WarrantyDetail>> GetWarrantyDetail(int id)
         {
-          if (_context.WarrantyDetails == null)
-          {
-              return NotFound();
-          }
+            if (_context.WarrantyDetails == null)
+            {
+                return NotFound();
+            }
             var warrantyDetail = await _context.WarrantyDetails.FindAsync(id);
 
             if (warrantyDetail == null)
@@ -76,7 +77,7 @@ namespace DripCheckAPI.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException ex) 
+            catch (DbUpdateConcurrencyException ex)
             {
                 if (!_context.WarrantyDetails.Any(e => e.WarrantyDetailId == id))
                 {
@@ -89,7 +90,7 @@ namespace DripCheckAPI.Controllers
             }
 
             return NoContent();
-            
+
         }
 
         // PUT: api/WarrantyDetails/User/5
@@ -172,10 +173,10 @@ namespace DripCheckAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<WarrantyDetail>> PostWarrantyDetail(WarrantyDetail warrantyDetail)
         {
-          if (_context.WarrantyDetails == null)
-          {
-              return Problem("Entity set 'ApplicationDbContext.WarrantyDetails'  is null.");
-          }
+            if (_context.WarrantyDetails == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.WarrantyDetails'  is null.");
+            }
             _context.WarrantyDetails.Add(warrantyDetail);
             await _context.SaveChangesAsync();
 
