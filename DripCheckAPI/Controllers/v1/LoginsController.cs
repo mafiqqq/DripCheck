@@ -12,7 +12,7 @@ using System.Text;
 using DripCheckAPI.Models.DTO;
 
 
-namespace DripCheckAPI.Controllers
+namespace DripCheckAPI.Controllers.v1
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -29,10 +29,10 @@ namespace DripCheckAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Login>>> GetLogins()
         {
-          if (_context.Logins == null)
-          {
-              return NotFound();
-          }
+            if (_context.Logins == null)
+            {
+                return NotFound();
+            }
             return await _context.Logins.ToListAsync();
         }
 
@@ -40,10 +40,10 @@ namespace DripCheckAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Login>> GetLogin(int id)
         {
-          if (_context.Logins == null)
-          {
-              return NotFound();
-          }
+            if (_context.Logins == null)
+            {
+                return NotFound();
+            }
             var login = await _context.Logins.FindAsync(id);
 
             if (login == null)
@@ -88,10 +88,10 @@ namespace DripCheckAPI.Controllers
         // POST:
         [HttpPost]
         public async Task<IActionResult> Login(LoginDto loginDto)
-        { 
+        {
             var existingUser = await _context.Logins.FirstOrDefaultAsync(u => u.Username == loginDto.Username);
-            
-            if (existingUser == null  || !VerifyPassword(loginDto.PasswordHash, existingUser.PasswordHash)) 
+
+            if (existingUser == null || !VerifyPassword(loginDto.PasswordHash, existingUser.PasswordHash))
             {
                 return Unauthorized("Invalid username or password");
             }
@@ -103,7 +103,7 @@ namespace DripCheckAPI.Controllers
         private bool VerifyPassword(string enteredPassword, string storedHash)
         {
             using (var sha256 = SHA256.Create())
-            { 
+            {
                 var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(enteredPassword));
                 var enteredHash = Encoding.UTF8.GetString(hashedBytes);
                 return enteredHash == storedHash;

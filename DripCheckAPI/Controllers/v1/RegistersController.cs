@@ -9,7 +9,7 @@ using DripCheckAPI.Models;
 using System.Text;
 using System.Security.Cryptography;
 
-namespace DripCheckAPI.Controllers
+namespace DripCheckAPI.Controllers.v1
 {
     [Route("api/[controller]")]
     [ApiController]

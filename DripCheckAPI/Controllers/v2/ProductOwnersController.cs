@@ -9,11 +9,13 @@ using DripCheckAPI.Models;
 using System.Security.Cryptography;
 using Humanizer;
 using DripCheckAPI.Models.DTO;
+using Asp.Versioning;
 
-namespace DripCheckAPI.Controllers
+namespace DripCheckAPI.Controllers.v2
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
+    [ApiVersion("2.0")]
     public class ProductOwnersController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
