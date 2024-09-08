@@ -9,6 +9,7 @@ using DripCheckAPI.Models;
 using DripCheckAPI.Models.DTO;
 using Azure.Core;
 using Asp.Versioning;
+using Microsoft.Extensions.Logging;
 
 namespace DripCheckAPI.Controllers.v2
 {
@@ -18,16 +19,24 @@ namespace DripCheckAPI.Controllers.v2
     public class ProductDetailsController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly ILogger<ProductDetailsController> _logger;
 
-        public ProductDetailsController(ApplicationDbContext context)
+        public ProductDetailsController
+            (
+            ApplicationDbContext context, 
+            ILogger<ProductDetailsController> logger
+            )
         {
             _context = context;
+            _logger = logger;
         }
 
         // GET: api/ProductDetails
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductDetail>>> GetProductDetails()
         {
+
+            _logger.LogInformation("Custom log process");
             if (_context.ProductDetails == null)
             {
                 return NotFound();

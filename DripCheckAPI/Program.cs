@@ -3,8 +3,19 @@ using Asp.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using Serilog;
+using DripCheckAPI.Middleware;
+using Serilog.Context;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure Serilog
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console(outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] {Message} (CorrelationId: {CorrelationId}){NewLine}{Exception}")
+    .CreateLogger();
+
+builder.Host.UseSerilog((context, loggerConfig) =>
+    loggerConfig.ReadFrom.Configuration(context.Configuration));
 
 // Add services to the container.
 builder.Services.AddApiVersioning(options =>
@@ -58,6 +69,22 @@ options.WithOrigins("http://localhost:4200")
 .AllowAnyMethod()
 .AllowAnyHeader());
 
+// Use custom middleware
+//app.UseMiddleware<RequestLogContextMiddleware>();
+
+
+
+// Helps give more info in API logging at start/end request
+app.UseSerilogRequestLogging();
+
+app.Use(async (context, next) =>
+{
+    // Push CorrelationalId into Serilog context
+    using (LogContext.PushProperty("CorrelationId", context.TraceIdentifier))
+    {
+        await next.Invoke();
+    }
+});
 app.UseAuthorization();
 
 app.MapControllers();
